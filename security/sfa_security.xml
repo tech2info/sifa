@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<record id="group_sfp_user" model="res.groups">
+			<field name="name">sfp-user</field>
+		</record>
+
+		<record id="group_sfp_manager" model="res.groups">
+			<field name="name">sfp-manager</field>
+		</record>
+
+    </data>
+</openerp>

@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="57.0" y1="57.0" width="481" height="728"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table1">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" fontName="Helvetica"/>
+    <paraStyle name="P2" fontName="Helvetica"/>
+    <paraStyle name="Standard" fontName="Helvetica"/>
+    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text_20_body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Helvetica"/>
+    <paraStyle name="Table_20_Contents" fontName="Helvetica"/>
+    <images/>
+  </stylesheet>
+  <story>
+    <para style="Standard">[[ repeatIn(objects,'maintenance') ]]</para>
+    <para style="Standard">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="241.0,241.0" style="Table1">
+      <tr>
+        <td>
+          <para style="P2">Name :</para>
+        </td>
+        <td>
+          <para style="P2">[[ maintenance.name ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P2">User :</para>
+        </td>
+        <td>
+          <para style="P2">[[ maintenance.user.alias_user_id.all_name ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P2">Responsable :</para>
+        </td>
+        <td>
+          <para style="P2">[[ maintenance.responsable.all_name ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P2">Montant :</para>
+        </td>
+        <td>
+          <para style="P2">[[ maintenance.amount ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P2"><font face="Helvetica">Status </font>:</para>
+        </td>
+        <td>
+          <para style="P2">[[ maintenance.state ]]</para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+  </story>
+</document>

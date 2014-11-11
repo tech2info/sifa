@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  sfp for Odoo
+  Copyright (C) 2015 (<http://www.odoo-services.esy.es/>).
+  Authors, Ait-Mlouk Addi  <aitmlouk@gmail.com>
+  Copyright (C) 2015 Ait-mlouk Addi <aitmlouk@gmail.com>
+-->
+<openerp>
+    <data>
+        
+        
+        
+         <!--  Contrat -->
+       
+        <record id="view_contrat_form" model="ir.ui.view">
+            <field name="name">sfp.contrat.form</field>
+            <field name="model">sfp.contrat</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Contrat" version="7.0">
+                    <sheet>
+                      <group>
+		                	<group>
+				                <field name="name" />
+				                <field name="type" />
+				                <field name="groupe" />
+				            </group>
+			                <group>
+			                	<field name="date_start" />
+			                	<field name="date_end" />
+			                	<field name="date_abandon" />
+			                </group>
+		               </group>
+		               <newline/>
+		               <group>
+		                	<group>
+				                <field name="metier" />
+				                <field name="parent_link" />
+				                
+				            </group>
+			                <group>
+			                	<field name="etat" />
+			                	<field name="relation" />
+			                </group>
+		               </group>
+		               <newline/>
+		               <group>
+		                	<group>
+				                <field name="apprenti" />
+				                <field name="responsable" />
+				                <field name="cfa" />
+				                <field name="annexe" />
+				                
+				            </group>
+			                <group>
+			                	<field name="entreprise" />
+			                	<field name="maitre" />
+			                	<field name="user" />
+			                	<field name="vacataire" />
+			                </group>
+		               </group>
+        <!--        <newline/>
+                    <notebook colspan="4" >
+                        <page string="Apprenti">
+		              	  <field name="apprenti_ids" nolabel="1" />
+		                </page>
+		                
+	                	<page string="Description">
+	                		<field name="description" nolabel="1" />
+	                	</page>
+
+                		</notebook>-->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_contrat_tree" model="ir.ui.view">
+            <field name="name">sfp.contrat.tree</field>
+            <field name="model">sfp.contrat</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Contrat">
+                    <field name="name" />
+                    <field name="type" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_contrat" model="ir.actions.act_window">
+            <field name="name">Contrat </field>
+            <field name="res_model">sfp.contrat</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        
+        
+        <!--  Groupe -->
+       
+        <record id="view_groupe_form" model="ir.ui.view">
+            <field name="name">sfp.groupe.form</field>
+            <field name="model">sfp.groupe</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Groupe" version="7.0">
+                    <sheet>
+                      <group>
+		                	<group>
+				                <field name="name" />
+				                <field name="code" />
+				            </group>
+			                <group>
+			                	<field name="date_start" />
+			                	<field name="date_end" />
+			                </group>
+		               </group>
+                    <newline/>
+                    <notebook colspan="4" >
+                        <page string="Apprentis">
+		              	  <field name="apprenti_ids"  />
+		                </page>
+		                
+	                	<page string="Description">
+	                		<field name="description" nolabel="1" />
+	                	</page>
+
+                		</notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_groupe_tree" model="ir.ui.view">
+            <field name="name">sfp.groupe.tree</field>
+            <field name="model">sfp.groupe</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Groupe">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_groupe" model="ir.actions.act_window">
+            <field name="name">Groupe </field>
+            <field name="res_model">sfp.groupe</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        
+        <!-- Configuration Matiere -->
+        
+         <record id="view_matier_form" model="ir.ui.view">
+            <field name="name">sfp.matier.form</field>
+            <field name="model">sfp.matier</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Matière" version="7.0">
+                    <sheet>
+                      <group>
+		                	<group>
+				                <field name="name" />
+				            </group>
+			                <group>
+			                	<field name="code" />
+			                </group>
+		               </group>
+                    <newline/>
+	                	<group colspan="2" string="Description"  >
+	                		<field name="description" nolabel="1" />
+	                	</group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_matier_tree" model="ir.ui.view">
+            <field name="name">sfp.matier.tree</field>
+            <field name="model">sfp.matier</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Matières">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_matier" model="ir.actions.act_window">
+            <field name="name">Matier </field>
+            <field name="res_model">sfp.matier</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <!--  grad Configuration-->
+        
+        <record id="view_grade_form" model="ir.ui.view">
+            <field name="name">sfp.grade.form</field>
+            <field name="model">sfp.grade</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Grade" version="7.0">
+                    <sheet>
+                      <group>
+		                	<group>
+				                <field name="name" />
+				            </group>
+			                <group>
+			                	<field name="code" />
+			                </group>
+		               </group>
+                    <newline/>
+	                	<group colspan="2" string="Description"  >
+	                		<field name="description" nolabel="1" />
+	                	</group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_grade_tree" model="ir.ui.view">
+            <field name="name">sfp.grade.tree</field>
+            <field name="model">sfp.grade</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Grade">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_grade" model="ir.actions.act_window">
+            <field name="name">Grade </field>
+            <field name="res_model">sfp.grade</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        
+        <!--  Sector Configuration-->
+        
+        <record id="view_sector_form" model="ir.ui.view">
+            <field name="name">sfp.sector.form</field>
+            <field name="model">sfp.sector</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Secteur" version="7.0">
+                    <sheet>
+                      <group>
+		                	<group>
+				                <field name="name" />
+				            </group>
+			                <group>
+			                	<field name="code" />
+			                </group>
+		               </group>
+                    <newline/>
+	                	<group colspan="2" string="Description"  >
+	                		<field name="description" nolabel="1" />
+	                	</group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_sector_tree" model="ir.ui.view">
+            <field name="name">sfp.sector.tree</field>
+            <field name="model">sfp.sector</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Secteur">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_sector" model="ir.actions.act_window">
+            <field name="name">Secteur </field>
+            <field name="res_model">sfp.sector</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        
+       <!--  level Configuration-->
+       
+        <record id="view_level_form" model="ir.ui.view">
+            <field name="name">sfp.level.form</field>
+            <field name="model">sfp.level</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Niveau" version="7.0">
+                    <sheet>
+                      <group>
+		                	<group>
+				                <field name="name" />
+				            </group>
+			                <group>
+			                	<field name="code" />
+			                </group>
+		               </group>
+                    <newline/>
+	                	<group colspan="2" string="Description"  >
+	                		<field name="description" nolabel="1" />
+	                	</group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_level_tree" model="ir.ui.view">
+            <field name="name">sfp.level.tree</field>
+            <field name="model">sfp.level</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Niveau">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_level" model="ir.actions.act_window">
+            <field name="name">Niveau </field>
+            <field name="res_model">sfp.level</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        
+       <!--  Metier Configuration-->
+       
+        <record id="view_metier_form" model="ir.ui.view">
+            <field name="name">sfp.metie.form</field>
+            <field name="model">sfp.metier</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Métier" version="7.0">
+                    <sheet>
+                      <group>
+		                	<group>
+				                <field name="name" />
+				                <field name="dure" />
+				                <field name="sector" />
+				            </group>
+			                <group>
+			                	<field name="code" />
+			                	<field name="level" />
+			                </group>
+		               </group>
+                    <newline/>
+	                	<group colspan="2" string="Description"  >
+	                		<field name="description" nolabel="1" />
+	                	</group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_metier_tree" model="ir.ui.view">
+            <field name="name">sfp.metier.tree</field>
+            <field name="model">sfp.metier</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Metier">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_metier" model="ir.actions.act_window">
+            <field name="name">Metier </field>
+            <field name="res_model">sfp.metier</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        
+       <!--  Annexe Configuration-->
+       
+        <record id="view_annexe_form" model="ir.ui.view">
+            <field name="name">sfp.annexe.form</field>
+            <field name="model">sfp.annexe</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Annexe" version="7.0">
+                    <sheet>
+                      <group>
+		                	<group>
+				                <field name="name" />
+				            </group>
+			                <group>	
+			                	<field name="code" />
+			                </group>
+		               </group>
+                    <newline/>
+	                	<group colspan="2" string="Description"  >
+	                		<field name="description" nolabel="1" />
+	                	</group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_annexe_tree" model="ir.ui.view">
+            <field name="name">sfp.annexe.tree</field>
+            <field name="model">sfp.annexe</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Annexe">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_annexe" model="ir.actions.act_window">
+            <field name="name">Annexe </field>
+            <field name="res_model">sfp.annexe</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        
+        
+       <!--  province Configuration-->
+       
+        <record id="view_province_form" model="ir.ui.view">
+            <field name="name">sfp.province.form</field>
+            <field name="model">sfp.province</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Province" version="7.0">
+                    <sheet>
+                      <group>
+		                	<group>
+				                <field name="name" />
+				            </group>
+			                <group>
+			                	<field name="code" />
+			                </group>
+		               </group>
+                    <newline/>
+                    <notebook colspan="4" >
+                        <page string="Annexes">
+		              	  <field name="annexe" nolabel="1" />
+		                </page>
+		                
+	                	<page string="Description">
+	                		<field name="description" nolabel="1" />
+	                	</page>
+
+                		</notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_province_tree" model="ir.ui.view">
+            <field name="name">sfp.province.tree</field>
+            <field name="model">sfp.province</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Province">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_province" model="ir.actions.act_window">
+            <field name="name">Annexe </field>
+            <field name="res_model">sfp.province</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        
+                
+       <!--  CFA Configuration-->
+       
+        <record id="view_cfa_form" model="ir.ui.view">
+            <field name="name">sfp.cfa.form</field>
+            <field name="model">sfp.cfa</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="CFA" version="7.0">
+                    <sheet>
+                      <group>
+		                	<group>
+				                <field name="name" /> 
+				                <field name="code" />
+				            </group>
+			                <group>
+			                	<field name="province" />
+			                </group>
+		               </group>
+                    <newline/>
+                    <notebook colspan="4" >                
+	                   <page string="Description">
+	                	  <field name="description" nolabel="1" />
+	                	</page>
+
+                	</notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_cfa_tree" model="ir.ui.view">
+            <field name="name">sfp.cfa.tree</field>
+            <field name="model">sfp.cfa</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="CFA">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_cfa" model="ir.actions.act_window">
+            <field name="name">CFA </field>
+            <field name="res_model">sfp.cfa</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+    </data>
+</openerp>
