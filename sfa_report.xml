@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <report 
-            id="report_apprenti_rep"
-            string="Partner / Apprenti"
-            model="sfp.apprenti" 
-            report_type="qweb-pdf"
-            file="sfa.sfa_report" 
-            name="sfa.sfa_report" 
-        />
+        <report
+    id="sfa_apprenti"
+    model="sfp.apprenti"
+    string="Apprenti"
+    report_type="qweb-pdf"
+    name="SFA.report_apprenti"
+    file="SFA.report_apprenti"
+    attachment_use="True"
+/>
     </data>
 </openerp>

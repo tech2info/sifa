@@ -2,45 +2,15 @@
 <openerp>
 <data>
 <template id="report_apprenti_document">
-    <t t-call="report.external_layout">
-        <div class="page">
-        <div class="oe_structure"/>
-            <table class="table table-condensed">
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Prenom</th>
-                        <th class="text-right">Diplom</th>
-                    </tr>
-               </thead>
-               <tbody class="sale_tbody">
-                   <tr>
-                        <td>
-                           <span t-field="o.name"/>
-                        </td>
-                        <td class="text-right">
-                          <span t-field="o.first_name"/>
-                        </td>
-                        <td class="text-right">
-                            <span t-field="o.diplom"/>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <p t-field="o.cin" />
-            
-            <div class="oe_structure"/>
-        </div>
-    </t>
-</template>
-
-<!-- <template id="report_apprenti">
     <t t-call="report.html_container">
-        <t t-foreach="doc_ids" t-as="doc_id">
-            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'sfa.report_apprenti_document')"/>
+    <t t-foreach="docs" t-as="o">
+        <t t-call="report.external_layout">
+            <div class="page">
+                <h2>Report title</h2>
+            </div>
         </t>
     </t>
-</template>-->
+</t>
+</template>
 </data>
 </openerp>
