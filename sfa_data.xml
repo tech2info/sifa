@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data  noupdate="0" >
+
+	    <!-- annexe -->
+	    <record model="sfp.annexe" id="sfp_annexe">
+	            <field name="name">Espace de formation  Amizmiz</field>
+	            <field name="code">Amizmiz</field>
+	            <field name="description">Espace de formation  Amizmiz</field>
+	            <field name="order">1</field>
+	          <!--   <field name="academic" ref="morocco_academic"/>-->
+	    </record>
+	    
+	    <record model="sfp.annexe" id="sfp_annexe1">
+	            <field name="name">Espace de Formation Tameslohte</field>
+	            <field name="code">Tameslohte</field>
+	            <field name="description">Espace de Formation Tameslohte</field>
+	            <field name="order">2</field>
+	    </record>
+	    
+	    <record model="sfp.annexe" id="sfp_annexe2">
+	            <field name="name">Espace de Formation Oulad Mtaa</field>
+	            <field name="code">Oulad Mtaa</field>
+	            <field name="description">Espace de Formation Oulad Mtaa</field>
+	            <field name="order">3</field>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe3">
+	            <field name="name">Espace de Formation Tighedouine</field>
+	            <field name="code">Tighedouine</field>
+	            <field name="description">Espace de Formation Tighedouine</field>
+	            <field name="order">3</field>
+	    </record>
+	     <record model="sfp.annexe" id="sfp_annexe4">
+	            <field name="name">Espace de Formation Tahannaout</field>
+	            <field name="code">Tahannaout</field>
+	            <field name="description">Espace de Formation Tahannaout</field>
+	            <field name="order">3</field>
+	    </record>
+	     <record model="sfp.annexe" id="sfp_annexe5">
+	            <field name="name">Espace de Formation Azgour</field>
+	            <field name="code">Azgour</field>
+	            <field name="description">Espace de Formation Azgour</field>
+	            <field name="order">3</field>
+	    </record>
+	     <record model="sfp.annexe" id="sfp_annexe6">
+	            <field name="name">Espace de Formation Tizguine</field>
+	            <field name="code">Tizguine</field>
+	            <field name="description">Espace de Formation Tizguine</field>
+	            <field name="order">3</field>
+	    </record>
+	     <record model="sfp.annexe" id="sfp_annexe7">
+	            <field name="name">Espace de Formation Lalla Takarkoust</field>
+	            <field name="code">Lalla Takarkoust</field>
+	            <field name="description">Espace de Formation Lalla Takarkoust</field>
+	            <field name="order">3</field>
+	    </record>
+	    
+	    <record model="sfp.annexe" id="sfp_annexe8">
+	            <field name="name">Espace de Formation Talat N'Yaaqoub</field>
+	            <field name="code">Talat N'Yaaqoub</field>
+	            <field name="description">Espace de Formation Talat N'Yaaqoub</field>
+	            <field name="order">3</field>
+	    </record>
+	    <record model="sfp.annexe" id="sfp_annexe9">
+	            <field name="name">La maison de citoyen Sidi El Mokhtar</field>
+	            <field name="code">Sidi El Mokhtar</field>
+	            <field name="description">La maison de  citoyen  Sidi El Mokhtar</field>
+	            <field name="order">3</field>
+	    </record>
+	    <record model="sfp.annexe" id="sfp_annexe10">
+	            <field name="name">Ensemble Artisanale Chichaoua</field>
+	            <field name="code">Chichaoua</field>
+	            <field name="description">Ensemble Artisanale Chichaoua</field>
+	            <field name="order">3</field>
+	    </record>
+	    <record model="sfp.annexe" id="sfp_annexe11">
+	            <field name="name">Annexe de La Chambre d’Artisanat à ElKelâa des Sraghnas</field>
+	            <field name="code">El Kelâa des Sraghnas</field>
+	            <field name="description">Annexe de La Chambre d’Artisanat à  El Kelâa des Sraghnas</field>
+	            <field name="order">3</field>
+	    </record>
+	    <record model="sfp.annexe" id="sfp_annexe12">
+	            <field name="name">Espace de Formation Laattaouia</field>
+	            <field name="code">Laattaouia</field>
+	            <field name="description">Espace de Formation Laattaouia</field>
+	            <field name="order">3</field>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe13">
+	            <field name="name">Espace de Formation Tamallalt</field>
+	            <field name="code">Tamallalt</field>
+	            <field name="description">Espace de Formation  Tamallalt</field>
+	            <field name="order">3</field>
+	    </record>
+	     <record model="sfp.annexe" id="sfp_annexe14">
+	            <field name="name">Espace de Formation Sidi Rahhal</field>
+	            <field name="code">Sidi Rahhal</field>
+	            <field name="description">Espace de Formation  Sidi Rahhal</field>
+	            <field name="order">3</field>
+	    </record>
+	     <record model="sfp.annexe" id="sfp_annexe15">
+	            <field name="name">Maison de la femme et de l’enfant  Mhamid Marrakech</field>
+	            <field name="code">Mhamid Marrakech</field>
+	            <field name="description">Maison de la femme et de l’enfant  Mhamid Marrakech</field>
+	            <field name="order">3</field>
+	    </record>
+	     <record model="sfp.annexe" id="sfp_annexe16">
+	            <field name="name">Association «Sabil El Amal» pour la coopération et la solidarité Dr ouled Berrahmoune Marrakech</field>
+	            <field name="code">Dr ouled Berrahmoune Marrakech</field>
+	            <field name="description">Association  « Sabil El Amal » pour la coopération et la  solidarité   Dr ouled Berrahmoune Marrakech</field>
+	            <field name="order">3</field>
+	    </record>
+	     <record model="sfp.annexe" id="sfp_annexe17">
+	            <field name="name">Association « Albustan » pour le Développement Dr old  Belaagid Marrakech</field>
+	            <field name="code">Belaagid Marrakech</field>
+	            <field name="description">Association « Albustan » pour le Développement Dr old  Belaagid Marrakech</field>
+	            <field name="order">3</field>
+	    </record>
+	     <record model="sfp.annexe" id="sfp_annexe18">
+	            <field name="name">Association «Atlass» Saada Lamrabtine Marrakech</field>
+	            <field name="code">Saada Lamrabtine Marrakech</field>
+	            <field name="description">Association  « Atlass »  Saada Lamrabtine Marrakech</field>
+	            <field name="order">3</field>
+	    </record>
+	     <record model="sfp.annexe" id="sfp_annexe19">
+	            <field name="name">Espace de Formation Laattaouia</field>
+	            <field name="code">Laattaouia</field>
+	            <field name="description">Espace de Formation Laattaouia</field>
+	            <field name="order">3</field>
+	    </record>
+	     <record model="sfp.annexe" id="sfp_annexe20">
+	            <field name="name">Assocition « Chems » pour le développement Taseltante Marrakech</field>
+	            <field name="code">Taseltante Marrakech</field>
+	            <field name="description">Assocition « Chems » pour le développement Taseltante Marrakech</field>
+	            <field name="order">3</field>
+	    </record>
+	     <record model="sfp.annexe" id="sfp_annexe21">
+	            <field name="name">Association « Riaaya » quartier Tamesna palmier Nord Marrakech</field>
+	            <field name="code">palmier Nord Marrakech</field>
+	            <field name="description">Association « Riaaya » quartier Tamesna palmier Nord Marrakech</field>
+	            <field name="order">3</field>
+	    </record>
+	     <record model="sfp.annexe" id="sfp_annexe22">
+	            <field name="name">Coopérative « NOUN » pour l’education et la formation Ain Mezouar Marrakech</field>
+	            <field name="code">Ain Mezouar Marrakech</field>
+	            <field name="description">Coopérative « NOUN » pour l’education et la formation Ain Mezouar Marrakech</field>
+	            <field name="order">3</field>
+	    </record>
+	     <record model="sfp.annexe" id="sfp_annexe23">
+	            <field name="name">Association  Féminisme pour le développement  humain Dr  El harakate Tasseletante Marrakech</field>
+	            <field name="code">Dr El harakate Tasseletante Marrakech</field>
+	            <field name="description">Association  Féminisme pour le développement  humain Dr  El harakate Tasseletante Marrakech</field>
+	            <field name="order">3</field>
+	    </record>
+	    
+	    
+	    <!-- Province -->
+	    
+	    <record model="sfp.province" id="sfp_province">
+	            <field name="name">Al Haouz</field>
+	            <field name="code">Al Haouz</field>
+	            <field name="description">Al Haouz</field>
+	            <field name="order">1</field>
+	          <!--  <field name="academic" ref="morocco_academic1"/>-->
+	    </record>
+	    
+	    <record model="sfp.province" id="sfp_province1">
+	            <field name="name">Rhamna +EL kelâ ades Sraghnas</field>
+	            <field name="code">Rhamna</field>
+	            <field name="description">Rhamna +EL kelâ ades Sraghnas</field>
+	            <field name="order">2</field>
+	    </record>
+	    
+	    <record model="sfp.province" id="sfp_province2">
+	            <field name="name">Marrakech</field>
+	            <field name="code">Marrakech</field>
+	            <field name="description">Marrakech</field>
+	            <field name="order">3</field>
+	    </record>
+	    
+	    
+	     <!-- Grade -->
+	    
+	    <record model="sfp.grade" id="sfp_grade">
+	            <field name="name">Technicien</field>
+	            <field name="code">T</field>
+	            <field name="description">Technicien</field>
+	            <field name="order">1</field>
+	          <!--  <field name="academic" ref="morocco_academic1"/>-->
+	    </record>
+	    
+	    <record model="sfp.grade" id="sfp_grade1">
+	            <field name="name">Technicien Spécialisé</field>
+	            <field name="code">TS</field>
+	            <field name="description">Technicien Spécialisé</field>
+	            <field name="order">2</field>
+	    </record>
+	    
+	    <record model="sfp.grade" id="sfp_grade3">
+	            <field name="name">Licencié</field>
+	            <field name="code">L</field>
+	            <field name="description">Licencié</field>
+	            <field name="order">3</field>
+	    </record>
+	    
+	     <record model="sfp.grade" id="sfp_grade">
+	            <field name="name">Autre</field>
+	            <field name="code">A</field>
+	            <field name="description">Autre a specifier</field>
+	            <field name="order">3</field>
+	    </record>
+	    
+	    <!-- Matières -->
+	    
+	    <record model="sfp.matier" id="sfp_matier">
+	            <field name="name">Comptabilité Générale</field>
+	            <field name="code">CG</field>
+	            <field name="description">Comptabilité Générale</field>
+	            <field name="order">1</field>
+	    </record>
+	    
+	   	    <record model="sfp.matier" id="sfp_matier1">
+	            <field name="name">Droit du travail</field>
+	            <field name="code">DT</field>
+	            <field name="description">Droit du travail</field>
+	            <field name="order">1</field>
+	    </record>
+	    <record model="sfp.matier" id="sfp_matier2">
+	            <field name="name">Technologie de cuir</field>
+	            <field name="code">TCu</field>
+	            <field name="description">Technologie de cuir</field>
+	            <field name="order">1</field>
+	    </record>
+	    <record model="sfp.matier" id="sfp_matier3">
+	            <field name="name">Technologie de Tissage</field>
+	            <field name="code">TT</field>
+	            <field name="description">Technologie de Tissage</field>
+	            <field name="order">1</field>
+	    </record>
+	    <record model="sfp.matier" id="sfp_matier4">
+	            <field name="name">Technologie bois</field>
+	            <field name="code">TB</field>
+	            <field name="description">Technologie bois</field>
+	            <field name="order">1</field>
+	    </record>
+	    <record model="sfp.matier" id="sfp_matier5">
+	            <field name="name">Technologie Terre</field>
+	            <field name="code">TTerre</field>
+	            <field name="description">Technologie Terre</field>
+	            <field name="order">1</field>
+	    </record>
+	    <record model="sfp.matier" id="sfp_matier6">
+	            <field name="name">Technologie Dinanderie</field>
+	            <field name="code">TDinanderie</field>
+	            <field name="description">Technologie Dinanderie</field>
+	            <field name="order">1</field>     
+	    </record>
+	     <record model="sfp.matier" id="sfp_matier7">
+	            <field name="name">Technologie Vannerie</field>
+	            <field name="code">TVannerie</field>
+	            <field name="description">Technologie Vannerie</field>
+	            <field name="order">1</field>
+	    </record>
+	    
+	    <record model="sfp.matier" id="sfp_matier8">
+	            <field name="name">Technologie de ferronnerie</field>
+	            <field name="code">Tferronnerie</field>
+	            <field name="description">Technologie de ferronnerie</field>
+	            <field name="order">1</field>
+	    </record>
+	    <record model="sfp.matier" id="sfp_matier9">
+	            <field name="name">Modélisme et coupe</field>
+	            <field name="code">Tcoupe</field>
+	            <field name="description">Modélisme et coupe</field>
+	            <field name="order">1</field>
+	    </record>
+	    <record model="sfp.matier" id="sfp_matier10">
+	            <field name="name">Informatique</field>
+	            <field name="code">Info</field>
+	            <field name="description">Informatique</field>
+	            <field name="order">1</field>
+	    </record>
+	    <record model="sfp.matier" id="sfp_matier11">
+	            <field name="name">calcul</field>
+	            <field name="code">calcul</field>
+	            <field name="description">calcul</field>
+	            <field name="order">1</field>
+	    </record>
+	    <record model="sfp.matier" id="sfp_matier12">
+	            <field name="name">Dessin professionnel</field>
+	            <field name="code">DP</field>
+	            <field name="description">Dessin professionnel</field>
+	            <field name="order">1</field>
+	    </record>
+	    
+	     <record model="sfp.matier" id="sfp_matier13">
+	            <field name="name">Suivi pédagogique</field>
+	            <field name="code">SP</field>
+	            <field name="description">Suivi pédagogique</field>
+	            <field name="order">1</field>
+	    </record>
+	    
+	    <!-- CFA -->
+	    
+	    <record model="sfp.cfa" id="sfp_cfa">
+	            <field name="name">Ait Faska</field>
+	            <field name="code">CFA-1</field>
+	            <field name="description"> CFA Ait Faska</field>
+	            <field name="order">1</field>
+	    </record>
+	    
+	    <record model="sfp.cfa" id="sfp_cfa1">
+	            <field name="name">Chichaoua</field>
+	            <field name="code">CFA-2</field>
+	            <field name="description">CFA-2 Chichaoua </field>
+	            <field name="order">1</field>
+	    </record>
+	    <record model="sfp.cfa" id="sfp_cfa2">
+	            <field name="name">Ben Guerir</field>
+	            <field name="code">CFA-3</field>
+	            <field name="description">CFA-3 Ben Guerir</field>
+	            <field name="order">1</field>
+	    </record>
+	    <record model="sfp.cfa" id="sfp_cfa3">
+	            <field name="name">Dar Dbagh</field>
+	            <field name="code">CFA-4</field>
+	            <field name="description">CFA-4 Dar Dbagh</field>
+	            <field name="order">1</field>
+	    </record>
+   
+	</data>    
+</openerp>
