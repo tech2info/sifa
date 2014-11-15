@@ -122,7 +122,6 @@ class sfp_province(orm.Model):
     _columns = {
         'name': fields.char(u'Nom', required=True),
         'code': fields.char(u'Code', translate=True),
-        #'annexe': fields.many2many('sfp.annexe','province',u'Annexe'),
         'annexe': fields.many2many('sfp.annexe','sfp_annexe_rel','annexe_id','province_id',u'Annexe'),
         'description': fields.text(u'Description', translate=True),
     }
@@ -143,8 +142,8 @@ class sfp_groupe(orm.Model):
         'name': fields.char(u'Nom', required=True),        
         'code': fields.char(u'Code', translate=True),
         'date_start': fields.datetime(u'Date debut'),
-        'date_end': fields.datetime(u'Date fin'), 
-        'apprenti_ids': fields.one2many('res.partner','groupe',u'Province'),  
+        'date_end': fields.datetime(u'Date fin'),  
+        'apprenti_ids': fields.many2many('sfp.apprenti','sfp_apprenti_rel','groupe_id','apprenti_id',u'Apprentis'), 
         'description': fields.text(u'Description', translate=True),
     }
     

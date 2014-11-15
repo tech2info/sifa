@@ -87,7 +87,7 @@ class sfp_apprenti(osv.osv):
 class sfp_tuteur(osv.osv):
     _name = 'sfp.tuteur'
     _columns = {
-        'name_ar': fields.char(u'الاسم'),        
+        'name_ar': fields.char(u'الاسم',required=True),        
         'last_name_ar': fields.char(u'النسب', translate=True),
         'date_birth': fields.datetime(u'تاريخ الازدياد'),
         'lieu_ar': fields.char(u'مكان الازدياد'), 
@@ -95,7 +95,7 @@ class sfp_tuteur(osv.osv):
         'adresse_ar': fields.char(u'عوان محل السكنى'),
         'profession_ar': fields.char(u'المهنة'),    
         'tel_ar': fields.char(u'Tel'), 
-        'cin_ar': fields.char(u'CIN'),   
+        'cin_ar': fields.char(u'CIN',required=True),   
         'description': fields.text(u'Description'),  
     }
     
@@ -104,7 +104,7 @@ class sfp_maitre(osv.osv):
     _name = 'sfp.maitre'
     _columns = {
                 
-        'name': fields.char(u'Nom'),
+        'name': fields.char(u'Nom',required=True),
         'last_name': fields.char(u'Prènom'), 
         'name_ar': fields.char(u'الاسم'),        
         'last_name_ar': fields.char(u'النسب'),
@@ -146,9 +146,8 @@ class sfp_vacataire(osv.osv):
             'contrat' : fields.many2one('sfp.groupe',u'N contrat',size=50),
             'cfa' : fields.many2one('sfp.cfa',u'CFA',size=50),
             'groupe' : fields.many2one('sfp.groupe',u'Groupe',size=50),
-            
-            'grade_ids' : fields.one2many('sfp.grade','vacataire',u'Grade'),
-            'matier_ids' : fields.one2many('sfp.matier','vacataire',u'Matieres'),
+            'grade_ids': fields.many2many('sfp.grade','sfp_grade_rel','vacataire_id','grade_id',u'Grades'), 
+            'matier_ids': fields.many2many('sfp.matier','sfp_matier_rel','vacataire_id','matier_id',u'Matières'), 
             'description' :fields.text(u'Description'),
             'all_name' : fields.function(_get_name,type='char',string=u'Nom complet'),
 
