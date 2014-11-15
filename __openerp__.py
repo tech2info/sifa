@@ -23,7 +23,7 @@
     "name": "SFA- Vertical for Odoo",
     "version": "0.1",
     "depends": ["base"],
-    "author": "Ait-Mlouk Addi",
+    "author": "Ait-Mlouk Addi/Infoset R&D",
     'website': 'http://www.odoo-services.esy.es/',
     'sequence':1,
     "category": "Specific Modules/SFA",

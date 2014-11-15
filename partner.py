@@ -188,14 +188,11 @@ class res_partner(osv.osv):
             'name_arabic' : fields.char(u'الإسم '),
             'first_name_arabic' : fields.char(u'السب'),
             'lieu_birth' : fields.char(u'lieu de naissance'),
-            'lieu_birth_ar' : fields.char(u'مكان الازدياد'),
             'age' : fields.function(_get_age,type='integer',string=u'âge'),
             'cin' : fields.char(u'CIN',size=50),
-            'cin_ar' : fields.char(u'رقم البطاقة الوطنية'),
             'experience' :fields.many2one('sfp.metier', u'Metier'),
             'metier' :fields.many2one('sfp.metier', u'Metier'),
             'parental_ar' : fields.char(u'القرابة العائلية'),
-            'adresse_ar' : fields.char(u'العنوان'),
             'province' :fields.many2one('sfp.province', u'Province'),
             'taxe_pro' : fields.char(u'Taxe professionnel'),
             'name_entreprise' : fields.char(u'اسم المقاولة'),
@@ -212,11 +209,9 @@ class res_partner(osv.osv):
             'employe_nbr' : fields.char(u'عدد العاملين بها'),
             'inscription_nbr' : fields.char(u'عدد المتدرجين بها'),
             'gender' : fields.selection([('male',u'Masculin'),('female',u'Féminin')],u'Sexe',required=True), 
-
             'groupe' : fields.many2one('sfp.groupe', u'Groupe'),
             'cfa' :fields.many2one('sfp.groupe', u'CFA'),
             'contrat' :fields.many2one('sfp.groupe', u'Contrat'),
-            'contrat_ar' :fields.many2one('sfp.groupe', u'عقد رقم'),
             'all_name' : fields.function(_get_name,type='char',string=u'Nom complet'),
             }
     

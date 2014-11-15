@@ -490,7 +490,7 @@
 
 
         <record id="action_view_province" model="ir.actions.act_window">
-            <field name="name">Annexe </field>
+            <field name="name">Province </field>
             <field name="res_model">sfp.province</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
