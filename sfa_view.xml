@@ -59,17 +59,6 @@
 			                	<field name="vacataire" />
 			                </group>
 		               </group>
-        <!--        <newline/>
-                    <notebook colspan="4" >
-                        <page string="Apprenti">
-		              	  <field name="apprenti_ids" nolabel="1" />
-		                </page>
-		                
-	                	<page string="Description">
-	                		<field name="description" nolabel="1" />
-	                	</page>
-
-                		</notebook>-->
                     </sheet>
                 </form>
             </field>
@@ -397,6 +386,27 @@
         
        <!--  Annexe Configuration-->
        
+        <!-- search -->
+    
+	    <record id="sfp_annexe_search" model="ir.ui.view">
+	            <field name="name">sfp.annexe.search</field>
+	            <field name="model">sfp.annexe</field>
+	            <field name="type">search</field>
+	            <field name="arch" type="xml">
+	                <search string="Search Annexe">
+	                   <group col='10' colspan='4'>
+	                     	<field name="code"/>
+	                   </group>
+	                   <newline />
+	                   <group expand="0" string="Group By...">
+	                       <filter string="Code" icon="terp-personal" domain="[]" context="{'group_by' : 'code'}" />
+	                   </group>
+	               </search>
+	            </field>
+	        </record>
+	        
+       <!-- annexe form -->
+       
         <record id="view_annexe_form" model="ir.ui.view">
             <field name="name">sfp.annexe.form</field>
             <field name="model">sfp.annexe</field>
@@ -439,6 +449,7 @@
             <field name="res_model">sfp.annexe</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="sfp_annexe_search"/>
         </record>
         
         

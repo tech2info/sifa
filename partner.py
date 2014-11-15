@@ -138,7 +138,7 @@ class sfp_vacataire(osv.osv):
     _columns = {
             'first_name' : fields.char(u'Prénom'),
             'vac_year' : fields.char(u'Année de vacation'),
-            'nbr_visite' : fields.datetime(u'Nombre de visites'),
+            'nbr_visite' : fields.char(u'Nombre de visites'),
             'masse_horaire' : fields.char(u'Masse horaire'),
             'lieu_birth' : fields.char(u'lieu de naissance'),
             'cin' : fields.char(u'CIN'),

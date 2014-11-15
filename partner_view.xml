@@ -74,14 +74,14 @@
 	                    <newline/>
 	                    <group string="Informations générales">
 	                    	<group>
-	                            <field name="date_start" />
+	                           <!--  <field name="date_start" />-->
 	                            <field name="function" />
 	                            <field name="nv_scolaire" />
 	                            <field name="dure_formation" />
 	                            <field name="profession_tuteur_ar" />
 	                        </group>
 	                        <group>
-	                            <field name="date_end" />
+	                            <!-- <field name="date_end" />-->
 	                            <field name="diplom"/>
 	                            <field name="function_ar" />
 	                            <field name="dure_ar" />
@@ -97,7 +97,7 @@
 	                        </group>
 	                        <group>
 	                            <field name="laureat" />
-	                            <field name="date_abandon" attrs="{'invisible' : [('abandon','=',False)]}"/>
+	                            <field name="date_abandon" />
 	                        </group>
 	                    </group>
 	                    <notebook colspan="4">

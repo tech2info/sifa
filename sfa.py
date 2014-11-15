@@ -37,7 +37,7 @@ class sfp_contrat(orm.Model):
         'date_start': fields.datetime(u'Date debut'),
         'date_end': fields.datetime(u"Date fin"), 
         'date_abandon': fields.datetime(u"Date abandon"), 
-        'apprenti': fields.many2one('sfp.apprenti',u'Apprenti'),  
+        'apprenti': fields.many2one('res.partner',u'Apprenti'),  
         'groupe': fields.many2one('sfp.groupe',u'Groupe'),
         'metier': fields.many2one('sfp.metier',u'Metier'),
         'responsable': fields.many2one('res.users',u'Responsable'),
@@ -122,7 +122,8 @@ class sfp_province(orm.Model):
     _columns = {
         'name': fields.char(u'Nom', required=True),
         'code': fields.char(u'Code', translate=True),
-        'annexe': fields.one2many('sfp.annexe','province',u'Annexe'),
+        #'annexe': fields.many2many('sfp.annexe','province',u'Annexe'),
+        'annexe': fields.many2many('sfp.annexe','sfp_annexe_rel','annexe_id','province_id',u'Annexe'),
         'description': fields.text(u'Description', translate=True),
     }
 
@@ -143,7 +144,7 @@ class sfp_groupe(orm.Model):
         'code': fields.char(u'Code', translate=True),
         'date_start': fields.datetime(u'Date debut'),
         'date_end': fields.datetime(u'Date fin'), 
-        'apprenti_ids': fields.one2many('sfp.apprenti','groupe',u'Province'),  
+        'apprenti_ids': fields.one2many('res.partner','groupe',u'Province'),  
         'description': fields.text(u'Description', translate=True),
     }
     
