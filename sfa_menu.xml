@@ -7,11 +7,11 @@
     	<!-- menu apprentissage -->
     	<menuitem id="menu_fpa_apprentissage" name="Apprentissage" parent="menu_sfp" sequence="1"/>
               <menuitem id="sfp_config_contrat" name="Contrat" parent="menu_fpa_apprentissage" action="action_view_contrat"/>
-              <menuitem id="sfp_config_apprenti" name="Apprenti" parent="menu_fpa_apprentissage" action="action_sfp_partner_apprenti"/>
+              <menuitem id="sfp_config_apprenti" name="Apprenti" parent="menu_fpa_apprentissage" action="action_sfp_partner_apprenti1"/>
               <menuitem id="sfp_config_tuteur" name="Tuteur" parent="menu_fpa_apprentissage" action="action_view_tuteur"/>
               <menuitem id="sfp_config_entreprise" name="Entreprise" parent="menu_fpa_apprentissage" action="action_sfp_partner_entreprise"/>
               <menuitem id="sfp_config_maitre" name="Maitre d'apprenti" parent="menu_fpa_apprentissage" action="action_view_maitre"/>
-              <menuitem id="sfp_config_vacataire" name="Vacataire" parent="menu_fpa_apprentissage" action="action_view_vacataire"/>
+              <menuitem id="sfp_config_vacataire" name="Vacataire" parent="menu_fpa_apprentissage" action="action_sfp_partner_vacataire"/>
               <menuitem id="sfp_config_groupe" name="Groupe" parent="menu_fpa_apprentissage" action="action_view_groupe"/>
     	
         <!-- Configuration -->

@@ -22,67 +22,7 @@ from openerp.osv import osv,fields
 from openerp.tools.translate import _
 import time
 from datetime import date
-
-class sfp_apprenti(osv.osv):
-    
-    _name='sfp.apprenti'
-    _inherit = 'res.partner' 
-       
-    def _get_age(self, cr, uid, ids, name, arg, context={}):
-        data={}
-        for object_parent in self.browse(cr,uid,ids):
-            data[object_parent.id] = 0
-            today = date.today()
-            if object_parent.birthdate:
-                date_birth=time.strptime(object_parent.birthdate, '%Y-%m-%d')
-                data[object_parent.id]=today.year-date_birth.tm_year
-        return data
-    
-    def _get_name(self,cr,uid,ids,name,args,context={}):
-        data = {}
-        for data_read in self.read(cr,uid,ids,['name','first_name','title']):
-           if data_read['first_name']:
-                data['first_name'] =True
-                data[data_read['id']] = u"%s %s %s" %(data_read['title'] and ('%s ' %data_read['title'][1]) or '',data_read['name'],data_read['first_name'])
-           else:  
-                data[data_read['id']] = u"%s %s" %(data_read['title'] and ('%s ' %data_read['title'][1]) or '',data_read['name'])
-        return data
-    
-    _columns = {
-            'first_name' : fields.char(u'Prénom',size=50),
-            'nv_scolaire' : fields.char(u'Niveau scolaire',size=50),
-            'dure_formation' : fields.char(u'Dure de formation',size=50),
-            'date_start' : fields.datetime(u'Date debut',size=50),
-            'date_end' : fields.datetime(u'Date fin',size=50),
-            'diplom' : fields.char(u'Diplom',size=50),
-            'en_formation': fields.boolean('En formation'),
-            'abandon': fields.boolean('Abandon'),
-            'date_abandon' : fields.datetime(u'Date Abandon',size=50),
-            'laureat': fields.boolean('Laureat'),
-            'lieu_birth' : fields.char(u'lieu de naissance',size=50),
-            
-            'name_arabic' : fields.char(u'الإسم العائلي',size=50),
-            'first_name_arabic' : fields.char(u'الإسم الشخصي',size=50),
-            'function_ar' : fields.char(u'الحرفة',size=50),
-            'parental_ar' : fields.char(u'القرابة العائلية',size=50),
-            'adresse_ar' : fields.char(u'عنوان السكى',size=50),
-            'dure_ar' : fields.char(u'مدة التكوين',size=50),
-            'profession_tuteur_ar' : fields.char(u'مهة الاب',size=50),
-            'situation_ar' : fields.char(u'الوضعية قبل الانخراط',size=50),
-            'gender' : fields.selection([('male',u'Masculin'),('female',u'Féminin')],u'Sexe',required=True), 
-            'cin' : fields.char(u'CIN',size=50),
-            'groupe' : fields.many2one('sfp.groupe', u'Groupe'),
-            'cfa' :fields.many2one('sfp.groupe', u'CFA'),
-            'contrat' :fields.many2one('sfp.groupe', u'Contrat'),
-            'province' :fields.many2one('sfp.province', u'Province'),
-            'age' : fields.function(_get_age,type='integer',string=u'âge'),
-            'all_name' : fields.function(_get_name,type='char',string=u'Nom complet'),
-            }
-    
-    _defaults = {
-        
-        }
-    
+  
     
 class sfp_tuteur(osv.osv):
     _name = 'sfp.tuteur'
@@ -118,44 +58,6 @@ class sfp_maitre(osv.osv):
     }
     
     
-class sfp_vacataire(osv.osv):
-    
-    _name='sfp.vacataire'
-    _inherit = 'res.partner' 
-
-
-    def _get_name(self,cr,uid,ids,name,args,context={}):
-        data = {}
-        for data_read in self.read(cr,uid,ids,['name','first_name','title']):
-           if data_read['first_name']:
-                data['first_name'] =True
-                data[data_read['id']] = u"%s %s %s" %(data_read['title'] and ('%s ' %data_read['title'][1]) or '',data_read['name'],data_read['first_name'])
-           else:  
-                data[data_read['id']] = u"%s %s" %(data_read['title'] and ('%s ' %data_read['title'][1]) or '',data_read['name'])
-        return data
-    
-    
-    _columns = {
-            'first_name' : fields.char(u'Prénom'),
-            'vac_year' : fields.char(u'Année de vacation'),
-            'nbr_visite' : fields.char(u'Nombre de visites'),
-            'masse_horaire' : fields.char(u'Masse horaire'),
-            'lieu_birth' : fields.char(u'lieu de naissance'),
-            'cin' : fields.char(u'CIN'),
-            'gender' : fields.selection([('male',u'Masculin'),('female',u'Féminin')],u'Sexe',required=True), 
-            'contrat' : fields.many2one('sfp.groupe',u'N contrat',size=50),
-            'cfa' : fields.many2one('sfp.cfa',u'CFA',size=50),
-            'groupe' : fields.many2one('sfp.groupe',u'Groupe',size=50),
-            'grade_ids': fields.many2many('sfp.grade','sfp_grade_rel','vacataire_id','grade_id',u'Grades'), 
-            'matier_ids': fields.many2many('sfp.matier','sfp_matier_rel','vacataire_id','matier_id',u'Matières'), 
-            'description' :fields.text(u'Description'),
-            'all_name' : fields.function(_get_name,type='char',string=u'Nom complet'),
-
-            }
-    
-    _defaults = {
-        
-        }
     
 class res_partner(osv.osv):
     
@@ -212,6 +114,34 @@ class res_partner(osv.osv):
             'cfa' :fields.many2one('sfp.groupe', u'CFA'),
             'contrat' :fields.many2one('sfp.groupe', u'Contrat'),
             'all_name' : fields.function(_get_name,type='char',string=u'Nom complet'),
+            
+            'apprenti_ok': fields.boolean('Apprenti'),
+            'vacataire_ok': fields.boolean('Vacataire'),
+            'entreprise_ok': fields.boolean('Entreprise'),
+            
+            #vacataire
+            'vac_year' : fields.char(u'Année de vacation'),
+            'nbr_visite' : fields.char(u'Nombre de visites'),
+            'masse_horaire' : fields.char(u'Masse horaire'),
+            'grade_ids': fields.many2many('sfp.grade','sfp_grade_rel','vacataire_id','grade_id',u'Grades'), 
+            'matier_ids': fields.many2many('sfp.matier','sfp_matier_rel','vacataire_id','matier_id',u'Matières'), 
+
+            #apprenti
+            'nv_scolaire' : fields.char(u'Niveau scolaire',size=50),
+            'dure_formation' : fields.char(u'Dure de formation',size=50),
+            'diplom' : fields.char(u'Diplom',size=50),
+            'en_formation': fields.boolean('En formation'),
+            'abandon': fields.boolean('Abandon'),
+            'date_abandon' : fields.datetime(u'Date Abandon',size=50),
+            'laureat': fields.boolean('Laureat'),
+            'function_ar' : fields.char(u'الحرفة',size=50),
+            'parental_ar' : fields.char(u'القرابة العائلية',size=50),
+            'dure_ar' : fields.char(u'مدة التكوين',size=50),
+            'profession_tuteur_ar' : fields.char(u'مهة الاب',size=50),
+            'situation_ar' : fields.char(u'الوضعية قبل الانخراط',size=50),
+            'province' :fields.many2one('sfp.province', u'Province'),
+
+
             }
     
     _defaults = {

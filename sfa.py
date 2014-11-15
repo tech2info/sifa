@@ -47,7 +47,7 @@ class sfp_contrat(orm.Model):
         'cfa': fields.many2one('sfp.cfa',u'CFA'),
         'annexe': fields.many2one('sfp.annexe',u'Annexe'),
         'province': fields.many2one('sfp.province',u'Province'),
-        'vacataire': fields.many2one('sfp.vacataire',u'Vacataire'),
+        'vacataire': fields.many2one('res.partner',u'Vacataire'),
         'description': fields.text(u'Description'),
     }
     
@@ -59,7 +59,7 @@ class sfp_matier(orm.Model):
         'name': fields.char(u'Nom', required=True),
         'code': fields.char(u'Code', translate=True),
         'description': fields.text(u'Description', translate=True),
-        'vacataire': fields.many2one('sfp.vacataire',u'Vacataire', translate=True),
+        'vacataire': fields.many2one('res.partner',u'Vacataire', translate=True),
         
     }
 
@@ -70,7 +70,7 @@ class sfp_grade(orm.Model):
         'name': fields.char(u'Nom', required=True),
         'code': fields.char(u'Code', translate=True),
         'description': fields.text(u'Description', translate=True),
-        'vacataire': fields.many2one('sfp.vacataire',u'Vacataire', translate=True),
+        'vacataire': fields.many2one('res.partner',u'Vacataire', translate=True),
         
     }
 
@@ -143,7 +143,7 @@ class sfp_groupe(orm.Model):
         'code': fields.char(u'Code', translate=True),
         'date_start': fields.datetime(u'Date debut'),
         'date_end': fields.datetime(u'Date fin'),  
-        'apprenti_ids': fields.many2many('sfp.apprenti','sfp_apprenti_rel','groupe_id','apprenti_id',u'Apprentis'), 
+        'apprenti_ids': fields.many2many('res.partner','res_partner_rel','groupe_id','partner_id',u'Apprentis'), 
         'description': fields.text(u'Description', translate=True),
     }
     

@@ -1,296 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        
-        <!-- search -->
-    
-	    <record id="sfp_apprenti_search" model="ir.ui.view">
-	            <field name="name">sfp.apprenti.search</field>
-	            <field name="model">sfp.apprenti</field>
-	            <field name="type">search</field>
-	            <field name="arch" type="xml">
-	                <search string="Search Partner">
-	                   <group col='10' colspan='4'>
-	                        <field name="name" select="1" filter_domain="['|',('name','ilike',self),('first_name','ilike',self)]" />
-	                     	<field name="cin"/>
-	                    	<field name="first_name"/>
-	                   </group>
-	                   <newline />
-	                   <group expand="0" string="Group By...">
-	                       <filter string="Salesman" icon="terp-personal" domain="[]" context="{'group_by' : 'cin'}" />
-	                   </group>
-	               </search>
-	            </field>
-	        </record>
-	    
-   
-	    
-	    <!-- form -->
-	    
-	    <record id="sfp_apprenti_form" model="ir.ui.view">
-	            <field name="name">sfp.apprenti.form</field>
-	            <field name="model">sfp.apprenti</field>
-	            <field name="type">form</field>
-	            <field name="arch" type="xml">
-	                <form string="Apprenti" version="7.0">
-	                <sheet>
-	                	<group>
-                			<group>
-                				<h1><field name="all_name" class="oe_inline"/></h1>
-                			</group>
-                			<group>
-                				<p align="right"><field name="image" widget="image" nolabel="1" width="130" /></p>
-                			</group>
-                		</group>
-	                	<newline/>
-	                    <group >
-	                        <group >
-	                            <field name="name" />
-	                            <field name="name_arabic" />
-	                            <field name="cin" />  
-	                            <field name="birthdate" /> 
-	                            <field name="age" />
-	                                   
-	                        </group>
-	                        <group>
-	                        	<field name="first_name" />
-	                        	<field name="first_name_arabic" />
-	                        	<field name="gender" />
-	                        	<field name="lieu_birth" /> 
-	                        </group>
-	                  	</group>
-	                  	<newline/>
-	                    <group string="Informations Contrat">
-	                    	<group>
-	                            <field name="contrat" />
-	                            <field name="groupe" />
-	                            
-	                        </group>
-	                        <group>
-	                            <field name="cfa" />
-	                            <field name="province" />   
-	                        </group>
-	                    </group>
-	                    <newline/>
-	                    <group string="Informations générales">
-	                    	<group>
-	                           <!--  <field name="date_start" />-->
-	                            <field name="function" />
-	                            <field name="nv_scolaire" />
-	                            <field name="dure_formation" />
-	                            <field name="profession_tuteur_ar" />
-	                        </group>
-	                        <group>
-	                            <!-- <field name="date_end" />-->
-	                            <field name="diplom"/>
-	                            <field name="function_ar" />
-	                            <field name="dure_ar" />
-	                            <field name="parental_ar"/>
-	                        </group>
-	                    </group>
-	                    <newline/>
-	                    <newline/>
-	                    <group string="Informations sur l'etat">
-	                    	<group>
-	                            <field name="en_formation" />
-	                            <field name="abandon" />
-	                        </group>
-	                        <group>
-	                            <field name="laureat" />
-	                            <field name="date_abandon" />
-	                        </group>
-	                    </group>
-	                    <notebook colspan="4">
-	                        <page string="Coordonnées">
-								<group>
-									<group>
-			                            <field name="phone"/>
-			                            <field name="email" required="context.get('force_email', False)"/>
-			                            <field name="street"/>
-			                            <field name="zip"/>
-			                            <field name="country_id"/>
-			                            <field name="website"/>
-			                            <field name="user_id"/>
-			                            <field name="active" />
-			                        </group>
-									<group>
-										<field name="mobile"/>
-										<field name="fax"/>
-										<field name="street2"/>
-										<field name="city"/>
-										<field name="state_id"/>
-										<field name="type"/>
-									</group>
-								</group>
-	                        </page>
-	                        <page string="Notes">
-	                            <field colspan="4" name="comment" nolabel="1"/>
-	                        </page>
-	                    </notebook>
-	                </sheet>
-	                </form>
-	            </field>
-	        </record>
-	    
-	    <!-- tree -->
-	    
-	    <record model="ir.ui.view" id="sfp_apprenti_tree">
-	            <field name="name">sfp.apprenti.tree</field>
-	            <field name="model">sfp.apprenti</field>
-	            <field name="type">tree</field>
-	            <field name="arch" type="xml">
-	                <tree string="Partners">
-	                    <field name="name"/>
-	                    <field name="first_name"/>
-	                    <field name="cin" />
-	                    <field name="phone"/>
-	                    <field name="email"/>
-	                    <field name="city"/>
-	                </tree>
-	            </field>
-	    </record>
-	    
-	    
-    <!-- Kanban view -->
-    
-		<record model="ir.ui.view" id="sfp_kanban_view">
-			<field name="name">Apprenti kanban</field>
-			<field name="model">sfp.apprenti</field>
-			<field name="arch" type="xml">
-				<kanban>
-					<field name="name"/>
-					<field name="first_name"/>
-					<templates>
-						<t t-name="kanban-box">
-							<t t-set="color"
-								t-value="kanban_color(record.name.raw_value || record.name.raw_value)" />
-							<div
-								t-att-class="color + (record.name.raw_value == 1 ? ' oe_kanban_color_alert' : '')">
-								<div class="oe_kanban_box oe_kanban_color_border">
-									<div
-										class="oe_kanban_box_header oe_kanban_color_bgdark oe_kanban_color_border oe_kanban_draghandle">
-										<table class="oe_kanban_table">
-											<tr>
-												<td class="oe_kanban_title1" align="left" valign="middle"
-													style="padding-left:10px;">
-													<h4>
-														<a type="open">
-															<field name="name"/>
-															<field name="first_name"/>
-														</a>
-													</h4>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<div
-										class="oe_kanban_box_content oe_kanban_color_bglight oe_kanban_box_show_onclick_trigger oe_kanban_color_border">
-										<table class="oe_kanban_table">
-											<tr width="300">
-												<td valign="top" width="64" align="left">
-													<a type="open">
-														<img heigh="80" width="80"
-															t-att-src="kanban_image('sfp.apprenti', 'photo', record.id.value)"/>
-													</a>
-												</td>
-												<td valign="top" align="left" style="padding-left:10px;">
-													<table>
-														<tr>
-															<td>Name :</td>
-															<td style="padding-left:10px;">
-																<b>
-																	<field name="name"/>
-																</b>
-															</td>
-														</tr>
-														<tr>
-															<td>Prénom:</td>
-															<td style="padding-left:10px;">
-																<b>
-																	<field name="first_name"/>
-																</b>
-															</td>
-														</tr>
-														<tr>
-															<td>CIN: </td>
-															<td style="padding-left:10px;">
-																<b>
-																	<field name="cin"/>
-																</b>
-															</td>
-														</tr>
-														<tr>
-															<td>Date debut : </td>
-															<td style="padding-left:10px;">
-																<b>
-																	<field name="date_start"/>
-																</b>
-															</td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<center>
-														<b>
-															<field name="contrat"/>
-														</b>
-													</center>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<div
-										class="oe_kanban_buttons_set oe_kanban_color_border oe_kanban_color_bglight oe_kanban_box_show_onclick">
-										<div class="oe_kanban_left">
-											<a string="Edit" icon="gtk-edit" type="edit" />
-											<a string="Change Color" icon="color-picker" type="color"
-												name="color"/>
-										</div>
-										<br class="oe_kanban_clear"/>
-									</div>
-								</div>
-							</div>
-						</t>
-					</templates>
-				</kanban>
-			</field>
-		</record>
-	    
-	    <!-- action Apprenti -->
-	    
-	    <record id="action_sfp_partner_apprenti" model="ir.actions.act_window">
-	            <field name="name">Apprenti</field>
-	            <field name="res_model">sfp.apprenti</field>
-	            <field name="view_type">form</field>
-	            <field name="view_mode">kanban,tree,form</field>
-	            <field name="search_view_id" ref="sfp_apprenti_search"/>
-	   	</record>
-	    
-	     <record id="act_view_sfp_partner_parent_form" model="ir.actions.act_window.view">
-	            <field eval="3" name="sequence"/>
-	            <field name="view_mode">form</field>
-	            <field name="view_id" ref="sfp_apprenti_form"/>
-	            <field name="act_window_id" ref="action_sfp_partner_apprenti"/>
-	    </record>
-	    
-	    <record id="act_view_sfp_partner_parent_tree" model="ir.actions.act_window.view">
-	            <field eval="2" name="sequence"/>
-	            <field name="view_mode">tree</field>
-	            <field name="view_id" ref="sfp_apprenti_tree"/>
-	            <field name="act_window_id" ref="action_sfp_partner_apprenti"/>
-	    </record>
-	    
-	    <record id="act_view_sfp_partner_parent_kanban" model="ir.actions.act_window.view">
-	            <field eval="1" name="sequence"/>
-	            <field name="view_mode">kanban</field>
-	            <field name="view_id" ref="sfp_kanban_view"/>
-	            <field name="act_window_id" ref="action_sfp_partner_apprenti"/>
-	    </record>
-	    
-	    
-	            
+        	            
        <!-- Tuteurs-->
        
         <record id="form_view_tuteur_form" model="ir.ui.view">
@@ -403,94 +114,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-	    
-	     <!--  vacataire -->
-       
-        <record id="view_vacataire_form" model="ir.ui.view">
-            <field name="name">sfp.vacataire.form</field>
-            <field name="model">sfp.vacataire</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Vacataire" version="7.0">
-                    <sheet>
-                        <group>
-                			<group>
-                				<h1><field name="all_name" class="oe_inline"/></h1>
-                			</group>
-                			<group>
-                				<p align="right"><field name="image" widget="image" nolabel="1" width="130" /></p>
-                			</group>
-                		</group>
-                        <group>
-		                	<group>
-				                <field name="name" />
-				                <field name="cin" />
-				                <field name="birthdate" />
-				                
-				            </group>
-			                <group>
-			                	<field name="first_name" />
-			                	<field name="gender" />
-			                	<field name="phone" />
-			                	<field name="lieu_birth" />
-			                </group>
-		               </group>
-		               <group>
-		                	<group>
-				                <field name="contrat" />
-				                <field name="groupe" />
-				                <field name="nbr_visite" />
-				            </group>
-			                <group>
-			                	<field name="cfa" />
-			                	<field name="vac_year" />
-			                	<field name="masse_horaire" />
-			                </group>
-		               </group>
-                    <newline/>
-                    <notebook colspan="4" >
-                        <page string="Grades">
-		              	  <field name="grade_ids" nolabel="1" />
-		                </page>
-		                <page string="Matières">
-		              	  <field name="matier_ids" nolabel="1" />
-		                </page>
-		                
-	                	<page string="Description">
-	                		<field name="description" nolabel="1" />
-	                	</page>
-
-                		</notebook>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-        <record id="view_vacataire_tree" model="ir.ui.view">
-            <field name="name">sfp.vacataire.tree</field>
-            <field name="model">sfp.vacataire</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <tree string="Vacataire">
-                    <field name="name" />
-                    <field name="first_name" />
-                    <field name="cin" />
-                    <field name="vac_year" />
-                    <field name="nbr_visite" />
-                    <field name="masse_horaire" />
-                    <field name="gender" />
-                </tree>
-            </field>
-        </record>
-
-
-        <record id="action_view_vacataire" model="ir.actions.act_window">
-            <field name="name">Vacataire </field>
-            <field name="res_model">sfp.vacataire</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-        
-        
+	                   
        <!-- Entreprise  search -->
     
 	    <record id="sfp_entreprise_search" model="ir.ui.view">
@@ -552,12 +176,15 @@
 	                  	<newline/>
 	                    <group string="Informations Contrat">
 	                    	<group>
+	                            <field name="vacataire_ok" />
 	                            <field name="contrat" />
 	                            <field name="groupe" />
 	                            <field name="metier" />
 	                            <field name="montant_percu" />
 	                        </group>
 	                        <group>
+	                            <field name="apprenti_ok" />
+	                            <field name="entreprise_ok" />
 	                            <field name="cfa" />
 	                            <field name="province" />
 	                            <field name="payment_mode" />
@@ -732,13 +359,14 @@
 			</field>
 		</record>
 	    
-	    <!-- action Apprenti -->
+	    <!-- action entreprise -->
 	    
 	    <record id="action_sfp_partner_entreprise" model="ir.actions.act_window">
 	            <field name="name">Apprenti</field>
 	            <field name="res_model">res.partner</field>
 	            <field name="view_type">form</field>
 	            <field name="view_mode">kanban,tree,form</field>
+	            <field name="domain">[('entreprise_ok','=',True)]</field>
 	            <field name="search_view_id" ref="sfp_entreprise_search"/>
 	   	</record>
 	    
@@ -761,6 +389,70 @@
 	            <field name="view_mode">kanban</field>
 	            <field name="view_id" ref="sfp_kanban_view"/>
 	            <field name="act_window_id" ref="action_sfp_partner_entreprise"/>
+	    </record>
+	     
+	     <!-- action vacataier -->
+	    
+	    <record id="action_sfp_partner_vacataire" model="ir.actions.act_window">
+	            <field name="name">Apprenti</field>
+	            <field name="res_model">res.partner</field>
+	            <field name="view_type">form</field>
+	            <field name="view_mode">kanban,tree,form</field>
+	            <field name="domain">[('vacataire_ok','=',True)]</field>
+	            <field name="search_view_id" ref="sfp_entreprise_search"/>
+	   	</record>
+	    
+	     <record id="act_view_sfp_vacataire_form" model="ir.actions.act_window.view">
+	            <field eval="3" name="sequence"/>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="sfp_entreprise_form"/>
+	            <field name="act_window_id" ref="action_sfp_partner_vacataire"/>
+	    </record>
+	    
+	    <record id="act_view_sfp_vacataire_tree" model="ir.actions.act_window.view">
+	            <field eval="2" name="sequence"/>
+	            <field name="view_mode">tree</field>
+	            <field name="view_id" ref="sfp_entreprise_tree"/>
+	            <field name="act_window_id" ref="action_sfp_partner_vacataire"/>
+	    </record>
+	    
+	    <record id="act_view_sfp_vacataire_kanban" model="ir.actions.act_window.view">
+	            <field eval="1" name="sequence"/>
+	            <field name="view_mode">kanban</field>
+	            <field name="view_id" ref="sfp_kanban_view"/>
+	            <field name="act_window_id" ref="action_sfp_partner_vacataire"/>
+	    </record>
+	     
+	     <!-- action apprenti -->
+	    
+	    <record id="action_sfp_partner_apprenti1" model="ir.actions.act_window">
+	            <field name="name">Apprenti</field>
+	            <field name="res_model">res.partner</field>
+	            <field name="view_type">form</field>
+	            <field name="view_mode">kanban,tree,form</field>
+	            <field name="domain">[('apprenti_ok','=',True)]</field>
+	            <field name="search_view_id" ref="sfp_entreprise_search"/>
+	   	</record>
+	    
+	     <record id="act_view_sfp_apprenti_form" model="ir.actions.act_window.view">
+	            <field eval="3" name="sequence"/>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="sfp_entreprise_form"/>
+	            <field name="act_window_id" ref="action_sfp_partner_apprenti1"/>
+	    </record>
+	    
+	    <record id="act_view_sfp_apprenti_tree" model="ir.actions.act_window.view">
+	            <field eval="2" name="sequence"/>
+	            <field name="view_mode">tree</field>
+	            <field name="view_id" ref="sfp_entreprise_tree"/>
+	            <field name="act_window_id" ref="action_sfp_partner_apprenti1"/>
+	    </record>
+	    
+	    <record id="act_view_sfp_apprenti_kanban" model="ir.actions.act_window.view">
+	            <field eval="1" name="sequence"/>
+	            <field name="view_mode">kanban</field>
+	            <field name="view_id" ref="sfp_kanban_view"/>
+	            <field name="act_window_id" ref="action_sfp_partner_apprenti1"/>
 	    </record>
 	     
         
