@@ -56,10 +56,10 @@ class sfp_contrat(orm.Model):
 class sfp_matier(orm.Model):
     _name = 'sfp.matier'
     _columns = {
-        'name': fields.char('Nom'),
-        'code': fields.char('Code', translate=True),
-        'description': fields.text('Description', translate=True),
-        'vacataire': fields.many2one('sfp.vacataire','Vacataire', translate=True),
+        'name': fields.char(u'Nom', required=True),
+        'code': fields.char(u'Code', translate=True),
+        'description': fields.text(u'Description', translate=True),
+        'vacataire': fields.many2one('sfp.vacataire',u'Vacataire', translate=True),
         
     }
 
@@ -67,28 +67,28 @@ class sfp_matier(orm.Model):
 class sfp_grade(orm.Model):
     _name = 'sfp.grade'
     _columns = {
-        'name': fields.char('Nom'),
-        'code': fields.char('Code', translate=True),
-        'description': fields.text('Description', translate=True),
-        'vacataire': fields.many2one('sfp.vacataire','Vacataire', translate=True),
+        'name': fields.char(u'Nom', required=True),
+        'code': fields.char(u'Code', translate=True),
+        'description': fields.text(u'Description', translate=True),
+        'vacataire': fields.many2one('sfp.vacataire',u'Vacataire', translate=True),
         
     }
 
 class sfp_sector(orm.Model):
     _name = 'sfp.sector'
     _columns = {
-        'name': fields.char('Nom'),
-        'code': fields.char('Code', translate=True),
-        'description': fields.text('Description', translate=True),
+        'name': fields.char(u'Nom', required=True),
+        'code': fields.char(u'Code', translate=True),
+        'description': fields.text(u'Description', translate=True),
         
     }
 
 class sfp_level(orm.Model):
     _name = 'sfp.level'
     _columns = {
-        'name': fields.char('Name'),
-        'code': fields.char('Code', translate=True),
-        'description': fields.text('Description', translate=True),
+        'name': fields.char(u'Name', required=True),
+        'code': fields.char(u'Code', translate=True),
+        'description': fields.text(u'Description', translate=True),
         
     }
     
@@ -96,23 +96,22 @@ class sfp_level(orm.Model):
 class sfp_metier(orm.Model):
     _name = 'sfp.metier'
     _columns = {
-        'name': fields.char('Name'),
-        'code': fields.char('Code', translate=True),
-        
-        'dure': fields.selection([('11',u'11 Mois'),('22',u'22 Mois')],u'Dure',required=True),
-        'level': fields.many2one('sfp.level', 'Niveau',translate=True),
-        'sector': fields.many2one('sfp.sector', 'Secteur',translate=True),
-        'description': fields.text('Description', translate=True),
+        'name': fields.char(u'Name', required=True),
+        'code': fields.char(u'Code', translate=True),      
+        'dure': fields.selection([('11',u'11'),('22',u'22')],u'Dure',required=True),
+        'level': fields.many2one('sfp.level', u'Niveau',translate=True),
+        'sector': fields.many2one('sfp.sector', u'Secteur',translate=True),
+        'description': fields.text(u'Description', translate=True),
     }
     
 
 class sfp_annexe(orm.Model):
     _name = 'sfp.annexe'
     _columns = {
-        'name': fields.char('Nom'),
-        'code': fields.char('Code', translate=True),
-        'description': fields.text('Description', translate=True),    
-        'province': fields.many2one('sfp.province','Code', translate=True),
+        'name': fields.char(u'Nom', required=True),
+        'code': fields.char(u'Code', translate=True),
+        'description': fields.text(u'Description', translate=True),    
+        'province': fields.many2one('sfp.province',u'Code', translate=True),
     }
 
 
@@ -121,30 +120,30 @@ class sfp_annexe(orm.Model):
 class sfp_province(orm.Model):
     _name = 'sfp.province'
     _columns = {
-        'name': fields.char('Nom'),
-        'code': fields.char('Code', translate=True),
-        'annexe': fields.one2many('sfp.annexe','province','Annexe'),
-        'description': fields.text('Description', translate=True),
+        'name': fields.char(u'Nom', required=True),
+        'code': fields.char(u'Code', translate=True),
+        'annexe': fields.one2many('sfp.annexe','province',u'Annexe'),
+        'description': fields.text(u'Description', translate=True),
     }
 
 class sfp_cfa(orm.Model):
     _name = 'sfp.cfa'
     _columns = {
-        'name': fields.char('Nom'),        
-        'code': fields.char('Code', translate=True),
-        'province': fields.many2one('sfp.province','Province'),  
-        'description': fields.text('Description', translate=True),
+        'name': fields.char(u'Nom', required=True),        
+        'code': fields.char(u'Code', translate=True),
+        'province': fields.many2one('sfp.province',u'Province'),  
+        'description': fields.text(u'Description', translate=True),
     }
 
 
 class sfp_groupe(orm.Model):
     _name = 'sfp.groupe'
     _columns = {
-        'name': fields.char('Nom'),        
-        'code': fields.char('Code', translate=True),
-        'date_start': fields.datetime('Date debut'),
-        'date_end': fields.datetime("Date fin"), 
+        'name': fields.char(u'Nom', required=True),        
+        'code': fields.char(u'Code', translate=True),
+        'date_start': fields.datetime(u'Date debut'),
+        'date_end': fields.datetime(u'Date fin'), 
         'apprenti_ids': fields.one2many('sfp.apprenti','groupe',u'Province'),  
-        'description': fields.text('Description', translate=True),
+        'description': fields.text(u'Description', translate=True),
     }
     

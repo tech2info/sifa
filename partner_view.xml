@@ -57,7 +57,6 @@
 	                        	<field name="first_name_arabic" />
 	                        	<field name="gender" />
 	                        	<field name="lieu_birth" /> 
-	                        	<field name="lieu_ar" /> 
 	                        </group>
 	                  	</group>
 	                  	<newline/>
@@ -65,31 +64,28 @@
 	                    	<group>
 	                            <field name="contrat" />
 	                            <field name="groupe" />
-	                            <field name="metier" />
+	                            
 	                        </group>
 	                        <group>
 	                            <field name="cfa" />
-	                            <field name="province" />
-	                            <field name="parental_ar"/>
+	                            <field name="province" />   
 	                        </group>
 	                    </group>
 	                    <newline/>
 	                    <group string="Informations générales">
 	                    	<group>
 	                            <field name="date_start" />
-	                            <field name="sexe_ar" />
 	                            <field name="function" />
 	                            <field name="nv_scolaire" />
 	                            <field name="dure_formation" />
 	                            <field name="profession_tuteur_ar" />
 	                        </group>
 	                        <group>
-	                            <field name="date_debut_ar" />
 	                            <field name="date_end" />
 	                            <field name="diplom"/>
 	                            <field name="function_ar" />
-	                            <field name="nv_scolaire_ar"  />
 	                            <field name="dure_ar" />
+	                            <field name="parental_ar"/>
 	                        </group>
 	                    </group>
 	                    <newline/>

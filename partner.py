@@ -19,10 +19,7 @@
 #
 ##############################################################################
 from openerp.osv import osv,fields
-from openerp import netsvc
-from openerp import tools
 from openerp.tools.translate import _
-from openerp import addons
 import time
 from datetime import date
 
@@ -66,14 +63,10 @@ class sfp_apprenti(osv.osv):
             
             'name_arabic' : fields.char(u'الإسم العائلي',size=50),
             'first_name_arabic' : fields.char(u'الإسم الشخصي',size=50),
-            'sexe_ar' : fields.selection([('male',u'Masculin'),('female',u'Féminin')],u'الجنس',required=True), 
-            'lieu_ar' : fields.char(u'مكان الازدياد',size=50),
             'function_ar' : fields.char(u'الحرفة',size=50),
             'parental_ar' : fields.char(u'القرابة العائلية',size=50),
             'adresse_ar' : fields.char(u'عنوان السكى',size=50),
-            'nv_scolaire_ar' : fields.char(u'المستوى الدراسي',size=50),
             'dure_ar' : fields.char(u'مدة التكوين',size=50),
-            'date_debut_ar' : fields.char(u'تاريخ الانطﻻقة',size=50),
             'profession_tuteur_ar' : fields.char(u'مهة الاب',size=50),
             'situation_ar' : fields.char(u'الوضعية قبل الانخراط',size=50),
             'gender' : fields.selection([('male',u'Masculin'),('female',u'Féminin')],u'Sexe',required=True), 
@@ -82,7 +75,6 @@ class sfp_apprenti(osv.osv):
             'cfa' :fields.many2one('sfp.groupe', u'CFA'),
             'contrat' :fields.many2one('sfp.groupe', u'Contrat'),
             'province' :fields.many2one('sfp.province', u'Province'),
-            'metier' :fields.many2one('sfp.metier', u'Metier'),
             'age' : fields.function(_get_age,type='integer',string=u'âge'),
             'all_name' : fields.function(_get_name,type='char',string=u'Nom complet'),
             }
