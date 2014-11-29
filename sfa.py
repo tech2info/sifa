@@ -29,10 +29,9 @@ class sfp_contrat(orm.Model):
     _name = 'sfp.contrat'
     _columns = {
         'name': fields.char(u'Numero'),        
-        'type': fields.char(u'Type'),
-        'etat': fields.char(u'Etat'),
+        'type': fields.selection([('contrat',u'Contrat'),('declaration',u'Declaration')],u'Type'),
+        'etat': fields.selection([('abandon',u'Abandon'),('loureat',u'Loureat'),('formation',u'En formation')],u'Etat'),
         'relation': fields.char(u'Relation'),
-        'etat': fields.char(u'Etat'),
         'parent_link': fields.char(u'Lien Parental'),
         'date_start': fields.datetime(u'Date debut'),
         'date_end': fields.datetime(u"Date fin"), 
@@ -41,7 +40,7 @@ class sfp_contrat(orm.Model):
         'groupe': fields.many2one('sfp.groupe',u'Groupe'),
         'metier': fields.many2one('sfp.metier',u'Metier'),
         'responsable': fields.many2one('res.users',u'Responsable'),
-        'user': fields.many2one('res.users',u'Responsable'),
+        'user': fields.many2one('res.users',u'Utilisateur'),
         'entreprise': fields.many2one('res.partner',u'Entreprise'),
         'maitre': fields.many2one('sfp.maitre',u'Maitre'),
         'cfa': fields.many2one('sfp.cfa',u'CFA'),
@@ -49,6 +48,7 @@ class sfp_contrat(orm.Model):
         'province': fields.many2one('sfp.province',u'Province'),
         'vacataire': fields.many2one('res.partner',u'Vacataire'),
         'description': fields.text(u'Description'),
+        'invoice_ids': fields.one2many('account.invoice','contrat_id',u'Les Factures'),
     }
     
 

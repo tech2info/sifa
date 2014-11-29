@@ -145,5 +145,7 @@ class res_partner(osv.osv):
             }
     
     _defaults = {
+                 
+           'supplier' : lambda *a : True,
         
         }

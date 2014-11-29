@@ -22,43 +22,59 @@
                       <group>
 		                	<group>
 				                <field name="name" />
+				                <field name="entreprise" />
+				        
 				                <field name="type" />
-				                <field name="groupe" />
+
 				            </group>
 			                <group>
-			                	<field name="date_start" />
-			                	<field name="date_end" />
-			                	<field name="date_abandon" />
+			                    <field name="apprenti" />
+			                    <field name="vacataire" />
+			                    <field name="maitre" />
+
 			                </group>
 		               </group>
 		               <newline/>
 		               <group>
 		                	<group>
+		                	    
+				                <field name="groupe" />
 				                <field name="metier" />
-				                <field name="parent_link" />
+				                <field name="parent_link" placeholder="cas de declaration"/>
 				                
 				            </group>
 			                <group>
-			                	<field name="etat" />
+			                	<field name="responsable" placeholder="si mineur"/>
+			                	<field name="user" />
 			                	<field name="relation" />
 			                </group>
 		               </group>
 		               <newline/>
 		               <group>
 		                	<group>
-				                <field name="apprenti" />
-				                <field name="responsable" />
+				                
 				                <field name="cfa" />
-				                <field name="annexe" />
+				                <field name="annexe" readonly="True"/>
+				                <field name="date_start" />
 				                
 				            </group>
 			                <group>
-			                	<field name="entreprise" />
-			                	<field name="maitre" />
-			                	<field name="user" />
-			                	<field name="vacataire" />
+			                	
+			                	
+			                	<field name="date_end" />
+			                	<field name="etat" />
+			                	<field name="date_abandon" />
+			                <!-- <field name="user" />-->
+			                	
+			                	
 			                </group>
 		               </group>
+		                <notebook>
+		               <page string='Factures'>
+		               <field name='invoice_ids'/>
+		               </page>
+		               
+		               </notebook>
                     </sheet>
                 </form>
             </field>
