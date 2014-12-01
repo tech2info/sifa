@@ -137,7 +137,7 @@ class res_partner(osv.osv):
             'function_ar' : fields.char(u'الحرفة',size=50),
             'parental_ar' : fields.char(u'القرابة العائلية',size=50),
             'dure_ar' : fields.char(u'مدة التكوين',size=50),
-            'profession_tuteur_ar' : fields.char(u'مهة الاب',size=50),
+            'profession_tuteur_ar' : fields.char(u'مهة الاب او ولي الامر ',size=50),
             'situation_ar' : fields.char(u'الوضعية قبل الانخراط',size=50),
             'province' :fields.many2one('sfp.province', u'Province'),
 

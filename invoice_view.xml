@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- form -->
+    
+      <record model="ir.ui.view" id="invoice_supplier_form">
+            <field name="name">account.invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form" /> 
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="contrat_id"/>
+                </field>
+            </field>
+    </record>
+    
+   </data> 
+</openerp>
