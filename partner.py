@@ -18,48 +18,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import osv,fields
+from openerp.osv import orm, fields
 from openerp.tools.translate import _
 import time
 from datetime import date
-  
-    
-class sfp_tuteur(osv.osv):
-    _name = 'sfp.tuteur'
-    _columns = {
-        'name_ar': fields.char(u'الاسم',required=True),        
-        'last_name_ar': fields.char(u'النسب', translate=True),
-        'date_birth': fields.datetime(u'تاريخ الازدياد'),
-        'lieu_ar': fields.char(u'مكان الازدياد'), 
-        'na_ar': fields.char(u'الصفة'),   
-        'adresse_ar': fields.char(u'عوان محل السكنى'),
-        'profession_ar': fields.char(u'المهنة'),    
-        'tel_ar': fields.char(u'Tel'), 
-        'cin_ar': fields.char(u'CIN',required=True),   
-        'description': fields.text(u'Description'),  
-    }
-    
 
-class sfp_maitre(osv.osv):
-    _name = 'sfp.maitre'
-    _columns = {
-                
-        'name': fields.char(u'Nom',required=True),
-        'last_name': fields.char(u'Prènom'), 
-        'name_ar': fields.char(u'الاسم'),        
-        'last_name_ar': fields.char(u'النسب'),
-        'encadrant': fields.char(u'بصفته مؤطر بالمقاولة'),
-        'gender' : fields.selection([('male',u'Masculin'),('female',u'Féminin')],u'Sexe',required=True),    
-        'age': fields.char(u'Age'),
-        'n_entreprise': fields.char(u'N entreprise'),    
-        'tel': fields.char(u'Tel'), 
-        'cin': fields.char(u'CIN'),   
-        'description': fields.text(u'Description'),  
-    }
-    
-    
-    
-class res_partner(osv.osv):
+class res_partner(orm.Model):
     
     _name='res.partner'
     _inherit = 'res.partner' 
@@ -74,20 +38,10 @@ class res_partner(osv.osv):
                 data[object_parent.id]=today.year-date_birth.tm_year
         return data
     
-    def _get_name(self,cr,uid,ids,name,args,context={}):
-        data = {}
-        for data_read in self.read(cr,uid,ids,['name','first_name','title']):
-           if data_read['first_name']:
-                data['first_name'] =True
-                data[data_read['id']] = u"%s %s %s" %(data_read['title'] and ('%s ' %data_read['title'][1]) or '',data_read['name'],data_read['first_name'])
-           else:  
-                data[data_read['id']] = u"%s %s" %(data_read['title'] and ('%s ' %data_read['title'][1]) or '',data_read['name'])
-        return data
     
     _columns = {
-            'first_name' : fields.char(u'Prénom'),
             'name_arabic' : fields.char(u'الإسم '),
-            'first_name_arabic' : fields.char(u'السب'),
+            'first_name_arabic' : fields.char(u'النسب'),
             'lieu_birth' : fields.char(u'lieu de naissance'),
             'age' : fields.function(_get_age,type='integer',string=u'âge'),
             'cin' : fields.char(u'CIN',size=50),
@@ -110,15 +64,14 @@ class res_partner(osv.osv):
             'employe_nbr' : fields.char(u'عدد العاملين بها'),
             'inscription_nbr' : fields.char(u'عدد المتدرجين بها'),
             'gender' : fields.selection([('male',u'Masculin'),('female',u'Féminin')],u'Sexe',required=True), 
+            'gender_ar' : fields.selection([('male',u'دكر'),('female',u'انتى')],u'الجنس',required=True), 
             'groupe' : fields.many2one('sfp.groupe', u'Groupe'),
             'cfa' :fields.many2one('sfp.groupe', u'CFA'),
             'contrat' :fields.many2one('sfp.groupe', u'Contrat'),
-            'all_name' : fields.function(_get_name,type='char',string=u'Nom complet'),
-            
-            'apprenti_ok': fields.boolean('Apprenti'),
+
             'vacataire_ok': fields.boolean('Vacataire'),
             'entreprise_ok': fields.boolean('Entreprise'),
-            
+            'customer': fields.boolean('Is a Customer', help="Check this box if this contact is a customer."),
             #vacataire
             'vac_year' : fields.char(u'Année de vacation'),
             'nbr_visite' : fields.char(u'Nombre de visites'),
@@ -126,26 +79,12 @@ class res_partner(osv.osv):
             'grade_ids': fields.many2many('sfp.grade','sfp_grade_rel','vacataire_id','grade_id',u'Grades'), 
             'matier_ids': fields.many2many('sfp.matier','sfp_matier_rel','vacataire_id','matier_id',u'Matières'), 
 
-            #apprenti
-            'nv_scolaire' : fields.char(u'Niveau scolaire',size=50),
-            'dure_formation' : fields.char(u'Dure de formation',size=50),
-            'diplom' : fields.char(u'Diplom',size=50),
-            'en_formation': fields.boolean('En formation'),
-            'abandon': fields.boolean('Abandon'),
-            'date_abandon' : fields.datetime(u'Date Abandon',size=50),
-            'laureat': fields.boolean('Laureat'),
-            'function_ar' : fields.char(u'الحرفة',size=50),
-            'parental_ar' : fields.char(u'القرابة العائلية',size=50),
-            'dure_ar' : fields.char(u'مدة التكوين',size=50),
-            'profession_tuteur_ar' : fields.char(u'مهة الاب او ولي الامر ',size=50),
-            'situation_ar' : fields.char(u'الوضعية قبل الانخراط',size=50),
-            'province' :fields.many2one('sfp.province', u'Province'),
-
 
             }
     
     _defaults = {
                  
-           'supplier' : lambda *a : True,
+         'customer': False,
+         'supplier': True,
         
         }

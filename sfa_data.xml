@@ -328,6 +328,21 @@
 	            <field name="description">CFA-4 Dar Dbagh</field>
 	            <field name="order">1</field>
 	    </record>
+	    
+	    
+	   <record model="sfp.level" id="sfp_level">
+	            <field name="name">Spaciallisation</field>
+	            <field name="code">S</field>
+	            <field name="description">Spaciallisation</field>
+	            <field name="order">1</field>
+	    </record>
+	    
+	    <record model="sfp.level" id="sfp_level1">
+	            <field name="name">Apprentissage</field>
+	            <field name="code">App</field>
+	            <field name="description">Apprentissage</field>
+	            <field name="order">1</field>
+	    </record>
    
 	</data>    
 </openerp>

@@ -7,7 +7,7 @@
     	<!-- menu apprentissage -->
     	<menuitem id="menu_fpa_apprentissage" name="Apprentissage" parent="menu_sfp" sequence="1"/>
               <menuitem id="sfp_config_contrat" name="Contrat" parent="menu_fpa_apprentissage" action="action_view_contrat"/>
-              <menuitem id="sfp_config_apprenti" name="Apprenti" parent="menu_fpa_apprentissage" action="action_sfp_partner_apprenti1"/>
+              <menuitem id="sfp_config_apprenti" name="Apprenti" parent="menu_fpa_apprentissage" action="action_sfp_partner_appren"/>
               <menuitem id="sfp_config_tuteur" name="Tuteur" parent="menu_fpa_apprentissage" action="action_view_tuteur"/>
               <menuitem id="sfp_config_entreprise" name="Entreprise" parent="menu_fpa_apprentissage" action="action_sfp_partner_entreprise"/>
               <menuitem id="sfp_config_maitre" name="Maitre d'apprenti" parent="menu_fpa_apprentissage" action="action_view_maitre"/>
@@ -19,6 +19,7 @@
               <menuitem id="sfp_config_matier" name="Matière" parent="menu_fpa_config" action="action_view_matier"/>
               <menuitem id="sfp_config_grade" name="Grade" parent="menu_fpa_config" action="action_view_grade"/>
               <menuitem id="sfp_config_sector" name="Secteur" parent="menu_fpa_config" action="action_view_sector"/>
+              <menuitem id="sfp_config_sector_training" name="Secteur formation" parent="menu_fpa_config" action="action_view_sector_training"/>
               <menuitem id="sfp_config_level" name="Niveau" parent="menu_fpa_config" action="action_view_level"/>
               <menuitem id="sfp_config_metier" name="Metier" parent="menu_fpa_config" action="action_view_metier"/>
               <menuitem id="sfp_config_annexe" name="Annexe" parent="menu_fpa_config" action="action_view_annexe"/>
