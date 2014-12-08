@@ -1,0 +1,37 @@
+OpenERP module : After Sale services (SAV)
+
+Copyright (c) 
+    2014 - Ait-Mlouk addi /INFOSIT R&B , All Right Reserved
+
+License
+-------
+We chose to distribute this module under AGPL-3 license term. See LICENCE file
+for details.
+
+Required dependencies
+---------------------
+ - An OpenERP version 7 environment.
+
+Description
+-----------
+this modul is about claims management
+
+Configuration
+-------------
+Just install the module in OpenERP V7 environment.
+We hope it work for you.
+
+=======================
+-------------------------------------
+Follow us  :
+---------------------------------------
+Ait-Mlouk Addi (Consultant Technico-Fnctionnel Junior OpenERP)
+odoo-services :Services en Logiciels Libres, All Right Reserved
+Gmail: aitmlouk@gmail.com
+Tél  : 0672977726
+
+website  : http://www.odoo-services.esy.es/
+blog     : http://aitmlouk-addi.blogspot.com/
+​Profile  : http://www.doyoubuzz.com/addi-ait-mlouk
+Linkedin : http://ma.linkedin.com/pub/addi-ait-mlouk/56/850/32a
+Viadeo   : http://ma.viadeo.com/fr/profile/addi.mlk
