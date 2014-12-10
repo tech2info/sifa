@@ -92,22 +92,9 @@ class sfp_maitre(orm.Model):
 class sfp_apprenti(orm.Model):
     
     _name='sfp.apprenti'
-    _inherit = 'res.partner' 
-       
-    def _get_age(self, cr, uid, ids, name, arg, context={}):
-        data={}
-        for object_parent in self.browse(cr,uid,ids):
-            data[object_parent.id] = 0
-            today = date.today()
-            if object_parent.birthdate:
-                date_birth=time.strptime(object_parent.birthdate, '%Y-%m-%d')
-                data[object_parent.id]=today.year-date_birth.tm_year
-        return data
-    
-    
+ 
     _columns = {
 
-            #apprenti
             'nv_scolaire' : fields.char(u'Niveau scolaire',size=50),
             'dure_formation' : fields.char(u'Dure de formation',size=50),
             'diplom' : fields.char(u'Diplom',size=50),
@@ -120,15 +107,8 @@ class sfp_apprenti(orm.Model):
             'dure_ar' : fields.char(u'مدة التكوين',size=50),
             'profession_tuteur_ar' : fields.char(u'مهة الاب او ولي الامر ',size=50),
             'situation_ar' : fields.char(u'الوضعية قبل الانخراط',size=50),
-            'province' :fields.many2one('sfp.province', u'Province'),
-
-
             }
     
-    _defaults = {
-                 
-        
-        }
 
 class sfp_matier(orm.Model):
     _name = 'sfp.matier'

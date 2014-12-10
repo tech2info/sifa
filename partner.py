@@ -63,15 +63,15 @@ class res_partner(orm.Model):
             'payment_mode' : fields.char(u'Mode de payement'),
             'employe_nbr' : fields.char(u'عدد العاملين بها'),
             'inscription_nbr' : fields.char(u'عدد المتدرجين بها'),
-            'gender' : fields.selection([('male',u'Masculin'),('female',u'Féminin')],u'Sexe',required=True), 
-            'gender_ar' : fields.selection([('male',u'دكر'),('female',u'انتى')],u'الجنس',required=True), 
+            'gender_' : fields.selection([('male',u'Masculin'),('female',u'Féminin')],u'Sexe'), 
+            'gender_ar' : fields.selection([('male',u'دكر'),('female',u'انتى')],u'الجنس'), 
             'groupe' : fields.many2one('sfp.groupe', u'Groupe'),
             'cfa' :fields.many2one('sfp.groupe', u'CFA'),
             'contrat' :fields.many2one('sfp.groupe', u'Contrat'),
 
             'vacataire_ok': fields.boolean('Vacataire'),
             'entreprise_ok': fields.boolean('Entreprise'),
-            'customer': fields.boolean('Is a Customer', help="Check this box if this contact is a customer."),
+           
             #vacataire
             'vac_year' : fields.char(u'Année de vacation'),
             'nbr_visite' : fields.char(u'Nombre de visites'),
@@ -82,9 +82,3 @@ class res_partner(orm.Model):
 
             }
     
-    _defaults = {
-                 
-         'customer': False,
-         'supplier': True,
-        
-        }
