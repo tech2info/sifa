@@ -53,6 +53,7 @@ With this module you can following all contracts.
         'sfa_report.xml',
         'views/report_apprenti.xml',
         'data/sfa_data.xml',
+        'data/sfa_sequence.xml',
         #'views/report_sfa.xml',
        
         

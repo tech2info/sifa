@@ -28,6 +28,24 @@ from datetime import date
 
 class sfp_contrat(orm.Model):
     _name = 'sfp.contrat'
+    _description = 'les contrats'
+    
+    def create(self, cr, user, vals, context=None):
+        u"""méthode créer"""
+        if ('name' not in vals) or (vals.get('name')=='/'):
+            vals['name'] = self.pool.get('ir.sequence').get(cr, user, 'sfp.contrat')
+        return super(sfp_contrat, self).create(cr, user, vals, context) 
+    
+    def action_done(self, cr, uid, ids, context=None):
+        return self.write(cr,uid,ids,{'state' : 'done'})
+    
+    def action_cancel(self, cr, uid, ids, context=None):
+        return self.write(cr,uid,ids,{'state' : 'cancel'})
+    
+    def action_draft(self, cr, uid, ids, context=None):
+        return self.write(cr,uid,ids,{'state' : 'draft'})
+    
+    
     _columns = {
         'name': fields.char(u'Numero'),        
         'type': fields.selection([('contrat',u'Contrat'),('declaration',u'Declaration')],u'Type'),
@@ -50,8 +68,16 @@ class sfp_contrat(orm.Model):
         'vacataire': fields.many2one('res.partner',u'Vacataire',domain=[('vacataire_ok','=',True)]),
         'description': fields.text(u'Description'),
         'invoice_ids': fields.one2many('account.invoice','contrat_id',u'Les Factures'),
+        'state' : fields.selection([('draft',u'En cours'),('done',u'Validé'),('cancel',u'Annulé')],u'Statut',required=True),
+   
     }
     
+    _defaults = {  
+        'state': lambda *a: 'draft',
+        'user' : lambda x, y, z, c: z,
+        'name': lambda self, cr, uid, context: '/',
+        'date_start': lambda *a : time.strftime('%Y-%m-%d'),
+        }
 
    
 class sfp_tuteur(orm.Model):
@@ -92,16 +118,48 @@ class sfp_maitre(orm.Model):
 class sfp_apprenti(orm.Model):
     
     _name='sfp.apprenti'
+    
+    
+    def _get_age(self, cr, uid, ids, name, arg, context={}):
+        data={}
+        for object_parent in self.browse(cr,uid,ids):
+            data[object_parent.id] = 0
+            today = date.today()
+            if object_parent.birthdate:
+                date_birth=time.strptime(object_parent.birthdate, '%Y-%m-%d')
+                data[object_parent.id]=today.year-date_birth.tm_year
+        return data
  
     _columns = {
-
+            'name': fields.char('Name', required=True, select=True),
+            'name_arabic' : fields.char(u'الإسم '),
+            'first_name_arabic' : fields.char(u'النسب'),
+            'birthdate': fields.char('Birthdate'),
+            'lieu_birth' : fields.char(u'lieu de naissance'),
+            'age' : fields.function(_get_age,type='integer',string=u'âge'),
+            'cin' : fields.char(u'CIN',size=50),
+            'function': fields.char('Job Position'),
+            'gender_' : fields.selection([('male',u'Masculin'),('female',u'Féminin')],u'Sexe'), 
+            'gender_ar' : fields.selection([('male',u'دكر'),('female',u'انتى')],u'الجنس'), 
+            'image': fields.binary("Image",help="This field holds the image used as avatar for this contact, limited to 1024x1024px"),
+            
+            'street': fields.char('Street'),
+            'street2': fields.char('Street2'),
+            'zip': fields.char('Zip', size=24, change_default=True),
+            'city': fields.char('City'),
+            'state_id': fields.many2one("res.country.state", 'State', ondelete='restrict'),
+            'country_id': fields.many2one('res.country', 'Country', ondelete='restrict'),
+            'email': fields.char('Email'),
+            'phone': fields.char('Phone'),
+            'fax': fields.char('Fax'),
+            'mobile': fields.char('Mobile'),
+            'website': fields.char('Website', help="Website of Partner or Company"),
+             
             'nv_scolaire' : fields.char(u'Niveau scolaire',size=50),
             'dure_formation' : fields.char(u'Dure de formation',size=50),
             'diplom' : fields.char(u'Diplom',size=50),
-            'en_formation': fields.boolean('En formation'),
-            'abandon': fields.boolean('Abandon'),
-            'date_abandon' : fields.datetime(u'Date Abandon',size=50),
-            'laureat': fields.boolean('Laureat'),
+            'user': fields.many2one('res.users',u'Utilisateur'),
+
             'function_ar' : fields.char(u'الحرفة',size=50),
             'parental_ar' : fields.char(u'القرابة العائلية',size=50),
             'dure_ar' : fields.char(u'مدة التكوين',size=50),
@@ -127,7 +185,7 @@ class sfp_grade(orm.Model):
     _columns = {
         'name': fields.char(u'Nom', required=True),
         'code': fields.char(u'Code', translate=True),
-        'price_h': fields.integer(u'Taux horaire'),
+        'price_h': fields.float(u'Taux horaire'),
         'description': fields.text(u'Description', translate=True),
         'vacataire': fields.many2one('res.partner',u'Vacataire', translate=True),
         
@@ -148,8 +206,8 @@ class sfp_training_sector(orm.Model):
     _columns = {
         'name': fields.char(u'Nom', required=True),
         'code': fields.char(u'Code', translate=True),
-        'metier_ids': fields.one2many('sfp.metier','training_sect',u'Metiers'),
         'description': fields.text(u'Description', translate=True),
+        'metier_ids': fields.one2many('sfp.metier','sect_id',u'Metiers'),
         'sector_id': fields.many2one('sfp.sector', u'Secteur'),
         
     }
@@ -170,10 +228,10 @@ class sfp_metier(orm.Model):
         'name_ar': fields.char(u'الاسم'),
         'code': fields.char(u'Code', translate=True),      
         'dure': fields.selection([('11',u'11'),('22',u'22')],u'Dure',required=True),
-        'level': fields.many2one('sfp.level', u'Niveau',translate=True),
-        'sector': fields.many2one('sfp.sector', u'Secteur',translate=True),
-        'description': fields.text(u'Description', translate=True),
-        'training_sect': fields.many2one('sfp.sectortraining', u'Secteur de formation'),
+        'level': fields.many2one('sfp.level', u'Niveau'),
+        'sector': fields.many2one('sfp.sector', u'Secteur'),
+        'description': fields.text(u'Description'),
+        'sect_id': fields.many2one('sfp.sectortraining', u'Secteur de formation'),
     }
     
 

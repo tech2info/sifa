@@ -71,14 +71,31 @@ class res_partner(orm.Model):
 
             'vacataire_ok': fields.boolean('Vacataire'),
             'entreprise_ok': fields.boolean('Entreprise'),
-           
+            'customer': fields.boolean('Is a Customer', help="Check this box if this contact is a customer."),
+                       
             #vacataire
             'vac_year' : fields.char(u'Année de vacation'),
             'nbr_visite' : fields.char(u'Nombre de visites'),
-            'masse_horaire' : fields.char(u'Masse horaire'),
-            'grade_ids': fields.many2many('sfp.grade','sfp_grade_rel','vacataire_id','grade_id',u'Grades'), 
+            'price' : fields.char(u'Taux horaire '),   
+            'masse_horaire' : fields.char(u'Année de vacation'),
+            'grade': fields.many2one('sfp.grade',u'Grade'), 
             'matier_ids': fields.many2many('sfp.matier','sfp_matier_rel','vacataire_id','matier_id',u'Matières'), 
 
 
             }
+    
+    _defaults = {
+             
+         'customer': False,
+         'supplier': True, 
+         
+                  }
+    
+    def onchange_grade(self,cr,uid,ids,grade,context={}):
+        data={}
+        if grade:
+            object_grade=self.pool.get('sfp.grade').browse(cr,uid,grade)
+            if object_grade:
+                data['price'] = object_grade.price_h or False
+        return {'value' : data }
     

@@ -9,7 +9,7 @@
         <record id="seq_sfa_contrat" model="ir.sequence">
             <field name="name">SFA Contrat</field>
             <field name="code">sfp.contrat</field>
-            <field name="prefix">Contrat-</field>
+            <field name="prefix">C-</field>
             <field name="padding">5</field>
         </record>
 
