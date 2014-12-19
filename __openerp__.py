@@ -30,8 +30,8 @@
     'summary' : 'Contrats, Entreprises, Apprentis, vacataires',
     "description": """
 Système de formation par apprentissage est un système complet qui gère le processus de formation 
-par apprentissage des ensembles des groupes des apprentis qui ont benifie de formation 
-aupres des centres.il constituent de:
+par apprentissage d'un  ensembles de groupes des apprentis qui ont inscrit dans une  formation 
+aupres des centres cfa .il constituent de:
  - contart.
  - Metiers.
  - Apprenties.

@@ -14,7 +14,7 @@
                     <div class="oe_title oe_left">
                         <div class="oe_edit_only">
                             <label for="name" attrs="{'invisible' : ['|',('entreprise_ok','=',True),('vacataire_ok','=',True)]}"/> (
-                            <field name="is_company" on_change="onchange_type(is_company)" class="oe_inline" attrs="{'invisible' : ['|',('entreprise_ok','=',True),('vacataire_ok','=',True)]}"/> <label for="is_company" string="Is a Company?" attrs="{'invisible' : ['|',('entreprise_ok','=',True),('entreprise_ok','=',True)]}"/>)
+                            <field name="is_company" on_change="onchange_type(is_company)" class="oe_inline" attrs="{'invisible' : ['|',('entreprise_ok','=',True),('vacataire_ok','=',True)]}"/> <label for="is_company" string="Is a Company?" attrs="{'invisible' : ['|',('entreprise_ok','=',True),('vacataire_ok','=',True)]}"/>)
                             <field name="entreprise_ok" class="oe_inline"/> <label for="entreprise_ok" string="Entreprise"/>
                             <field name="vacataire_ok" class="oe_inline"/> <label for="vacataire_ok" string="Vacataire"/>
                         </div>
@@ -33,7 +33,7 @@
                     <newline/>
                     </group>
                     
-	                    <group string="Identification">
+	                    <group string="Identification" attrs="{'invisible' : [('vacataire_ok','=',False)]}">
 	                        <group >
 	                            <field name="name_arabic" />   
 	                            <field name="birthdate" />       
@@ -360,7 +360,7 @@
             </field>
         </record>
          
-       <!-- Partner tree-->
+       <!-- entreprise tree-->
         <record id="base.view_partner_tree" model="ir.ui.view">
             <field name="name">res.partner.tree</field>
             <field name="model">res.partner</field>
@@ -368,17 +368,43 @@
             <field name="arch" type="xml">
                 <tree string="Contacts">
                     <field name="display_name"/>
-                    <field name="function" invisible="1"/>
+                    <field name="name_arabic"/>
+                    <field name="cin"/>
+                    <field name="name_entreprise" />
+                    <field name="domaine_travail" />
+                    <field name="ahbas" />
+                    <field name="montant_percu" />
+                    <field name="employe_nbr" />
+                    <field name="inscription_nbr" />
+                    <field name="gender_"/>
                     <field name="phone"/>
                     <field name="email"/>
-                    <field name="user_id" invisible="1"/>
-                    <field name="is_company" invisible="1"/>
-                    <field name="country_id" invisible="1"/>
-                    <field name="parent_id" invisible="1"/>
+
                 </tree>
             </field>
         </record>
          
+       <!-- vacataire tree-->
+        <record id="vac_view_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Contacts">
+                    <field name="display_name"/>
+                    <field name="name_arabic"/>
+                    <field name="cin"/>
+                    <field name="gender_"/>
+                    <field name="vac_year" />
+                    <field name="nbr_visite" />
+                    <field name="masse_horaire" />
+                    <field name="phone"/>
+                    <field name="email"/>
+
+                </tree>
+            </field>
+        </record>
+        
 	    <!-- action entreprise -->
 	    
 	    <record id="action_sfp_partner_entreprise" model="ir.actions.act_window">
@@ -434,7 +460,7 @@
 	    <record id="act_view_sfp_vacataire_tree" model="ir.actions.act_window.view">
 	            <field eval="2" name="sequence"/>
 	            <field name="view_mode">tree</field>
-	            <field name="view_id" ref="base.view_partner_tree"/>
+	            <field name="view_id" ref="vac_view_partner_tree"/>
 	            <field name="act_window_id" ref="action_sfp_partner_vacataire"/>
 	    </record>
 	    

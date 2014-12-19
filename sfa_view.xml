@@ -17,9 +17,10 @@
             <field name="arch" type="xml">
                 <search string="Recherche des contrats">
                 	<group>
-	                	<filter  icon="terp-stage" string="En cours" domain="[('state','=','draft')]" help=""/>
-	                	<filter  icon="terp-stage" string="Terminé" domain="[('state','=','done')]" help=""/>
-	                	<filter  icon="terp-stage" string="Annulé" domain="[('state','=','cancel')]" help=""/>
+	                	<filter  icon="terp-stage" string="Préinscription" domain="[('state','=','preinscription')]" help=""/>
+	                	<filter  icon="terp-stage" string="En Formation" domain="[('state','=','en_formation')]" help=""/>
+	                	<filter  icon="terp-stage" string="Lauréat" domain="[('state','=','laureat')]" help=""/>
+	                	<filter  icon="terp-stage" string="Abandonné" domain="[('state','=','cancel')]" help=""/>
                 	</group>
                 	<newline/>
                     <field name="name"/>
@@ -32,7 +33,6 @@
                   		<filter string="De qui" icon="stock_person" domain="[]" context="{'group_by':'user'}"/>
                   		<filter string="Responsable" icon="terp-go-year" domain="[]" context="{'group_by':'responsable'}"/>
                   		<filter string="Date" icon="stock_person" domain="[]" context="{'group_by':'date_start'}"/>
-                  		<filter string="Type" icon="stock_person" domain="[]" context="{'group_by':'type'}"/>
                   		<filter string="CFA" icon="stock_person" domain="[]" context="{'group_by':'cfa'}"/>
                   	</group>
                  </search>
@@ -47,9 +47,10 @@
             <field name="arch" type="xml">
                 <form string="Contrat" version="7.0">
                     <header>
-                		<button name="action_done" states="draft" string="Valider" type="object" icon="gtk-go-forward" />
-		                <button name="action_cancel" states="done" string="Annuler" type="object" icon="gtk-cancel" />
-		                <button name="action_draft" states="cancel" string="Remettre en brouillon" type="object" icon="terp-stock_effects-object-colorize" />
+                		<button name="action_training" states="draft" string="Inscrire" type="object" icon="gtk-go-forward" />
+		                <button name="action_cancel" states="en_formation" string="Abandonné" type="object" icon="gtk-cancel" />
+		                <button name="action_laureat" states="en_formation" string="Lauréat" type="object" icon="gtk-go-forward" />
+		                <button name="action_preinscription" states="cancel" string="Remettre en brouillon" type="object" icon="terp-stock_effects-object-colorize" />
                 		<field name="state" widget="statusbar" />
                 	</header>
                     <sheet>
@@ -58,7 +59,7 @@
 				                <field name="name" />
 				                <field name="entreprise" />
 				        
-				                <field name="type" />
+				                <field name="declaration" />
 
 				            </group>
 			                <group>
@@ -575,8 +576,18 @@
 		               </group>
                     <newline/>
                     <notebook colspan="4" >
-                        <page string="Apprentis">
-		              	  <field name="apprenti_ids"  />
+                        <page string="Contrats">
+                         <field name="contrat_ids" >
+                        <tree>
+		              	     <field name="name"/>
+		              	     <field name="apprenti"/>
+		              	     <field name="responsable"/>
+		              	     <field name="entreprise"/>
+		              	     <field name="maitre"/>
+		              	     <field name="date_start"/>
+		              	     <field name="date_end"/>
+		              	 </tree>
+		              	</field>
 		                </page>
 		                
 	                	<page string="Description">
@@ -940,7 +951,7 @@
                       <group>
 		                	<group>
 				                <field name="name" />
-				                <field name="dure" />
+				                <field name="duree" />
 				                <field name="sect_id" />
 				            <!--      <field name="sector" />-->
 				            </group>
@@ -966,7 +977,7 @@
                 <tree string="Metier">
                     <field name="name" />
                     <field name="code" />
-                    <field name="dure" />
+                    <field name="duree" />
                     <field name="level" />
                     <field name="sector" />
                     <field name="description" />

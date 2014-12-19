@@ -77,7 +77,7 @@ class res_partner(orm.Model):
             'vac_year' : fields.char(u'Année de vacation'),
             'nbr_visite' : fields.char(u'Nombre de visites'),
             'price' : fields.char(u'Taux horaire '),   
-            'masse_horaire' : fields.char(u'Année de vacation'),
+            'masse_horaire' : fields.char(u'AMasse horaire'),
             'grade': fields.many2one('sfp.grade',u'Grade'), 
             'matier_ids': fields.many2many('sfp.matier','sfp_matier_rel','vacataire_id','matier_id',u'Matières'), 
 

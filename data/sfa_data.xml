@@ -1,159 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data  noupdate="0" >
-
-	    <!-- annexe -->
-	    <record model="sfp.annexe" id="sfp_annexe">
-	            <field name="name">Espace de formation  Amizmiz</field>
-	            <field name="code">Amizmiz</field>
-	            <field name="description">Espace de formation  Amizmiz</field>
+        
+        <!-- CFA -->
+	    <record model="sfp.cfa" id="sfp_cfa">
+	            <field name="name">Ait Faska</field>
+	            <field name="code">CFA-1</field>
+	            <field name="description"> CFA Ait Faska</field>
 	            <field name="order">1</field>
-	          <!--   <field name="academic" ref="morocco_academic"/>-->
 	    </record>
 	    
-	    <record model="sfp.annexe" id="sfp_annexe1">
-	            <field name="name">Espace de Formation Tameslohte</field>
-	            <field name="code">Tameslohte</field>
-	            <field name="description">Espace de Formation Tameslohte</field>
-	            <field name="order">2</field>
+	    <record model="sfp.cfa" id="sfp_cfa1">
+	            <field name="name">Chichaoua</field>
+	            <field name="code">CFA-2</field>
+	            <field name="description">CFA-2 Chichaoua </field>
+	            <field name="order">1</field>
 	    </record>
-	    
-	    <record model="sfp.annexe" id="sfp_annexe2">
-	            <field name="name">Espace de Formation Oulad Mtaa</field>
-	            <field name="code">Oulad Mtaa</field>
-	            <field name="description">Espace de Formation Oulad Mtaa</field>
-	            <field name="order">3</field>
+	    <record model="sfp.cfa" id="sfp_cfa2">
+	            <field name="name">Ben Guerir</field>
+	            <field name="code">CFA-3</field>
+	            <field name="description">CFA-3 Ben Guerir</field>
+	            <field name="order">1</field>
 	    </record>
-	    
-	     <record model="sfp.annexe" id="sfp_annexe3">
-	            <field name="name">Espace de Formation Tighedouine</field>
-	            <field name="code">Tighedouine</field>
-	            <field name="description">Espace de Formation Tighedouine</field>
-	            <field name="order">3</field>
+	    <record model="sfp.cfa" id="sfp_cfa3">
+	            <field name="name">Dar Dbagh</field>
+	            <field name="code">CFA-4</field>
+	            <field name="description">CFA-4 Dar Dbagh</field>
+	            <field name="order">1</field>
 	    </record>
-	     <record model="sfp.annexe" id="sfp_annexe4">
-	            <field name="name">Espace de Formation Tahannaout</field>
-	            <field name="code">Tahannaout</field>
-	            <field name="description">Espace de Formation Tahannaout</field>
-	            <field name="order">3</field>
-	    </record>
-	     <record model="sfp.annexe" id="sfp_annexe5">
-	            <field name="name">Espace de Formation Azgour</field>
-	            <field name="code">Azgour</field>
-	            <field name="description">Espace de Formation Azgour</field>
-	            <field name="order">3</field>
-	    </record>
-	     <record model="sfp.annexe" id="sfp_annexe6">
-	            <field name="name">Espace de Formation Tizguine</field>
-	            <field name="code">Tizguine</field>
-	            <field name="description">Espace de Formation Tizguine</field>
-	            <field name="order">3</field>
-	    </record>
-	     <record model="sfp.annexe" id="sfp_annexe7">
-	            <field name="name">Espace de Formation Lalla Takarkoust</field>
-	            <field name="code">Lalla Takarkoust</field>
-	            <field name="description">Espace de Formation Lalla Takarkoust</field>
-	            <field name="order">3</field>
-	    </record>
-	    
-	    <record model="sfp.annexe" id="sfp_annexe8">
-	            <field name="name">Espace de Formation Talat N'Yaaqoub</field>
-	            <field name="code">Talat N'Yaaqoub</field>
-	            <field name="description">Espace de Formation Talat N'Yaaqoub</field>
-	            <field name="order">3</field>
-	    </record>
-	    <record model="sfp.annexe" id="sfp_annexe9">
-	            <field name="name">La maison de citoyen Sidi El Mokhtar</field>
-	            <field name="code">Sidi El Mokhtar</field>
-	            <field name="description">La maison de  citoyen  Sidi El Mokhtar</field>
-	            <field name="order">3</field>
-	    </record>
-	    <record model="sfp.annexe" id="sfp_annexe10">
-	            <field name="name">Ensemble Artisanale Chichaoua</field>
-	            <field name="code">Chichaoua</field>
-	            <field name="description">Ensemble Artisanale Chichaoua</field>
-	            <field name="order">3</field>
-	    </record>
-	    <record model="sfp.annexe" id="sfp_annexe11">
-	            <field name="name">Annexe de La Chambre d’Artisanat à ElKelâa des Sraghnas</field>
-	            <field name="code">El Kelâa des Sraghnas</field>
-	            <field name="description">Annexe de La Chambre d’Artisanat à  El Kelâa des Sraghnas</field>
-	            <field name="order">3</field>
-	    </record>
-	    <record model="sfp.annexe" id="sfp_annexe12">
-	            <field name="name">Espace de Formation Laattaouia</field>
-	            <field name="code">Laattaouia</field>
-	            <field name="description">Espace de Formation Laattaouia</field>
-	            <field name="order">3</field>
-	    </record>
-	    
-	     <record model="sfp.annexe" id="sfp_annexe13">
-	            <field name="name">Espace de Formation Tamallalt</field>
-	            <field name="code">Tamallalt</field>
-	            <field name="description">Espace de Formation  Tamallalt</field>
-	            <field name="order">3</field>
-	    </record>
-	     <record model="sfp.annexe" id="sfp_annexe14">
-	            <field name="name">Espace de Formation Sidi Rahhal</field>
-	            <field name="code">Sidi Rahhal</field>
-	            <field name="description">Espace de Formation  Sidi Rahhal</field>
-	            <field name="order">3</field>
-	    </record>
-	     <record model="sfp.annexe" id="sfp_annexe15">
-	            <field name="name">Maison de la femme et de l’enfant  Mhamid Marrakech</field>
-	            <field name="code">Mhamid Marrakech</field>
-	            <field name="description">Maison de la femme et de l’enfant  Mhamid Marrakech</field>
-	            <field name="order">3</field>
-	    </record>
-	     <record model="sfp.annexe" id="sfp_annexe16">
-	            <field name="name">Association «Sabil El Amal» pour la coopération et la solidarité Dr ouled Berrahmoune Marrakech</field>
-	            <field name="code">Dr ouled Berrahmoune Marrakech</field>
-	            <field name="description">Association  « Sabil El Amal » pour la coopération et la  solidarité   Dr ouled Berrahmoune Marrakech</field>
-	            <field name="order">3</field>
-	    </record>
-	     <record model="sfp.annexe" id="sfp_annexe17">
-	            <field name="name">Association « Albustan » pour le Développement Dr old  Belaagid Marrakech</field>
-	            <field name="code">Belaagid Marrakech</field>
-	            <field name="description">Association « Albustan » pour le Développement Dr old  Belaagid Marrakech</field>
-	            <field name="order">3</field>
-	    </record>
-	     <record model="sfp.annexe" id="sfp_annexe18">
-	            <field name="name">Association «Atlass» Saada Lamrabtine Marrakech</field>
-	            <field name="code">Saada Lamrabtine Marrakech</field>
-	            <field name="description">Association  « Atlass »  Saada Lamrabtine Marrakech</field>
-	            <field name="order">3</field>
-	    </record>
-	     <record model="sfp.annexe" id="sfp_annexe19">
-	            <field name="name">Espace de Formation Laattaouia</field>
-	            <field name="code">Laattaouia</field>
-	            <field name="description">Espace de Formation Laattaouia</field>
-	            <field name="order">3</field>
-	    </record>
-	     <record model="sfp.annexe" id="sfp_annexe20">
-	            <field name="name">Assocition « Chems » pour le développement Taseltante Marrakech</field>
-	            <field name="code">Taseltante Marrakech</field>
-	            <field name="description">Assocition « Chems » pour le développement Taseltante Marrakech</field>
-	            <field name="order">3</field>
-	    </record>
-	     <record model="sfp.annexe" id="sfp_annexe21">
-	            <field name="name">Association « Riaaya » quartier Tamesna palmier Nord Marrakech</field>
-	            <field name="code">palmier Nord Marrakech</field>
-	            <field name="description">Association « Riaaya » quartier Tamesna palmier Nord Marrakech</field>
-	            <field name="order">3</field>
-	    </record>
-	     <record model="sfp.annexe" id="sfp_annexe22">
-	            <field name="name">Coopérative « NOUN » pour l’education et la formation Ain Mezouar Marrakech</field>
-	            <field name="code">Ain Mezouar Marrakech</field>
-	            <field name="description">Coopérative « NOUN » pour l’education et la formation Ain Mezouar Marrakech</field>
-	            <field name="order">3</field>
-	    </record>
-	     <record model="sfp.annexe" id="sfp_annexe23">
-	            <field name="name">Association  Féminisme pour le développement  humain Dr  El harakate Tasseletante Marrakech</field>
-	            <field name="code">Dr El harakate Tasseletante Marrakech</field>
-	            <field name="description">Association  Féminisme pour le développement  humain Dr  El harakate Tasseletante Marrakech</field>
-	            <field name="order">3</field>
-	    </record>
-	    
 	    
 	    <!-- Province -->
 	    
@@ -162,23 +36,227 @@
 	            <field name="code">Al Haouz</field>
 	            <field name="description">Al Haouz</field>
 	            <field name="order">1</field>
-	          <!--  <field name="academic" ref="morocco_academic1"/>-->
+	            <field name="cfa" ref="sfp_grade"/>
 	    </record>
 	    
 	    <record model="sfp.province" id="sfp_province1">
+	            <field name="name">Chichaoua </field>
+	            <field name="code">Chichaoua</field>
+	            <field name="description">Chichaoua</field>
+	            <field name="order">2</field>
+	            <field name="cfa" ref="sfp_cfa1"/>
+	    </record>
+	    
+	    <record model="sfp.province" id="sfp_province2">
 	            <field name="name">Rhamna +EL kelâ ades Sraghnas</field>
 	            <field name="code">Rhamna</field>
 	            <field name="description">Rhamna +EL kelâ ades Sraghnas</field>
 	            <field name="order">2</field>
+	            <field name="cfa" ref="sfp_cfa2"/>
 	    </record>
 	    
-	    <record model="sfp.province" id="sfp_province2">
+	    <record model="sfp.province" id="sfp_province3">
 	            <field name="name">Marrakech</field>
 	            <field name="code">Marrakech</field>
 	            <field name="description">Marrakech</field>
 	            <field name="order">3</field>
+	            <field name="cfa" ref="sfp_cfa3"/>
 	    </record>
 	    
+	    <!-- annexe -->
+	    
+	    <record model="sfp.annexe" id="sfp_annexe">
+	            <field name="name">Espace de formation  Amizmiz</field>
+	            <field name="code">Amizmiz</field>
+	            <field name="description">Espace de formation  Amizmiz</field>
+	            <field name="order">1</field>
+	            <field name="province" ref="sfp_province"/>
+	    </record>
+	    
+	    <record model="sfp.annexe" id="sfp_annexe1">
+	            <field name="name">Espace de Formation Tameslohte</field>
+	            <field name="code">Tameslohte</field>
+	            <field name="description">Espace de Formation Tameslohte</field>
+	            <field name="order">2</field>
+	            <field name="province" ref="sfp_province"/>
+	    </record>
+	    
+	    <record model="sfp.annexe" id="sfp_annexe2">
+	            <field name="name">Espace de Formation Oulad Mtaa</field>
+	            <field name="code">Oulad Mtaa</field>
+	            <field name="description">Espace de Formation Oulad Mtaa</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province"/>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe3">
+	            <field name="name">Espace de Formation Tighedouine</field>
+	            <field name="code">Tighedouine</field>
+	            <field name="description">Espace de Formation Tighedouine</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province"/>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe4">
+	            <field name="name">Espace de Formation Tahannaout</field>
+	            <field name="code">Tahannaout</field>
+	            <field name="description">Espace de Formation Tahannaout</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province"/>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe5">
+	            <field name="name">Espace de Formation Azgour</field>
+	            <field name="code">Azgour</field>
+	            <field name="description">Espace de Formation Azgour</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province"/>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe6">
+	            <field name="name">Espace de Formation Tizguine</field>
+	            <field name="code">Tizguine</field>
+	            <field name="description">Espace de Formation Tizguine</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province"/>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe7">
+	            <field name="name">Espace de Formation Lalla Takarkoust</field>
+	            <field name="code">Lalla Takarkoust</field>
+	            <field name="description">Espace de Formation Lalla Takarkoust</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province"/>
+	    </record>
+	    
+	    <record model="sfp.annexe" id="sfp_annexe8">
+	            <field name="name">Espace de Formation Talat N'Yaaqoub</field>
+	            <field name="code">Talat N'Yaaqoub</field>
+	            <field name="description">Espace de Formation Talat N'Yaaqoub</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province"/>
+	    </record>
+	    
+	    <record model="sfp.annexe" id="sfp_annexe9">
+	            <field name="name">La maison de citoyen Sidi El Mokhtar</field>
+	            <field name="code">Sidi El Mokhtar</field>
+	            <field name="description">La maison de  citoyen  Sidi El Mokhtar</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province1"/>
+	    </record>
+	    
+	    <record model="sfp.annexe" id="sfp_annexe10">
+	            <field name="name">Ensemble Artisanale Chichaoua</field>
+	            <field name="code">Chichaoua</field>
+	            <field name="description">Ensemble Artisanale Chichaoua</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province1"/>
+	    </record>
+	    
+	    <record model="sfp.annexe" id="sfp_annexe11">
+	            <field name="name">Annexe de La Chambre d’Artisanat à ElKelâa des Sraghnas</field>
+	            <field name="code">El Kelâa des Sraghnas</field>
+	            <field name="description">Annexe de La Chambre d’Artisanat à  El Kelâa des Sraghnas</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province2"/>
+	    </record>
+	    
+	    <record model="sfp.annexe" id="sfp_annexe12">
+	            <field name="name">Espace de Formation Laattaouia</field>
+	            <field name="code">Laattaouia</field>
+	            <field name="description">Espace de Formation Laattaouia</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province2"/>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe13">
+	            <field name="name">Espace de Formation Tamallalt</field>
+	            <field name="code">Tamallalt</field>
+	            <field name="description">Espace de Formation  Tamallalt</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province2"/>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe14">
+	            <field name="name">Espace de Formation Sidi Rahhal</field>
+	            <field name="code">Sidi Rahhal</field>
+	            <field name="description">Espace de Formation  Sidi Rahhal</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province2"/>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe15">
+	            <field name="name">Maison de la femme et de l’enfant  Mhamid Marrakech</field>
+	            <field name="code">Mhamid Marrakech</field>
+	            <field name="description">Maison de la femme et de l’enfant  Mhamid Marrakech</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province3"/>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe16">
+	            <field name="name">Association «Sabil El Amal» pour la coopération et la solidarité Dr ouled Berrahmoune Marrakech</field>
+	            <field name="code">Dr ouled Berrahmoune Marrakech</field>
+	            <field name="description">Association  « Sabil El Amal » pour la coopération et la  solidarité   Dr ouled Berrahmoune Marrakech</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province3"/>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe17">
+	            <field name="name">Association « Albustan » pour le Développement Dr old  Belaagid Marrakech</field>
+	            <field name="code">Belaagid Marrakech</field>
+	            <field name="description">Association « Albustan » pour le Développement Dr old  Belaagid Marrakech</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province3"/>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe18">
+	            <field name="name">Association «Atlass» Saada Lamrabtine Marrakech</field>
+	            <field name="code">Saada Lamrabtine Marrakech</field>
+	            <field name="description">Association  « Atlass »  Saada Lamrabtine Marrakech</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province3"/>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe19">
+	            <field name="name">Espace de Formation Laattaouia</field>
+	            <field name="code">Laattaouia</field>
+	            <field name="description">Espace de Formation Laattaouia</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province3"/>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe20">
+	            <field name="name">Assocition « Chems » pour le développement Taseltante Marrakech</field>
+	            <field name="code">Taseltante Marrakech</field>
+	            <field name="description">Assocition « Chems » pour le développement Taseltante Marrakech</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province3"/>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe21">
+	            <field name="name">Association « Riaaya » quartier Tamesna palmier Nord Marrakech</field>
+	            <field name="code">palmier Nord Marrakech</field>
+	            <field name="description">Association « Riaaya » quartier Tamesna palmier Nord Marrakech</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province3"/>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe22">
+	            <field name="name">Coopérative « NOUN » pour l’education et la formation Ain Mezouar Marrakech</field>
+	            <field name="code">Ain Mezouar Marrakech</field>
+	            <field name="description">Coopérative « NOUN » pour l’education et la formation Ain Mezouar Marrakech</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province3"/>
+	    </record>
+	    
+	     <record model="sfp.annexe" id="sfp_annexe23">
+	            <field name="name">Association  Féminisme pour le développement  humain Dr  El harakate Tasseletante Marrakech</field>
+	            <field name="code">Dr El harakate Tasseletante Marrakech</field>
+	            <field name="description">Association  Féminisme pour le développement  humain Dr  El harakate Tasseletante Marrakech</field>
+	            <field name="order">3</field>
+	            <field name="province" ref="sfp_province3"/>
+	    </record>
+	     
 	    
 	     <!-- Grade -->
 	    
@@ -187,7 +265,6 @@
 	            <field name="code">T</field>
 	            <field name="description">Technicien</field>
 	            <field name="order">1</field>
-	          <!--  <field name="academic" ref="morocco_academic1"/>-->
 	    </record>
 	    
 	    <record model="sfp.grade" id="sfp_grade1">
@@ -197,18 +274,18 @@
 	            <field name="order">2</field>
 	    </record>
 	    
-	    <record model="sfp.grade" id="sfp_grade3">
+	    <record model="sfp.grade" id="sfp_grade2">
 	            <field name="name">Licencié</field>
 	            <field name="code">L</field>
 	            <field name="description">Licencié</field>
 	            <field name="order">3</field>
 	    </record>
 	    
-	     <record model="sfp.grade" id="sfp_grade">
+	     <record model="sfp.grade" id="sfp_grade3">
 	            <field name="name">Autre</field>
 	            <field name="code">A</field>
 	            <field name="description">Autre a specifier</field>
-	            <field name="order">3</field>
+	            <field name="order">4</field>
 	    </record>
 	    
 	    <!-- Matières -->
@@ -301,48 +378,228 @@
 	            <field name="order">1</field>
 	    </record>
 	    
-	    <!-- CFA -->
 	    
-	    <record model="sfp.cfa" id="sfp_cfa">
-	            <field name="name">Ait Faska</field>
-	            <field name="code">CFA-1</field>
-	            <field name="description"> CFA Ait Faska</field>
-	            <field name="order">1</field>
-	    </record>
-	    
-	    <record model="sfp.cfa" id="sfp_cfa1">
-	            <field name="name">Chichaoua</field>
-	            <field name="code">CFA-2</field>
-	            <field name="description">CFA-2 Chichaoua </field>
-	            <field name="order">1</field>
-	    </record>
-	    <record model="sfp.cfa" id="sfp_cfa2">
-	            <field name="name">Ben Guerir</field>
-	            <field name="code">CFA-3</field>
-	            <field name="description">CFA-3 Ben Guerir</field>
-	            <field name="order">1</field>
-	    </record>
-	    <record model="sfp.cfa" id="sfp_cfa3">
-	            <field name="name">Dar Dbagh</field>
-	            <field name="code">CFA-4</field>
-	            <field name="description">CFA-4 Dar Dbagh</field>
-	            <field name="order">1</field>
-	    </record>
-	    
+	   <!-- niveau --> 
 	    
 	   <record model="sfp.level" id="sfp_level">
-	            <field name="name">Spaciallisation</field>
-	            <field name="code">S</field>
-	            <field name="description">Spaciallisation</field>
+	            <field name="name">Diplôme de spécialisation</field>
+	            <field name="code">DS</field>
+	            <field name="description">Diplôme de spécialisation</field>
 	            <field name="order">1</field>
 	    </record>
 	    
 	    <record model="sfp.level" id="sfp_level1">
-	            <field name="name">Apprentissage</field>
-	            <field name="code">App</field>
-	            <field name="description">Apprentissage</field>
+	            <field name="name">Certificat d’apprentissage</field>
+	            <field name="code">CA</field>
+	            <field name="description">Certificat d’apprentissage</field>
 	            <field name="order">1</field>
 	    </record>
    
+   	   <!-- Metiers --> 
+	    
+	   <record model="sfp.metier" id="sfp_metier">
+	            <field name="name">Artisan spécialisé Couturier Traditionnel</field>
+	            <field name="code">ASCT</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier1">
+	            <field name="name">Artisan spécialisé en broderie</field>
+	            <field name="code">ASB</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	   <record model="sfp.metier" id="sfp_metier2">
+	            <field name="name">Brodeur</field>
+	            <field name="code">B</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level1"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier3">
+	            <field name="name">Artisan Tisseur de Tapis </field>
+	            <field name="code">ATT</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level1"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier4">
+	            <field name="name">Artisan Spécialisé Tisseur de Tapis</field>
+	            <field name="code">ASTT</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier5">
+	            <field name="name">Artisan Spécialisé en Tricotage </field>
+	            <field name="code">AST</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier6">
+	            <field name="name">Artisan Spécialisé en Passementier</field>
+	            <field name="code">ASP</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier7">
+	            <field name="name">Artisan  Tisseur Traditionnel </field>
+	            <field name="code">ATT</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level1"/>
+	    </record>
+	    
+	   <record model="sfp.metier" id="sfp_metier8">
+	            <field name="name">Artisan Spécialisé Tisseur Traditionnel</field>
+	            <field name="code">ASTTR</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier9">
+	            <field name="name">Artisan Spécialisé Teinturier de Laine </field>
+	            <field name="code">ASTL</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	   <record model="sfp.metier" id="sfp_metier10">
+	            <field name="name">Artisan Spécialisé Tapissier</field>
+	            <field name="code">ASTPessier</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier11">
+	            <field name="name">Artisan Spécialisé Peintre sur Soie </field>
+	            <field name="code">ASPS</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	      	    
+	   <record model="sfp.metier" id="sfp_metier12">
+	            <field name="name">Artisan Spécialisé Graveur et Sculpteur sur Verre</field>
+	            <field name="code">ASGSV</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier13">
+	            <field name="name">Artisan Spécialisé Couturier Moderne</field>
+	            <field name="code">ASCM</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier14">
+	            <field name="name">Artisan  Fabricant Objet Vannerie</field>
+	            <field name="code">AFOV</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier15">
+	            <field name="name">Artisan Spécialisé Fabricant Objet Vannerie</field>
+	            <field name="code">ASFOV</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier16">
+	            <field name="name">Artisan Spécialisé en Cuir Excisé</field>
+	            <field name="code">ASCE</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier17">
+	            <field name="name">Artisan Spécialisé Cordonnier</field>
+	            <field name="code">ASC</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier18">
+	            <field name="name">Artisan Spécialisé Plâtrier</field>
+	            <field name="code">ASP</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier19">
+	            <field name="name">Artisan Spécialisé Poseur de Carreaux</field>
+	            <field name="code">ASC</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier20">
+	            <field name="name">Artisan Bijoutier</field>
+	            <field name="code">AB</field>
+	            <field name="dure">11</field>
+	            <field name="level" ref="sfp_level1"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier21">
+	            <field name="name">Artisan Spécialisé Ferronnier d'Art</field>
+	            <field name="code">ASFA</field>
+	            <field name="dure">22</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier22">
+	            <field name="name">Artisan Spécialisé Menuisier Ebéniste</field>
+	            <field name="code">ASME</field>
+	            <field name="dure">22</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier23">
+	            <field name="name">Artisan Spécialisé Incrusteur sur Bois</field>
+	            <field name="code">ASIB</field>
+	            <field name="dure">22</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier24">
+	            <field name="name">Artisan Spécialisé Maroquinier</field>
+	            <field name="code">ASMaroquinier</field>
+	            <field name="dure">22</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier24">
+	            <field name="name">Artisan Spécialisé Potier</field>
+	            <field name="code">ASP</field>
+	            <field name="dure">22</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier25">
+	            <field name="name">Artisan Spécialisé Bijoutier / Argentier</field>
+	            <field name="code">ASBA</field>
+	            <field name="dure">22</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier26">
+	            <field name="name">Artisan Spécialisé Dinandrier</field>
+	            <field name="code">ASD</field>
+	            <field name="dure">22</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    <record model="sfp.metier" id="sfp_metier27">
+	            <field name="name">Artisan Spécialisé Zelligier</field>
+	            <field name="code">ASZ</field>
+	            <field name="dure">22</field>
+	            <field name="level" ref="sfp_level"/>
+	    </record>
+	    
+	    
 	</data>    
 </openerp>

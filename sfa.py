@@ -36,19 +36,22 @@ class sfp_contrat(orm.Model):
             vals['name'] = self.pool.get('ir.sequence').get(cr, user, 'sfp.contrat')
         return super(sfp_contrat, self).create(cr, user, vals, context) 
     
-    def action_done(self, cr, uid, ids, context=None):
-        return self.write(cr,uid,ids,{'state' : 'done'})
+    def action_preinscription(self, cr, uid, ids, context=None):
+        return self.write(cr,uid,ids,{'state' : 'preinscription'})
+    
+    def action_training(self, cr, uid, ids, context=None):
+        return self.write(cr,uid,ids,{'state' : 'en_formation'})
+    
+    def action_laureat(self, cr, uid, ids, context=None):
+        return self.write(cr,uid,ids,{'state' : 'laureat'})
     
     def action_cancel(self, cr, uid, ids, context=None):
         return self.write(cr,uid,ids,{'state' : 'cancel'})
     
-    def action_draft(self, cr, uid, ids, context=None):
-        return self.write(cr,uid,ids,{'state' : 'draft'})
-    
-    
+  
     _columns = {
         'name': fields.char(u'Numero'),        
-        'type': fields.selection([('contrat',u'Contrat'),('declaration',u'Declaration')],u'Type'),
+        'declaration': fields.boolean(u'Declaration'),
         'etat': fields.selection([('abandon',u'Abandon'),('loureat',u'Loureat'),('formation',u'En formation')],u'Etat'),
         'relation': fields.char(u'Relation'),
         'parent_link': fields.char(u'Lien Parental'),
@@ -68,18 +71,27 @@ class sfp_contrat(orm.Model):
         'vacataire': fields.many2one('res.partner',u'Vacataire',domain=[('vacataire_ok','=',True)]),
         'description': fields.text(u'Description'),
         'invoice_ids': fields.one2many('account.invoice','contrat_id',u'Les Factures'),
-        'state' : fields.selection([('draft',u'En cours'),('done',u'Validé'),('cancel',u'Annulé')],u'Statut',required=True),
+        'state' : fields.selection([('preinscription',u'Préinscription'),('en_formation',u'En formation'),('loreat',u'Lauréat'),('cancel',u'Abandonné')],u'Statut',required=True),
    
     }
     
     _defaults = {  
-        'state': lambda *a: 'draft',
+        'state': lambda *a: 'preinscription',
         'user' : lambda x, y, z, c: z,
         'name': lambda self, cr, uid, context: '/',
         'date_start': lambda *a : time.strftime('%Y-%m-%d'),
         }
 
    
+    """def onchange_grade(self,cr,uid,ids,grade,context={}):
+        data={}
+        if grade:
+            object_grade=self.pool.get('sfp.grade').browse(cr,uid,grade)
+            if object_grade:
+                data['price'] = object_grade.price_h or False
+        return {'value' : data }"""
+        
+    
 class sfp_tuteur(orm.Model):
     _name = 'sfp.tuteur'
     _columns = {
@@ -227,13 +239,19 @@ class sfp_metier(orm.Model):
         'name': fields.char(u'Name', required=True),
         'name_ar': fields.char(u'الاسم'),
         'code': fields.char(u'Code', translate=True),      
-        'dure': fields.selection([('11',u'11'),('22',u'22')],u'Dure',required=True),
+        'duree': fields.many2one('metier.duration',u'Durée',required=True),
         'level': fields.many2one('sfp.level', u'Niveau'),
         'sector': fields.many2one('sfp.sector', u'Secteur'),
         'description': fields.text(u'Description'),
         'sect_id': fields.many2one('sfp.sectortraining', u'Secteur de formation'),
     }
-    
+
+class metier_duration(orm.Model):
+    _name = 'metier.duration'
+    _columns = {
+        'duree': fields.integer(u'Durée', required=True),
+        'description': fields.char(u'Description'),      
+    }    
 
 class sfp_annexe(orm.Model):
     _name = 'sfp.annexe'
@@ -274,7 +292,7 @@ class sfp_groupe(orm.Model):
         'code': fields.char(u'Code', translate=True),
         'date_start': fields.datetime(u'Date debut'),
         'date_end': fields.datetime(u'Date fin'),  
-        'apprenti_ids': fields.one2many('sfp.contrat','groupe',u'Apprentis'), 
+        'contrat_ids': fields.one2many('sfp.contrat','groupe',u'Contrats'), 
         'description': fields.text(u'Description', translate=True),
     }
     
