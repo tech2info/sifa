@@ -40,27 +40,25 @@
     </record>
        
         <!--  form -->  
-        <record id="view_contrat_form" model="ir.ui.view">
+          <record id="view_contrat_form" model="ir.ui.view">
             <field name="name">sfp.contrat.form</field>
             <field name="model">sfp.contrat</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Contrat" version="7.0">
-                    <header>
+                      <header>
                 		<button name="action_training" states="draft" string="Inscrire" type="object" icon="gtk-go-forward" />
 		                <button name="action_cancel" states="en_formation" string="Abandonné" type="object" icon="gtk-cancel" />
 		                <button name="action_laureat" states="en_formation" string="Lauréat" type="object" icon="gtk-go-forward" />
 		                <button name="action_preinscription" states="cancel" string="Remettre en brouillon" type="object" icon="terp-stock_effects-object-colorize" />
-                		<field name="state" widget="statusbar" />
+                		<field name="state" widget="statusbar" clickable="True" statusbar_colors="{'cancel':'red'}"/>
                 	</header>
                     <sheet>
                       <group>
 		                	<group>
 				                <field name="name" />
 				                <field name="entreprise" />
-				        
 				                <field name="declaration" />
-
 				            </group>
 			                <group>
 			                    <field name="apprenti" />
@@ -74,13 +72,13 @@
 		                	<group>
 		                	    
 				                <field name="groupe" />
-				                <field name="metier" />
-				                <field name="parent_link" placeholder="cas de declaration"/>
+				                <field name="metier" on_change="onchange_metier(metier)"/>
+				                <field name="parent_link" attrs="{'invisible' : [('declaration','=',False)]}"/>
 				                
 				            </group>
 			                <group>
-			                	<field name="responsable" placeholder="si mineur"/>
-			                	<field name="user" />
+			                	<field name="responsable" attrs="{'invisible' : [('declaration','=',False)]}"/>
+			                	<field name="duree" />
 			                	<field name="relation" />
 			                </group>
 		               </group>
@@ -94,11 +92,10 @@
 				                
 				            </group>
 			                <group>
-
+                                <field name="allocation" />
 			                	<field name="date_end" />
-			                	<field name="etat" />
-			                	<field name="date_abandon" />
- 	
+			                	<field name="date_abandon" attrs="{'invisible': [('state','in',('loreat','preinscription','en_formation'))]}"/>
+ 	                            <field name="trial" attrs="{'invisible': [('state','in',('loreat','cancel','en_formation'))]}"/>
 			                </group>
 		               </group>
 		                <notebook>
@@ -115,6 +112,7 @@
                 </form>
             </field>
         </record>
+        
         <record id="view_contrat_tree" model="ir.ui.view">
             <field name="name">sfp.contrat.tree</field>
             <field name="model">sfp.contrat</field>
@@ -122,7 +120,14 @@
             <field name="arch" type="xml">
                 <tree string="Contrat">
                     <field name="name" />
-                    <field name="type" />
+                    <field name="apprenti" />
+                    <field name="metier" />
+                    <field name="entreprise" />
+                    <field name="maitre" />
+                    <field name="date_start" />
+                    <field name="date_end" />
+                    <field name="date_abandon" />
+                    <field name="cfa" />
                     <field name="description" />
                 </tree>
             </field>
@@ -953,7 +958,7 @@
 				                <field name="name" />
 				                <field name="duree" />
 				                <field name="sect_id" />
-				            <!--      <field name="sector" />-->
+				                <field name="max_age" />
 				            </group>
 			                <group>
 			                    <field name="name_ar" />
@@ -962,9 +967,17 @@
 			                </group>
 		               </group>
                     <newline/>
-	                	<group colspan="2" string="Description"  >
+                    <notebook colspan="4" > 
+                    
+                        <page string="Niveau D'admission">
+	                		<field name="admission_ids" nolabel="1" />
+	                	</page>
+	                	
+	                	<page string="Description">
 	                		<field name="description" nolabel="1" />
-	                	</group>
+	                	</page>
+
+                		</notebook>
                     </sheet>
                 </form>
             </field>
@@ -992,10 +1005,68 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        
-        
-       <!--  Annexe Configuration-->
+   
+   
+   <!--  admission level Configuration-->
        
+     <!-- search -->
+    <record model="ir.ui.view" id="sfa_level_admission_search">
+            <field name="name">admission.level.search</field>
+            <field name="model">admission.level</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Recherche les ecteurs">
+                    <field name="name"/>
+                    <field name="code"/>
+                 </search>
+            </field>
+        </record>
+        
+        <record id="view_admission_level_form" model="ir.ui.view">
+            <field name="name">admission.level.form</field>
+            <field name="model">admission.level</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Niveau" version="7.0">
+                    <sheet>
+                      <group>
+		                	<group>
+				                <field name="name" />
+				            </group>
+			                <group>
+			                	<field name="code" />
+			                </group>
+		               </group>
+                    <newline/>
+	                	<group colspan="2" string="Description"  >
+	                		<field name="description" nolabel="1" />
+	                	</group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_admission_level_tree" model="ir.ui.view">
+            <field name="name">admission.level.tree</field>
+            <field name="model">admission.level</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Niveau d'admission">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_admission_level" model="ir.actions.act_window">
+            <field name="name">Niveau d'admission </field>
+            <field name="res_model">admission.level</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record> 
+        
+     <!--  Annexe Configuration--> 
        
      <!-- search -->
     <record model="ir.ui.view" id="sfa_annexe_search">
@@ -1022,7 +1093,7 @@
                       <group>
 		                	<group>
 				                <field name="name" />
-				                <field name="province" />
+				                <field name="cfa" />
 				            </group>
 			                <group>	
 			                	<field name="code" />
@@ -1092,11 +1163,7 @@
 			                </group>
 		               </group>
                     <newline/>
-                    <notebook colspan="4" >
-                        <page string="Annexes">
-		              	  <field name="annexe" nolabel="1" />
-		                </page>
-		                
+                    <notebook colspan="4" > 
 	                	<page string="Description">
 	                		<field name="description" nolabel="1" />
 	                	</page>
@@ -1161,11 +1228,16 @@
 			                </group>
 		               </group>
                     <newline/>
-                    <notebook colspan="4" >   
-                    
+                    <notebook colspan="4" > 
+                      
+                       <page string="Annexes">
+	                	  <field name="annexe_ids"  />
+	                	</page> 
+	                	
                         <page string="Provinces">
-	                	  <field name="province"  />
-	                	</page>             
+	                	  <field name="province_ids"  />
+	                	</page>      
+	                	       
 	                   <page string="Description">
 	                	  <field name="description" nolabel="1" />
 	                	</page>
@@ -1184,7 +1256,6 @@
                 <tree string="CFA">
                     <field name="name" />
                     <field name="code" />
-                    <field name="province" /> 
                     <field name="description" />
                 </tree>
             </field>
@@ -1197,6 +1268,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
+        
         
     </data>
 </openerp>

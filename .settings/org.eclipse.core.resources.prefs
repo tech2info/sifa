@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//report/__init__.py=utf-8
+encoding//report/sfa_report.py=utf-8
 encoding/__init__.py=utf-8
 encoding/__openerp__.py=utf-8
 encoding/invoice.py=utf-8

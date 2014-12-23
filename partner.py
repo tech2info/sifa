@@ -70,9 +70,11 @@ class res_partner(orm.Model):
             'contrat' :fields.many2one('sfp.groupe', u'Contrat'),
 
             'vacataire_ok': fields.boolean('Vacataire'),
-            'entreprise_ok': fields.boolean('Entreprise'),
+            'is_tuteur': fields.boolean('Tuteur'),
             'customer': fields.boolean('Is a Customer', help="Check this box if this contact is a customer."),
-                       
+             #tuteur
+             'na_ar': fields.char(u'الصفة'),
+             'profession_ar': fields.char(u'المهنة'),        
             #vacataire
             'vac_year' : fields.char(u'Année de vacation'),
             'nbr_visite' : fields.char(u'Nombre de visites'),

@@ -19,24 +19,24 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import time
-from openerp.report import report_sxw
+from openerp.osv import osv
 
-class sfp_sfp(report_sxw.rml_parse):
-    def __init__(self, cr, uid, name, context=None):
-        super(sfp_sfp, self).__init__(cr, uid, name, context=context)
-        self.line_no = 0
-        self.localcontext.update({
-            'time': time,
-            'line_no':self._line_no,
-        })
-          
-    # generat line number   
-    def _line_no(self,reset=False):
-        if reset == False:
-            self.line_no = self.line_no + 1
-        else:
-            self.line_no = 0
-        return self.line_no
 
-report_sxw.report_sxw('report.formation.work', 'formation.work', 'addons/formation_travaux/report/travaux.rml', parser=madrassa_travaux, header="external")
+class ParticularReport(osv.AbstractModel):
+    _name = 'report.sfa.report_saleorder2'
+    def render_html(self, cr, uid, ids, data=None, context=None):
+        report_obj = self.pool['report']
+        report = report_obj._get_report_from_name(
+            cr, uid, 'sfa.report_saleorder2'
+        )
+        docargs = {
+            'doc_ids': ids,
+            'doc_model': report.model,
+            'docs': self.pool[report.model].browse(
+                cr, uid, ids, context=context
+            ),
+        }
+        return report_obj.render(
+            cr, uid, ids, 'sfa.report_saleorder2',
+            docargs, context=context
+        )

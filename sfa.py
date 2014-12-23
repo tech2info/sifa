@@ -52,7 +52,6 @@ class sfp_contrat(orm.Model):
     _columns = {
         'name': fields.char(u'Numero'),        
         'declaration': fields.boolean(u'Declaration'),
-        'etat': fields.selection([('abandon',u'Abandon'),('loureat',u'Loureat'),('formation',u'En formation')],u'Etat'),
         'relation': fields.char(u'Relation'),
         'parent_link': fields.char(u'Lien Parental'),
         'date_start': fields.datetime(u'Date debut'),
@@ -61,10 +60,13 @@ class sfp_contrat(orm.Model):
         'apprenti': fields.many2one('sfp.apprenti',u'Apprenti'),  
         'groupe': fields.many2one('sfp.groupe',u'Groupe'),
         'metier': fields.many2one('sfp.metier',u'Metier'),
+        'duree': fields.integer(u'Durée'),
         'responsable': fields.many2one('res.users',u'Responsable'),
         'user': fields.many2one('res.users',u'Utilisateur'),
         'entreprise': fields.many2one('res.partner',u'Entreprise',domain=[('entreprise_ok','=',True)]),
         'maitre': fields.many2one('sfp.maitre',u'Maitre'),
+        'allocation': fields.float(u'Bourse'),
+        'trial': fields.float(u'période essai'),
         'cfa': fields.many2one('sfp.cfa',u'CFA'),
         'annexe': fields.many2one('sfp.annexe',u'Annexe'),
         'province': fields.many2one('sfp.province',u'Province'),
@@ -83,13 +85,13 @@ class sfp_contrat(orm.Model):
         }
 
    
-    """def onchange_grade(self,cr,uid,ids,grade,context={}):
+    def onchange_metier(self,cr,uid,ids,metier,context={}):
         data={}
-        if grade:
-            object_grade=self.pool.get('sfp.grade').browse(cr,uid,grade)
-            if object_grade:
-                data['price'] = object_grade.price_h or False
-        return {'value' : data }"""
+        if metier:
+            object_metier=self.pool.get('sfp.metier').browse(cr,uid,metier)
+            if object_metier:
+                data['duree'] = object_metier.duree  or False
+        return {'value' : data }
         
     
 class sfp_tuteur(orm.Model):
@@ -239,19 +241,23 @@ class sfp_metier(orm.Model):
         'name': fields.char(u'Name', required=True),
         'name_ar': fields.char(u'الاسم'),
         'code': fields.char(u'Code', translate=True),      
-        'duree': fields.many2one('metier.duration',u'Durée',required=True),
+        'duree': fields.char(u'Durée',required=True),
+        'max_age': fields.float(u'Age maximum'),
         'level': fields.many2one('sfp.level', u'Niveau'),
         'sector': fields.many2one('sfp.sector', u'Secteur'),
         'description': fields.text(u'Description'),
         'sect_id': fields.many2one('sfp.sectortraining', u'Secteur de formation'),
+        'admission_ids': fields.one2many('admission.level','admission_id', u'Niveau admission'),
     }
 
-class metier_duration(orm.Model):
-    _name = 'metier.duration'
+class admission_level(orm.Model):
+    _name = 'admission.level'
     _columns = {
-        'duree': fields.integer(u'Durée', required=True),
-        'description': fields.char(u'Description'),      
-    }    
+        'name': fields.char(u'Name', required=True),
+        'code': fields.char(u'Code', translate=True),    
+        'description': fields.text(u'Description', translate=True),  
+        'admission_id': fields.many2one('sfp.metier', u'Admission'),   
+    }
 
 class sfp_annexe(orm.Model):
     _name = 'sfp.annexe'
@@ -259,7 +265,7 @@ class sfp_annexe(orm.Model):
         'name': fields.char(u'Nom', required=True),
         'code': fields.char(u'Code', translate=True),
         'description': fields.text(u'Description', translate=True),    
-        'province': fields.many2one('sfp.province','province'),
+        'cfa': fields.many2one('sfp.cfa',u'CFA'),
     }
 
 
@@ -270,7 +276,6 @@ class sfp_province(orm.Model):
     _columns = {
         'name': fields.char(u'Nom', required=True),
         'code': fields.char(u'Code', translate=True),
-        'annexe': fields.one2many('sfp.annexe','province',u'Annexe'),
         'description': fields.text(u'Description', translate=True),
         'cfa': fields.many2one('sfp.cfa',u'CFA'),
     }
@@ -280,7 +285,8 @@ class sfp_cfa(orm.Model):
     _columns = {
         'name': fields.char(u'Nom', required=True),        
         'code': fields.char(u'Code', translate=True),
-        'province': fields.one2many('sfp.province','cfa',u'Province'),  
+        'province_ids': fields.one2many('sfp.province','cfa',u'Provinces'),  
+        'annexe_ids': fields.one2many('sfp.annexe','cfa',u'Annexes'), 
         'description': fields.text(u'Description', translate=True),
     }
 

@@ -13,10 +13,10 @@
                     <field name="image" widget='image' class="oe_left oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
                     <div class="oe_title oe_left">
                         <div class="oe_edit_only">
-                            <label for="name" attrs="{'invisible' : ['|',('entreprise_ok','=',True),('vacataire_ok','=',True)]}"/> (
-                            <field name="is_company" on_change="onchange_type(is_company)" class="oe_inline" attrs="{'invisible' : ['|',('entreprise_ok','=',True),('vacataire_ok','=',True)]}"/> <label for="is_company" string="Is a Company?" attrs="{'invisible' : ['|',('entreprise_ok','=',True),('vacataire_ok','=',True)]}"/>)
-                            <field name="entreprise_ok" class="oe_inline"/> <label for="entreprise_ok" string="Entreprise"/>
-                            <field name="vacataire_ok" class="oe_inline"/> <label for="vacataire_ok" string="Vacataire"/>
+                            <label for="name" attrs="{'invisible' : ['|',('is_company','=',True),('vacataire_ok','=',True),('is_tuteur','=',True)]}"/> (
+                            <field name="is_company" on_change="onchange_type(is_company)" class="oe_inline" attrs="{'invisible' : ['|',('vacataire_ok','=',True),('is_tuteur','=',True)]}"/> <label for="is_company" string="Is a Company?" attrs="{'invisible' : ['|',('vacataire_ok','=',True),('is_tuteur','=',True)]}"/>)    
+                            <field name="vacataire_ok" class="oe_inline" attrs="{'invisible' : ['|',('is_tuteur','=',True),('is_company','=',True)]}"/> <label for="vacataire_ok" string="Vacataire" attrs="{'invisible' : ['|',('is_tuteur','=',True),('is_company','=',True)]}"/>
+                            <field name="is_tuteur" class="oe_inline" attrs="{'invisible' : ['|',('vacataire_ok','=',True),('is_company','=',True)]}"/> <label for="is_tuteur" string="Tuteur" attrs="{'invisible' : ['|',('vacataire_ok','=',True),('is_company','=',True)]}"/>
                         </div>
                         <h1>
                             <field name="name" default_focus="1" placeholder="Name" />
@@ -33,7 +33,7 @@
                     <newline/>
                     </group>
                     
-	                    <group string="Identification" attrs="{'invisible' : [('vacataire_ok','=',False)]}">
+	                    <group string="Identification" attrs="{'invisible' : ['|',('is_tuteur','=',False),('vacataire_ok','=',False)]}">
 	                        <group >
 	                            <field name="name_arabic" />   
 	                            <field name="birthdate" />       
@@ -48,16 +48,24 @@
 	                        </group>
 	                  	</group>
 	                  	<newline/>
-	                    <group string="Informations Entreprise" attrs="{'invisible' : [('entreprise_ok','=',False)]}">
+	                    <group string="Informations Entreprise" attrs="{'invisible' : [('is_company','=',False)]}">
 	                    	<group>
-	                            <field name="name_entreprise"/>
 	                            <field name="montant_percu" />
 	                        </group>
 	                        <group>
 	                            <field name="payment_mode" /> 
 	                        </group>
 	                    </group>
-	                
+	                    <!-- tuteur -->
+	                 	<newline/>
+	                    <group string="Informations Tuteur" attrs="{'invisible' : [('is_tuteur','=',False)]}">
+	                    	<group>
+	                            <field name="na_ar" />
+	                        </group>
+	                        <group>
+	                            <field name="profession_ar" /> 
+	                        </group>
+	                    </group>
 	                    <group string="Informations Vacataire" attrs="{'invisible' : [('vacataire_ok','=',False)]}">
 		                	<group>
 				                <field name="vac_year" />
@@ -73,7 +81,7 @@
 
 
                     <notebook colspan="4">
-                        <page string="Maitre d'Apprenti" attrs="{'invisible': [('is_company','=',False),('entreprise_ok','=',False), ('child_ids', '=', [])]}" autofocus="autofocus">
+                        <page string="Maitre d'Apprenti" attrs="{'invisible': [('is_company','=',False),('is_company','=',False), ('child_ids', '=', [])]}" autofocus="autofocus">
                             <field name="child_ids" mode="kanban" context="{'default_parent_id': active_id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_supplier': supplier, 'default_customer': customer, 'default_use_parent_address': True}">
                                 <kanban>
                                     <field name="color"/>
@@ -412,8 +420,8 @@
 	            <field name="res_model">res.partner</field>
 	            <field name="view_type">form</field>
 	            <field name="view_mode">kanban,tree,form</field>
-	            <field name="domain">[('entreprise_ok','=',True)]</field>
-	            <field name="context">{'type_fichier': 'perent','default_entreprise_ok' : True}</field>
+	            <field name="domain">[('is_company','=',True)]</field>
+	            <field name="context">{'type_fichier': 'perent','default_is_company' : True}</field>
 	            <field name="search_view_id" ref="base.view_res_partner_filter"/>
 	   	</record>
 	    
@@ -471,6 +479,38 @@
 	            <field name="act_window_id" ref="action_sfp_partner_vacataire"/>
 	    </record>
 	    
+	  <!-- action tuteur -->
+	    
+      <record id="action_sfp_partner_tuteur" model="ir.actions.act_window">
+	            <field name="name">Tuteur</field>
+	            <field name="res_model">res.partner</field>
+	            <field name="view_type">form</field>
+	            <field name="view_mode">kanban,tree,form</field>
+	            <field name="domain">[('is_tuteur','=',True)]</field>
+	            <field name="context">{'type_fichier': 'perent','default_is_tuteur' : True}</field>
+	            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+	   	</record>
+	    
+	     <record id="act_view_sfp_vacataire_form" model="ir.actions.act_window.view">
+	            <field eval="3" name="sequence"/>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="base.view_partner_form"/>
+	            <field name="act_window_id" ref="action_sfp_partner_tuteur"/>
+	    </record>
+	    
+	    <record id="act_view_sfp_vacataire_tree" model="ir.actions.act_window.view">
+	            <field eval="2" name="sequence"/>
+	            <field name="view_mode">tree</field>
+	            <field name="view_id" ref="vac_view_partner_tree"/>
+	            <field name="act_window_id" ref="action_sfp_partner_tuteur"/>
+	    </record>
+	    
+	    <record id="act_view_sfp_vacataire_kanban" model="ir.actions.act_window.view">
+	            <field eval="1" name="sequence"/>
+	            <field name="view_mode">kanban</field>
+	            <field name="view_id" ref="base.res_partner_kanban_view"/>
+	            <field name="act_window_id" ref="action_sfp_partner_tuteur"/>
+	    </record>
         
     </data>
 </openerp>
