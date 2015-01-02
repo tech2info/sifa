@@ -54,59 +54,79 @@
                 		<field name="state" widget="statusbar" clickable="True" statusbar_colors="{'cancel':'red'}"/>
                 	</header>
                     <sheet>
-                      <group>
-		                	<group>
+                      <group string="Identification">
+		                	<group >
 				                <field name="name" />
-				                <field name="entreprise" />
-				                <field name="declaration" />
+				                <field name="groupe" />
 				            </group>
+				            
 			                <group>
 			                    <field name="apprenti" />
-			                    <field name="vacataire" />
+			                    <field name="responsable" placeholder="Si mineur"/>
+			                </group>
+		               </group>
+		               
+		               <newline/>
+		               <group string="Informations entreprise">
+		                	<group>
+		                	    <field name="entreprise" />
+		                	    <field name="chef" />
+		                	    <field name="maitre_titre" placeholder="الصــــــــفة"/>
+				            </group>
+			                <group>
 			                    <field name="maitre" />
-
+			                    <field name="declaration" />
+			                    <field name="parent_link" attrs="{'invisible' : [('declaration','=',False)]}"/>
 			                </group>
 		               </group>
-		               <newline/>
-		               <group>
-		                	<group>
-		                	    
-				                <field name="groupe" />
-				                <field name="metier" on_change="onchange_metier(metier)"/>
-				                <field name="parent_link" attrs="{'invisible' : [('declaration','=',False)]}"/>
-				                
-				            </group>
-			                <group>
-			                	<field name="responsable" attrs="{'invisible' : [('declaration','=',False)]}"/>
-			                	<field name="duree" />
-			                	<field name="relation" />
-			                </group>
-		               </group>
-		               <newline/>
-		               <group>
-		                	<group>
-				                
+		               
+		              <newline/>
+		               <group string="Informations CFA">
+		               		<group>
+				                <field name="vacataire" />
 				                <field name="cfa" />
-				                <field name="annexe" readonly="True"/>
-				                <field name="date_start" />
-				                
+				                <field name="annexe" />
+				                <field name="province" />
+				            <!--<field name="nbr_visite" />-->
 				            </group>
-			                <group>
-                                <field name="allocation" />
-			                	<field name="date_end" />
-			                	<field name="date_abandon" attrs="{'invisible': [('state','in',('loreat','preinscription','en_formation'))]}"/>
- 	                            <field name="trial" attrs="{'invisible': [('state','in',('loreat','cancel','en_formation'))]}"/>
-			                </group>
+				            
+		                	<group>
+				                <field name="metier" on_change="onchange_metier(metier)"/>
+				                <field name="duree" />
+				                <field name="date_start" />
+				                <field name="date_end" />
+				                
+				            </group> 
 		               </group>
-		                <notebook>
-		               <page string='Factures'>
+		               
+		               <newline/>
+		               <group>
+		                	<group>
+                                 <field name="periode_contrat" />
+                                 <field name="periode_cfa" />
+                                 <field name="allocation" />
+                                 <field name="nbr_inscrit" />
+				            </group>
+				            
+				            <group>
+                                 <field name="periode_company" />
+                                 <field name="trial" />
+                                 <field name="periode_work" />
+                                 <field name="date_abandon" attrs="{'invisible': [('state','in',('loreat','preinscription','en_formation'))]}"/>
+				            </group>
+		               </group>
+		               
+		               <notebook>
+		             <!--   <page string='Factures'>
 		               <field name='invoice_ids'>
 		                 <field name="name" />
 		                 <field name="metier" />
 		                 <field name="apprenti" />
 		                </field>
+		               </page>-->
+		               <page string="Description">
+		                  <field name="description" />
 		               </page>
-		               
 		               </notebook>
                     </sheet>
                 </form>
@@ -120,15 +140,12 @@
             <field name="arch" type="xml">
                 <tree string="Contrat">
                     <field name="name" />
-                    <field name="apprenti" />
-                    <field name="metier" />
-                    <field name="entreprise" />
-                    <field name="maitre" />
-                    <field name="date_start" />
-                    <field name="date_end" />
-                    <field name="date_abandon" />
+                    <field name="groupe" />
                     <field name="cfa" />
-                    <field name="description" />
+                    <field name="apprenti" />
+                    <field name="entreprise" />
+                     <field name="metier" />
+                    <field name="state" />
                 </tree>
             </field>
         </record>
@@ -175,7 +192,7 @@
 			                </group>
 			                
 			                <group>
-			                    <field name="date_birth" />
+			                    <field name="birthdate" />
 				                <field name="na_ar" />
 				                <field name="profession_ar" />
 				                
@@ -204,7 +221,7 @@
                     <field name="last_name_ar" />
                     <field name="cin_ar" />
                     <field name="tel_ar" />
-                    <field name="date_birth" />
+                    <field name="birthdate" />
                 </tree>
             </field>
         </record>
@@ -256,14 +273,14 @@
 			                
 			                <group>
 				                <field name="cin" />
-				                <field name="n_entreprise" />
 				                <field name="gender" />
+				                <field name="tel" />
 				                
 				            </group>
 			                <group>
 			                    <field name="age" />
 			                    <field name="encadrant" />
-			                	<field name="tel" />
+			                	
 			                	
 			                </group>
 		               </group>
@@ -356,20 +373,19 @@
                 		</group>
                 		
 	                	<newline/>
-	                    <group >
+	                    <group string="Identification ">
 	                        <group >
-	                            <field name="name" />
-	                            <field name="name_arabic" />  
-	                            <field name="birthdate" />       
-	                            <field name="age" /> 
-	                            <field name="gender_ar" />      
+	                            <field name="name" /> 
+	                            <field name="cin" /> 
+	                            <field name="gender_ar" /> 
+	                            <field name="lieu_birth_ar" />
+	                            <field name="birthdate_1" />                                 	                                 
 	                        </group>
 	                        <group>
-	                            <field name="cin" /> 
-	                        	<field name="first_name_arabic" />
-	                        	<field name="lieu_birth" /> 
+	                            <field name="name_arabic" />
 	                        	<field name="gender_" />
-	                        	
+	                        	<field name="lieu_birth" /> 
+	                        	<field name="age" /> 
 	                        </group>
 	                  	</group>
 	                  	<newline/>
@@ -377,16 +393,11 @@
 		              
 	                    <group string="Informations Apprenti">
 	                    	<group>
-	                            <field name="function" />
 	                            <field name="nv_scolaire" />
-	                          
 	                            <field name="profession_tuteur_ar" />
 	                        </group>
 	                        <group>
-	                            <field name="diplom"/>
-	                            <field name="function_ar" />
 	                            <field name="situation_ar" />
-	                     
 	                        </group>
 	                    </group>
 	                 <notebook colspan="4">
@@ -394,21 +405,37 @@
 								<group>
 									<group>
 			                            <field name="phone"/>
-			                            <field name="email" required="context.get('force_email', False)"/>
-			                            <field name="street"/>
-			                            <field name="zip"/>
+			                            <field name="email" required="context.get('force_email', False)"/>     
 			                            <field name="country_id"/>
-			                            
+			                             <field name="city_ar"/>
+			                            <field name="zip"/>
 			                        </group>
 									<group>
 										<field name="mobile"/>
-										<field name="fax"/>
-										<field name="street2"/>
+										<field name="street"/>
 										<field name="city"/>
-										<field name="website"/>
+										<field name="street2"/>
+										
 									</group>
 								</group>
 	                        </page>
+	                  <page string="Les contrats">
+                        <field name="contrat_ids">
+                          <tree>
+		              	     <field name="name"/>
+		              	     <field name="entreprise"/>
+		              	     <field name="maitre"/>
+		              	     <field name="responsable"/>
+		              	     <field name="date_start"/>
+		              	     <field name="date_end"/>
+		              	     <field name="state"/>
+		              	   </tree>
+                          </field>
+	                    </page>
+	                    
+	                    <page string="Observation">
+	                      <field name="description"/>
+	                    </page>
 
 	                    </notebook>
 	                </sheet>
@@ -469,7 +496,7 @@
 												<td valign="top" width="64" align="left">
 													<a type="open">
 														<img heigh="80" width="80"
-															t-att-src="kanban_image('res.partner', 'photo', record.id.value)"/>
+															t-att-src="kanban_image('sfp.apprenti', 'image', record.id.value)"/>
 													</a>
 												</td>
 												<td valign="top" align="left" style="padding-left:10px;">
@@ -585,10 +612,10 @@
                          <field name="contrat_ids" >
                         <tree>
 		              	     <field name="name"/>
-		              	     <field name="apprenti"/>
-		              	     <field name="responsable"/>
+		              	     <field name="apprenti"/> 
 		              	     <field name="entreprise"/>
 		              	     <field name="maitre"/>
+		              	     <field name="responsable"/>
 		              	     <field name="date_start"/>
 		              	     <field name="date_end"/>
 		              	 </tree>
@@ -851,7 +878,15 @@
 		               </group>
                     <notebook>            
                      <page string="Metiers"  >
-	                	<field name="metier_ids" />
+	                	<field name="metier_ids" >
+	                	<tree>
+                           <field name="name" />
+                           <field name="code" />
+                           <field name="duree" />
+                           <field name="level" />
+                           <field name ="description"/>
+                        </tree>
+	                	</field>
 	                 </page>
                      <page string="Description"  >
 	                	<field name="description" />
@@ -989,6 +1024,7 @@
             <field name="arch" type="xml">
                 <tree string="Metier">
                     <field name="name" />
+                    <field name="name_ar" />
                     <field name="code" />
                     <field name="duree" />
                     <field name="level" />
@@ -1093,7 +1129,7 @@
                       <group>
 		                	<group>
 				                <field name="name" />
-				                <field name="cfa" />
+				                <field name="cfa"/>
 				            </group>
 			                <group>	
 			                	<field name="code" />
@@ -1269,6 +1305,103 @@
             <field name="view_mode">tree,form</field>
         </record>
         
+        <!-- school level -->
         
+        <record id="view_school_form" model="ir.ui.view">
+            <field name="name">school.level.form</field>
+            <field name="model">school.level</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Niveau Scolaire" version="7.0">
+                    <sheet>
+                      <group>
+		                	<group>
+				                <field name="name" />
+				            </group>
+			                <group>
+			                	<field name="name_ar" />
+			                </group>
+		               </group>
+                    <newline/>
+                    <notebook colspan="4" > 
+	                	<page string="Description">
+	                		<field name="description" nolabel="1" />
+	                	</page>
+
+                		</notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_province_tree" model="ir.ui.view">
+            <field name="name">school.level.tree</field>
+            <field name="model">school.level</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Province">
+                    <field name="name" />
+                    <field name="name_ar" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_school_level" model="ir.actions.act_window">
+            <field name="name">Niveau scolaire </field>
+            <field name="res_model">school.level</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+       <!-- birth place -->
+        
+        <record id="view_birth_place_form" model="ir.ui.view">
+            <field name="name">birth.place.level.form</field>
+            <field name="model">birth.place</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Lieu de naissance" version="7.0">
+                    <sheet>
+                      <group>
+		                	<group>
+				                <field name="name" />
+				            </group>
+			                <group>
+			                	<field name="name_ar" />
+			                </group>
+		               </group>
+                    <newline/>
+                    <notebook colspan="4" > 
+	                	<page string="Description">
+	                		<field name="description" nolabel="1" />
+	                	</page>
+
+                		</notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_birth_place_tree" model="ir.ui.view">
+            <field name="name">birth.place.tree</field>
+            <field name="model">birth.place</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Province">
+                    <field name="name" />
+                    <field name="name_ar" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_birth_place" model="ir.actions.act_window">
+            <field name="name">Lieu de naissance </field>
+            <field name="res_model">birth.place</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+          
     </data>
 </openerp>

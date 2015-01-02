@@ -22,9 +22,9 @@
 {
     "name": "SFA- Vertical for Odoo",
     "version": "0.1",
-    "depends": ["base",'account','account_voucher'],
-    "author": "Ait-Mlouk Addi/Infoset R&D",
-    'website': 'http://www.odoo-services.esy.es/',
+    "depends": ['base','account','account_voucher','contacts'],
+    "author": "Infoset R&D/Ait-Mlouk Addi",
+    'website': 'http://www.infosit.ma/',
     'sequence':1,
     "category": "Specific Modules/SFA",
     'summary' : 'Contrats, Entreprises, Apprentis, vacataires',
@@ -59,6 +59,9 @@ With this module you can following all contracts.
         
         
     ],
+    'demo': [
+                 'demo/res.company.csv',
+                 ],
     'demo_xml': [],
     'installable': True,
     'active': False,

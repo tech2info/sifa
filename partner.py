@@ -22,6 +22,7 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 import time
 from datetime import date
+from datetime import datetime
 
 class res_partner(orm.Model):
     
@@ -32,54 +33,51 @@ class res_partner(orm.Model):
         data={}
         for object_parent in self.browse(cr,uid,ids):
             data[object_parent.id] = 0
-            today = date.today()
-            if object_parent.birthdate:
-                date_birth=time.strptime(object_parent.birthdate, '%Y-%m-%d')
-                data[object_parent.id]=today.year-date_birth.tm_year
+            if object_parent.birthdate_1:
+                data[object_parent.id]=(datetime.now()-datetime.strptime(object_parent.birthdate_1,"%Y-%m-%d")).days/356
         return data
     
     
     _columns = {
             'name_arabic' : fields.char(u'الإسم '),
-            'first_name_arabic' : fields.char(u'النسب'),
-            'lieu_birth' : fields.char(u'lieu de naissance'),
+            'birthdate_1': fields.date(u'Date de Naissance'),
+            'lieu_birth' : fields.many2one('birth.place',u'lieu de naissance'),
             'age' : fields.function(_get_age,type='integer',string=u'âge'),
             'cin' : fields.char(u'CIN',size=50),
             'experience' :fields.many2one('sfp.metier', u'Metier'),
             'metier' :fields.many2one('sfp.metier', u'Metier'),
             'parental_ar' : fields.char(u'القرابة العائلية'),
-            'province' :fields.many2one('sfp.province', u'Province'),
+            'province' :fields.many2one('sfp.province', u'Province d\'implontation'),
             'taxe_pro' : fields.char(u'Taxe professionnel'),
             'name_entreprise' : fields.char(u'اسم المقاولة'),
-            'domaine_travail' : fields.char(u'ميدان أو ميادين عمله'),
-            'function_ar' : fields.char(u'الحرفة',size=50),
-            'resp_entreprise' : fields.char(u'بصفته: صاحب المقاولة'),    
-            'activities' : fields.char(u' الصناعة التقليدية بالعالم القروي'), 
-            'ahbas' : fields.char(u'ممتلكات الأحباس'),  
-            'ensemble_indis' : fields.char(u'مجمع الصناعة التقليدية',size=50),
-            'ensemble_ennex' : fields.char(u'الجماعات و الاحياء المستهدفة'),
+            'activities' : fields.many2one('company.activities',u'ميدان أو ميادين عمله'),
+            'resp_entreprise' : fields.char(u'بصفته: صاحب المقاولة'),     
             'nbr_mois' : fields.char(u'Nombre de mois accompli'),
             'montant_percu' : fields.char(u'Montant Percu'),
             'payment_mode' : fields.char(u'Mode de payement'),
-            'employe_nbr' : fields.char(u'عدد العاملين بها'),
-            'inscription_nbr' : fields.char(u'عدد المتدرجين بها'),
+            'employe_nbr' : fields.integer(u'عدد العاملين بها'),
             'gender_' : fields.selection([('male',u'Masculin'),('female',u'Féminin')],u'Sexe'), 
             'gender_ar' : fields.selection([('male',u'دكر'),('female',u'انتى')],u'الجنس'), 
             'groupe' : fields.many2one('sfp.groupe', u'Groupe'),
             'cfa' :fields.many2one('sfp.groupe', u'CFA'),
-            'contrat' :fields.many2one('sfp.groupe', u'Contrat'),
+            'contrat_ids' :fields.one2many('sfp.contrat','vacataire', u'Contrat'),
+            
+            'contrat_ids_company' :fields.one2many('sfp.contrat','entreprise', u'Contrat'),
+            'contrat_ids_maitre' :fields.one2many('sfp.contrat','maitre', u'Contrat'),
+            'contrat_ids_chef' :fields.one2many('sfp.contrat','chef', u'Contrat'),
 
             'vacataire_ok': fields.boolean('Vacataire'),
             'is_tuteur': fields.boolean('Tuteur'),
             'customer': fields.boolean('Is a Customer', help="Check this box if this contact is a customer."),
-             #tuteur
-             'na_ar': fields.char(u'الصفة'),
-             'profession_ar': fields.char(u'المهنة'),        
+            #tuteur
+            'titre': fields.many2one('titre.titre',u'الصــــــفة'),
+            'profession_ar': fields.char(u'المهنة'),        
             #vacataire
             'vac_year' : fields.char(u'Année de vacation'),
-            'nbr_visite' : fields.char(u'Nombre de visites'),
+            'maitre_ids' :fields.one2many('sfp.maitre','maitre', u'Maitre'),
+            'is_company': fields.boolean('Is a Company', domain=[('is_company','=',True)]),
             'price' : fields.char(u'Taux horaire '),   
-            'masse_horaire' : fields.char(u'AMasse horaire'),
+            'masse_horaire' : fields.char(u'Masse horaire'),
             'grade': fields.many2one('sfp.grade',u'Grade'), 
             'matier_ids': fields.many2many('sfp.matier','sfp_matier_rel','vacataire_id','matier_id',u'Matières'), 
 
@@ -91,7 +89,7 @@ class res_partner(orm.Model):
          'customer': False,
          'supplier': True, 
          
-                  }
+            }
     
     def onchange_grade(self,cr,uid,ids,grade,context={}):
         data={}
@@ -101,3 +99,34 @@ class res_partner(orm.Model):
                 data['price'] = object_grade.price_h or False
         return {'value' : data }
     
+    
+class titre_titre(orm.Model):
+    _name = 'titre.titre'
+    _columns = {
+        'name': fields.char(u'Nom', required=True),
+        'code': fields.char(u'Code', translate=True),
+        'description': fields.text(u'Description', translate=True),
+   
+    }
+    
+class company_activities(orm.Model):
+    _name = 'company.activities'
+    _columns = {
+        'name': fields.char(u'Nom', required=True),
+        'code': fields.char(u'Code', required=True),
+        'name_ar': fields.char(u'الاســـــم', translate=True),
+        'description': fields.text(u'Description', translate=True),
+   
+    }
+    
+    def name_get(self, cr, uid, ids, context=None):
+        res=[]
+        if context is None:
+            context = {}
+        if not len(ids):
+            return []
+        if context.get('show_ref'):
+            res = [(r['id'], r['ref']) for r in self.read(cr, uid, ids, ['ref'], context)]
+        else:
+            res = [(r['id'], u'%s' %(r['name_ar'] or '')) for r in self.read(cr, uid, ids, ['name_ar'], context)]
+        return res

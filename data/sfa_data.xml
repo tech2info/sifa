@@ -36,7 +36,7 @@
 	            <field name="code">Al Haouz</field>
 	            <field name="description">Al Haouz</field>
 	            <field name="order">1</field>
-	            <field name="cfa" ref="sfp_grade"/>
+	            <field name="cfa" ref="sfp_cfa"/>
 	    </record>
 	    
 	    <record model="sfp.province" id="sfp_province1">
@@ -256,7 +256,58 @@
 	            <field name="description">Autre a specifier</field>
 	            <field name="order">4</field>
 	    </record>
+	   
+	   	   <!-- secteur --> 
 	    
+	   <record model="sfp.sector" id="sfp_sector">
+	            <field name="name">ARATISANAT DE PRODUCTION</field>
+	            <field name="code">AP</field>
+	    </record>
+   
+   	   <!-- secteur de formation --> 
+	    
+	   <record model="sfp.sectortraining" id="sfp_training_sector">
+	            <field name="name">Textile</field>
+	            <field name="code">T</field>
+	            <field name="sector_id" ref="sfp_sector"/>
+	    </record>
+	    
+	    <record model="sfp.sectortraining" id="sfp_training_sector1">
+	            <field name="name">Verre</field>
+	            <field name="code">V</field>
+	            <field name="sector_id" ref="sfp_sector"/>
+	    </record>
+	    
+	    <record model="sfp.sectortraining" id="sfp_training_sector2">
+	            <field name="name">Activcités à base de matières végétales </field>
+	            <field name="code">ABMV</field>
+	            <field name="sector_id" ref="sfp_sector"/>
+	    </record>
+	    
+	    <record model="sfp.sectortraining" id="sfp_training_sector3">
+	            <field name="name">Cuir et Tannerie</field>
+	            <field name="code">CT</field>
+	            <field name="sector_id" ref="sfp_sector"/>
+	    </record>
+	    
+	    <record model="sfp.sectortraining" id="sfp_training_sector4">
+	            <field name="name">Pierre et Terre </field>
+	            <field name="code">PT</field>
+	            <field name="sector_id" ref="sfp_sector"/>
+	    </record>
+	    
+	    <record model="sfp.sectortraining" id="sfp_training_sector5">
+	            <field name="name">Métaux/ Métaux précieux</field>
+	            <field name="code">MP</field>
+	            <field name="sector_id" ref="sfp_sector"/>
+	    </record>
+	    
+	    <record model="sfp.sectortraining" id="sfp_training_sector6">
+	            <field name="name">Activités du bois </field>
+	            <field name="code">ABois</field>
+	            <field name="sector_id" ref="sfp_sector"/>
+	    </record>
+	     
 	    <!-- Matières -->
 	    
 	    <record model="sfp.matier" id="sfp_matier">
@@ -366,7 +417,8 @@
 	    
 	   <record model="sfp.metier" id="sfp_metier">
 	            <field name="name">Artisan spécialisé Couturier Traditionnel</field>
-	            <field name="code">ASCT</field>
+	            <field name="name_ar">الخياطة التقليدية</field>
+	            <field name="code">B310</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector"/>
@@ -374,7 +426,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier1">
 	            <field name="name">Artisan spécialisé en broderie</field>
-	            <field name="code">ASB</field>
+	            <field name="name_ar">الطرز</field>
+	            <field name="code">B38</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector"/>
@@ -382,7 +435,8 @@
 	    
 	   <record model="sfp.metier" id="sfp_metier2">
 	            <field name="name">Brodeur</field>
-	            <field name="code">B</field>
+	            <field name="name_ar">الطرز</field>
+	            <field name="code">B34</field>
 	            <field name="level" ref="sfp_level1"/>
 	           <field name="duree">11</field>
 	           <field name="sect_id" ref="sfp_training_sector"/>
@@ -390,7 +444,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier3">
 	            <field name="name">Artisan Tisseur de Tapis </field>
-	            <field name="code">ATT</field>
+	            <field name="name_ar">حياكة الزربية</field>
+	            <field name="code">B31</field>
 	            <field name="level" ref="sfp_level1"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector"/>
@@ -398,7 +453,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier4">
 	            <field name="name">Artisan Spécialisé Tisseur de Tapis</field>
-	            <field name="code">ASTT</field>
+	            <field name="name_ar">حياكة الزربية</field>
+	            <field name="code">B35</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector"/>
@@ -406,7 +462,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier5">
 	            <field name="name">Artisan Spécialisé en Tricotage </field>
-	            <field name="code">AST</field>
+	            <field name="name_ar">الحباكة</field>
+	            <field name="code">B39</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector"/>
@@ -414,7 +471,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier6">
 	            <field name="name">Artisan Spécialisé en Passementier</field>
-	            <field name="code">ASP</field>
+	            <field name="name_ar">صناعة القيطان</field>
+	            <field name="code">B312</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector"/>
@@ -422,7 +480,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier7">
 	            <field name="name">Artisan  Tisseur Traditionnel </field>
-	            <field name="code">ATT</field>
+	            <field name="name_ar">النسيج التقليدي</field>
+	            <field name="code">B33</field>
 	            <field name="level" ref="sfp_level1"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector"/>
@@ -430,7 +489,8 @@
 	    
 	   <record model="sfp.metier" id="sfp_metier8">
 	            <field name="name">Artisan Spécialisé Tisseur Traditionnel</field>
-	            <field name="code">ASTTR</field>
+	            <field name="name_ar">النسيج التقليدي</field>
+	            <field name="code">B37</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector"/>
@@ -438,7 +498,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier9">
 	            <field name="name">Artisan Spécialisé Teinturier de Laine </field>
-	            <field name="code">ASTL</field>
+	            <field name="name_ar">صباغةالصوف  </field>
+	            <field name="code">B313</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector"/>
@@ -446,7 +507,8 @@
 	    
 	   <record model="sfp.metier" id="sfp_metier10">
 	            <field name="name">Artisan Spécialisé Tapissier</field>
-	            <field name="code">ASTPessier</field>
+	            <field name="name_ar">خياطة الأفرشة</field>
+	            <field name="code">B316</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector"/>
@@ -454,7 +516,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier11">
 	            <field name="name">Artisan Spécialisé Peintre sur Soie </field>
-	            <field name="code">ASPS</field>
+	            <field name="name_ar">الرسم على الحرير</field>
+	            <field name="code">B313</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector"/>
@@ -462,6 +525,7 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier111">
 	            <field name="name">Artisan Spécialisé Couturier Moderne </field>
+	            <field name="name_ar">الخياطة العصرية</field>
 	            <field name="code">ASCM</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
@@ -470,7 +534,8 @@
 	      	    
 	   <record model="sfp.metier" id="sfp_metier12">
 	            <field name="name">Artisan Spécialisé Graveur et Sculpteur sur Verre</field>
-	            <field name="code">ASGSV</field>
+	            <field name="name_ar">النقش على الزجاج</field>
+	            <field name="code">B72</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector1"/>
@@ -478,6 +543,7 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier13">
 	            <field name="name">Artisan Spécialisé Miroitier</field>
+	            <field name="name">الخياطة التقليدية</field>
 	            <field name="code">ASM</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
@@ -486,6 +552,7 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier14">
 	            <field name="name">Artisan Spécialisé Vitrailler</field>
+	            <field name="name">الخياطة التقليدية</field>
 	            <field name="code">ASV</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
@@ -494,6 +561,7 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier15">
 	            <field name="name">Artisant Spécialisé Décorateur Fleuriste </field>
+	            <field name="name_ar">الخياطة التقليدية</field>
 	            <field name="code">ASFOV</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
@@ -502,7 +570,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier16">
 	            <field name="name">Artisan spécialisé fabricant de produits à base de fibres végétales</field>
-	            <field name="code">ASPFV</field>
+	            <field name="name_ar">منتوجات من أصل نباتي</field>
+	            <field name="code">B42</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector2"/>
@@ -510,7 +579,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier17">
 	            <field name="name">Artisan spécialisé en cuir excisé</field>
-	            <field name="code">ASCE</field>
+	            <field name="name_ar">صناعة تقشير الجلد</field>
+	            <field name="code">B13</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector3"/>
@@ -518,7 +588,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier18">
 	            <field name="name">Artisan Spécialisé Cordonnier</field>
-	            <field name="code">ASC</field>
+	            <field name="name_ar">اسكافي</field>
+	            <field name="code">B12</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector3"/>
@@ -526,7 +597,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier19">
 	            <field name="name">Artisan Spécialisé Maroquinier Traditionnel</field>
-	            <field name="code">ASMT</field>
+	            <field name="name_ar">صناعة المنتجات الجلدية التقليدية</field>
+	            <field name="code">B15</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">22</field>
 	            <field name="sect_id" ref="sfp_training_sector3"/>
@@ -534,7 +606,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier20">
 	            <field name="name">Artisan Spécialisé Maroquinier Moderne</field>
-	            <field name="code">ASMModerne</field>
+	            <field name="name_ar">صناعة المنتجات الجلدية العصرية</field>
+	            <field name="code">B14</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">22</field>
 	            <field name="sect_id" ref="sfp_training_sector3"/>
@@ -542,7 +615,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier21">
 	            <field name="name">Artisan Spécialisé Tanneur Traditionnel</field>
-	            <field name="code">ASTTraditionnel</field>
+	            <field name="name_ar">دباغ جلود تقليدي</field>
+	            <field name="code">B18</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector3"/>
@@ -550,7 +624,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier22">
 	            <field name="name">Artisan Spécialisé Plâtrier</field>
-	            <field name="code">ASPlatrier</field>
+	            <field name="name_ar">الجبص</field>
+	            <field name="code">B24</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector4"/>
@@ -558,7 +633,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier23">
 	            <field name="name">Artisan Spécialisé Poseur de  Zellige et Carreaux</field>
-	            <field name="code">ASPZC</field>
+	            <field name="name_ar">وضع الزليج</field>
+	            <field name="code">B28</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector4"/>
@@ -566,7 +642,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier24">
 	            <field name="name">Artisan Spécialisé Zelligier</field>
-	            <field name="code">ASZelligier</field>
+	            <field name="name_ar">الزليج</field>
+	            <field name="code">B25</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">22</field>
 	            <field name="sect_id" ref="sfp_training_sector4"/>
@@ -574,7 +651,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier24">
 	            <field name="name">Artisan Spécialisé Potier</field>
-	            <field name="code">ASP</field>
+	            <field name="name_ar">صناعة الفخار</field>
+	            <field name="code">B29</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">22</field>
 	            <field name="sect_id" ref="sfp_training_sector4"/>
@@ -582,7 +660,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier25">
 	            <field name="name">Artisan Bijoutier/Argentier</field>
-	            <field name="code">ABArgentier</field>
+	            <field name="name_ar">الصياغة</field>
+	            <field name="code">B61</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector5"/>
@@ -590,7 +669,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier26">
 	            <field name="name">rtisan spécialisé bijoutier / argentier</field>
-	            <field name="code">ASBArgentier</field>
+	            <field name="name_ar">الصياغة</field>
+	            <field name="code">B612</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">22</field>
 	            <field name="sect_id" ref="sfp_training_sector5"/>
@@ -598,7 +678,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier27">
 	            <field name="name">Artisan Spécialisé Dinandier</field>
-	            <field name="code">ASDinandier</field>
+	            <field name="name_ar">النحاس</field>
+	            <field name="code">B68</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">22</field>
 	            <field name="sect_id" ref="sfp_training_sector4"/>
@@ -606,7 +687,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier28">
 	            <field name="name">Artisan Spécialisé ferronnier d’art</field>
-	            <field name="code">ASPotier</field>
+	            <field name="name_ar">الحدادة الفنية</field>
+	            <field name="code">B69</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">22</field>
 	            <field name="sect_id" ref="sfp_training_sector4"/>
@@ -614,7 +696,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier29">
 	            <field name="name">Artisan Spécialisé Forgeron</field>
-	            <field name="code">ABArgentier</field>
+	            <field name="name_ar">الحدادة</field>
+	            <field name="code">B611</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">22</field>
 	            <field name="sect_id" ref="sfp_training_sector4"/>
@@ -622,7 +705,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier30">
 	            <field name="name">Artisan Spécialisé Menuisier ébéniste</field>
-	            <field name="code">ASM ébéniste</field>
+	            <field name="name_ar">صانع متخصص نجار الأبنوس</field>
+	            <field name="code">B54</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">22</field>
 	            <field name="sect_id" ref="sfp_training_sector5"/>
@@ -630,7 +714,8 @@
 	    
 	     <record model="sfp.metier" id="sfp_metier29">
 	            <field name="name">Artisan Spécialisé Incrusteur Bois</field>
-	            <field name="code">ASIB</field>
+	            <field name="name_ar">تطعيم الخشب</field>
+	            <field name="code">B59</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">22</field>
 	            <field name="sect_id" ref="sfp_training_sector5"/>
@@ -638,7 +723,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier30">
 	            <field name="name">Artisan Spécialisé Fabricant des Instruments de Musique</field>
-	            <field name="code">ASFIMusique</field>
+	            <field name="name_ar">صناعة الأدوات الموسيقية</field>
+	            <field name="code">B510</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">22</field>
 	            <field name="sect_id" ref="sfp_training_sector5"/>
@@ -646,7 +732,8 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier29">
 	            <field name="name">Artisan Spécialisé Peintre sur Bois (Zouak)</field>
-	            <field name="code">ASPB</field>
+	            <field name="name_ar">الصباغة على الخشبة (الزواق </field>
+	            <field name="code">B56</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector5"/>
@@ -654,63 +741,14 @@
 	    
 	    <record model="sfp.metier" id="sfp_metier30">
 	            <field name="name">Artisan Spécialisé Sculpteur sur Bois</field>
-	            <field name="code">ASFIMusique</field>
+	            <field name="name_ar">النقش على الخشب</field>
+	            <field name="code">B57</field>
 	            <field name="level" ref="sfp_level"/>
 	            <field name="duree">11</field>
 	            <field name="sect_id" ref="sfp_training_sector5"/>
 	    </record>
 	    
-	   <!-- secteur --> 
-	    
-	   <record model="sfp.sector" id="sfp_sector">
-	            <field name="name">ARATISANAT DE PRODUCTION</field>
-	            <field name="code">AP</field>
-	    </record>
-   
-   	   <!-- secteur de formation --> 
-	    
-	   <record model="sfp.sectortraining" id="sfp_training_sector">
-	            <field name="name">Textile</field>
-	            <field name="code">T</field>
-	            <field name="sector_id" ref="sfp_sector"/>
-	    </record>
-	    
-	    <record model="sfp.sectortraining" id="sfp_training_sector1">
-	            <field name="name">Verre</field>
-	            <field name="code">V</field>
-	            <field name="sector_id" ref="sfp_sector"/>
-	    </record>
-	    
-	    <record model="sfp.sectortraining" id="sfp_training_sector2">
-	            <field name="name">Activcités à base de matières végétales </field>
-	            <field name="code">ABMV</field>
-	            <field name="sector_id" ref="sfp_sector"/>
-	    </record>
-	    
-	    <record model="sfp.sectortraining" id="sfp_training_sector3">
-	            <field name="name">Cuir et Tannerie</field>
-	            <field name="code">CT</field>
-	            <field name="sector_id" ref="sfp_sector"/>
-	    </record>
-	    
-	    <record model="sfp.sectortraining" id="sfp_training_sector4">
-	            <field name="name">Pierre et Terre </field>
-	            <field name="code">PT</field>
-	            <field name="sector_id" ref="sfp_sector"/>
-	    </record>
-	    
-	    <record model="sfp.sectortraining" id="sfp_training_sector5">
-	            <field name="name">Métaux/ Métaux précieux</field>
-	            <field name="code">MP</field>
-	            <field name="sector_id" ref="sfp_sector"/>
-	    </record>
-	    
-	    <record model="sfp.sectortraining" id="sfp_training_sector6">
-	            <field name="name">Activités du bois </field>
-	            <field name="code">ABois</field>
-	            <field name="sector_id" ref="sfp_sector"/>
-	    </record>
-	    
+
 	    
 	</data>    
 </openerp>
