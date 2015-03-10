@@ -100,18 +100,22 @@ class sfp_contrat(orm.Model):
         'allocation': fields.float(u'Allocation'),
         'trial': fields.integer(u'Période essai'),
         'periode_company': fields.integer(u'Période Entreprise'),
-        'periode_cfa': fields.integer(u'Période CFA'),
+        'periode_cfa': fields.integer(u'Période CQP'),
+        'average': fields.float(u'Moyenne'),
         'periode_work': fields.integer(u'Période Travail'),
         'nbr_inscrit': fields.integer(u'عدد المتدرجين'),
         'maitre_titre': fields.many2one('titre.titre',u'الصـــــفة'),
         
-        'cfa': fields.many2one('sfp.cfa',u'CFA'),
+        'cfa': fields.many2one('sfp.cfa',u'CQP'),
         'province': fields.many2one('sfp.province',u'Province',domain="[('cfa','=',cfa)]"),
         'annexe': fields.many2one('sfp.annexe',u'Annexe',domain="[('cfa','=',cfa)]"),
         'vacataire': fields.many2one('res.partner',u'Vacataire',domain=[('vacataire_ok','=',True)]),
         'nbr_visite' : fields.char(u'Nombre de visites'),
         'description': fields.text(u'Description'),
         'invoice_ids': fields.one2many('account.invoice','contrat_id',u'Les Factures'),
+        
+        'age': fields.integer(u'Age d\'apprenti'),
+        'age_maitre': fields.integer(u'Age maitre'),
         #'state': fields.selection(AVAILABLE_PRIORITIES, 'Etat', select=True),
         'state' : fields.selection([('processing',u'En Traitement'),('reject',u'Réfusé'),('year1',u'1ère Année'),('year2',u'2ème Année'),('laureat',u'Lauréat'),('abandon',u'Abandonnée'),('changed',u'Changé')],u'Etat',required=True),
    
@@ -127,21 +131,75 @@ class sfp_contrat(orm.Model):
         'name': lambda self, cr, uid, context: '/',
         'date_start': lambda *a : time.strftime('%Y-%m-%d'),
         }
+    
+  
+    def onchange_apprenti(self,cr,uid,ids,groupe,apprenti,context={}):
+        data={}
+        object_groupe=self.pool.get('sfp.groupe').browse(cr,uid,groupe)  
+        object_apprenti=self.pool.get('sfp.apprenti').browse(cr,uid,apprenti) 
+        if apprenti: 
+            if  object_apprenti.birthdate_1 and object_groupe.date_prevu:
+                data['age'] = (datetime.strptime(object_groupe.date_prevu,"%Y-%m-%d")- datetime.strptime(object_apprenti.birthdate_1,"%Y-%m-%d")).days/356
+            else :
+                raise osv.except_osv(u'Attention', u'La date est non spécifier')
+        return {'value' : data }
         
     
-    def onchange_metier(self,cr,uid,ids,metier,context={}):
+    def onchange_metier(self,cr,uid,ids,groupe,apprenti,metier,context={}):
         data={}
         if metier:
+            object_groupe=self.pool.get('sfp.groupe').browse(cr,uid,groupe)  
+            object_apprenti=self.pool.get('sfp.apprenti').browse(cr,uid,apprenti) 
             object_metier=self.pool.get('sfp.metier').browse(cr,uid,metier)
-            object_app=self.browse(cr,uid,ids)
-            if object_metier:
-                data['duree'] = object_metier.duree  or False
-                if object_metier.max_age >= object_app.age:
-                    data['condition1'] = True 
+            #object_app=self.browse(cr,uid,age)
+            if object_metier.duree:
+                data['duree'] = object_metier.duree  or False 
+                if  object_apprenti.birthdate_1 and object_groupe.date_prevu:
+                    a=data['age'] = (datetime.strptime(object_groupe.date_prevu,"%Y-%m-%d")- datetime.strptime(object_apprenti.birthdate_1,"%Y-%m-%d")).days/356
+                    if a <= 30 and a >= 15:
+                        data['condition1'] = True
+                    else :
+                        raise osv.except_osv(u'Attention', u'Age de metier et superieur a l\'age de l\'apprenti')
                 else :
-                    raise osv.except_osv(u'Attention', u'age de metier et superieur a l\'age de l\'apprenti')
+                    raise osv.except_osv(u'Attention', u'Date de l\'apprenti ou date previsionnelle de groupe est non specifier')
+            else :
+                raise osv.except_osv(u'Attention', u'La durée du metier non spécifier')
         return {'value' : data }
      
+    def onchange_maitre(self,cr,uid,ids,maitre,context={}):
+        data={}
+        #object_groupe=self.pool.get('sfp.groupe').browse(cr,uid,groupe)
+        object_maitre=self.pool.get('res.partner').browse(cr,uid,maitre)
+        if maitre:
+            if object_maitre.birthdate_1:
+               # a = datetime.strptime(object_groupe.date_prevu,"%Y-%m-%d")
+                a =(datetime.now())
+                b = datetime.strptime(object_maitre.birthdate_1,"%Y-%m-%d")
+                c = (a - b).days/356
+                data['age_maitre']= c
+                if c >= 20 :
+                    pass
+                else :
+                    raise osv.except_osv(u'Attention ', u'L\'age de Maitre doit etre superieur ou egale a 20 ans')
+        return {'value' : data }
+    
+    def onchange_chef(self,cr,uid,ids,chef,context={}):
+        data={}
+        #object_groupe=self.pool.get('sfp.groupe').browse(cr,uid,groupe)
+        object_chef=self.pool.get('res.partner').browse(cr,uid,chef)
+        if chef:
+            if object_chef.birthdate_1:
+               # a = datetime.strptime(object_groupe.date_prevu,"%Y-%m-%d")
+                a =(datetime.now())
+                b = datetime.strptime(object_chef.birthdate_1,"%Y-%m-%d")
+                c = (a - b).days/356
+                data['chef']= c
+                if c >= 20 :
+                    pass
+                else :
+                    raise osv.except_osv(u'Attention ', u'L\'age de Chef d\'entreprise doit etre superieur ou egale a 20 ans')
+        return {'value' : data }
+    
     
 class sfp_tuteur(orm.Model):
     _name = 'sfp.tuteur'
@@ -223,8 +281,7 @@ class sfp_apprenti(orm.Model):
             'gender_ar' : fields.selection([('male',u'دكـــــــر'),('female',u'انــــــثى')],u'الجنــــــس'), 
             'image': fields.binary(u"Image",help="This field holds the image used as avatar for this contact, limited to 1024x1024px"),   
             'street': fields.char(u'Adresse'),
-            'street_ar': fields.char(u'العـــنوان'),
-            'street2': fields.char(u'Adresse'),
+            'street2': fields.char(u'العـــنوان'),
             'zip': fields.char(u'Code Postal', size=24, change_default=True),
             'city': fields.char(u'Ville'),
             'city_ar': fields.char(u'المـــــدينة'),
@@ -344,7 +401,6 @@ class sfp_metier(orm.Model):
         'qualification_ar': fields.char(u'تأهيل'),
         'code': fields.char(u'Code', translate=True),      
         'duree': fields.char(u'Durée',required=True),
-        'max_age': fields.integer(u'Age maximum'),
         'level': fields.many2one('sfp.level', u'Titre de Qualification'),
         'sector': fields.many2one('sfp.sector', u'Secteur'),
         'description': fields.text(u'Description'),
@@ -353,7 +409,6 @@ class sfp_metier(orm.Model):
     }
     
     _defaults = {  
-        'max_age':'15 à 30 ans',
         }
     
     def name_get(self, cr, uid, ids, context=None):
@@ -384,7 +439,7 @@ class sfp_annexe(orm.Model):
         'name_ar' : fields.char(u'الإسم '), 
         'code': fields.char(u'Code', translate=True),
         'description': fields.text(u'Description', translate=True),    
-        'cfa': fields.many2one('sfp.cfa',u'CFA'),
+        'cfa': fields.many2one('sfp.cfa',u'CQP'),
     }
 
 
@@ -395,7 +450,7 @@ class sfp_province(orm.Model):
         'name_ar' : fields.char(u'الإسم '), 
         'code': fields.char(u'Code', translate=True),
         'description': fields.text(u'Description', translate=True),
-        'cfa': fields.many2one('sfp.cfa',u'CFA'),
+        'cfa': fields.many2one('sfp.cfa',u'CQP'),
     }
 
 class sfp_cfa(orm.Model):

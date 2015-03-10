@@ -59,6 +59,7 @@ With this module you can following all contracts.
         'report/apprenti_certificate_sfa.xml',
         'report/specialized_certificate_sfa.xml',
         'report/complement_report_contrat_sfa.xml',
+        'report/report_groupe_average.xml',
         'views/report_apprenti.xml',
         'wizard/groupe_view.xml',
         'sfa_menu.xml',

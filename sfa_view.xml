@@ -68,8 +68,9 @@
 				            </group>
 				            
 			                <group>
+			                    <field name="average" attrs="{'invisible': [('state','in',('abandon','changed','processing','year1','year2','reject'))]}"/>
 			                    <field name="apprenti" />
-			                    <field name="responsable" placeholder="Si mineur"/>
+			                    <field name="responsable" placeholder="Si mineur" context="{'default_is_tuteur': 'is_tuteur'}"/>
 			                    <field name="maitre_titre" placeholder="الصــــــــفة"/>
 			                </group>
 		               </group>
@@ -77,22 +78,22 @@
 		               <newline/>
 		               <group string="Informations entreprise">
 		                	<group>
-		                	    <field name="entreprise" />
-		                	    <field name="chef" />
+		                	    <field name="entreprise" context="{'default_is_company': 'is_company'}"/>
+		                	    <field name="chef" on_change="onchange_chef(chef)"/>
 		                	    <field name="declaration" />
 			                    <field name="parent_link" attrs="{'invisible' : [('declaration','=',False)]}"/>
 		                	    
 				            </group>
 			                <group>
-			                    <field name="maitre" />
+			                    <field name="maitre" on_change="onchange_maitre(maitre)"/>
 			                    <field name="maitre_descri" />
 			                </group>
 		               </group>
 		               
 		              <newline/>
-		               <group string="Informations CFA">
+		               <group string="Informations CQP">
 		               		<group>
-				                <field name="vacataire" />
+				                <field name="vacataire" context="{'default_vacataire_ok': 'vacataire_ok'}"/>
 				                <field name="cfa" />
 				                <field name="annexe" />
 				                <field name="province" />
@@ -100,7 +101,7 @@
 				            </group>
 				            
 		                	<group>
-				                <field name="metier" on_change="onchange_metier(metier)"/>
+				                <field name="metier" on_change="onchange_metier(groupe,apprenti,metier)"/>
 				                <field name="date_start" />
 				                <field name="date_end" />
 				                
@@ -121,6 +122,8 @@
                                  <field name="periode_company" />
                                  <field name="trial" />
                                  <field name="periode_work" />
+                                 <field name="age" />
+                                 <field name="age_maitre" invisible="True"/>
                                  <field name="nbr_function" attrs="{'invisible': [('state','in',('laureat','processing','changed','year1','year2','reject'))]}"/>
 				            </group>
 		               </group>
@@ -158,7 +161,9 @@
                     <field name="apprenti" />
                     <field name="entreprise" />
                      <field name="metier" />
-                    <field name="state" />
+                     <field name="state" />
+                     <field name="average" attrs="{'invisible': [('state','in',('abandon','changed','processing','year1','year2','reject'))]}"/>
+                    
                 </tree>
             </field>
         </record>
@@ -897,7 +902,6 @@
                            <field name="code" />
                            <field name="duree" />
                            <field name="level" />
-                           <field name="max_age" />
                            <field name="description"/>
                         </tree>
 	                	</field>
@@ -1009,7 +1013,6 @@
 				                <field name="qualification" />
 				                <field name="duree" />
 				                <field name="sect_id" />
-				                <field name="max_age" />
 				            </group>
 			                <group>
 			                    <field name="name_ar" />
@@ -1042,7 +1045,6 @@
                     <field name="duree" />
                     <field name="level" />
                     <field name="sect_id" />
-                    <field name="max_age" />
                 </tree>
             </field>
         </record>

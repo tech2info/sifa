@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_average">
+<t t-call="report.html_container">
+    <t t-foreach="docs" t-as="o">
+        <t t-call="report.external_layout">
+          <div class="page">
+                <p><center>Etat du Moyenne</center></p>
+                <p><center>Groupe :<span t-field="o.name"/></center></p>
+                <br/>
+                <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>N contrat</th>
+                        <th>Nom et Prenom</th>
+                        <th>Annexe</th>
+                        <th>Métier</th>
+                        <th>Niveau scolaire</th>
+                        <th>Diplome</th>
+                        <th>Entreprise</th>
+                        <th>Moyenne</th>
+                        <th>Etat</th>
+                    </tr>
+               </thead>
+                <tbody>
+                    <tr t-foreach="o.contrat_ids" t-as="l">
+                        <td>
+                           <span t-field="l.name"/>
+                        </td>
+                        <td>
+                            <span t-field="l.apprenti.name"/>
+                        </td>
+                        <td>
+                           <span t-field="l.annexe.code"/>
+                        </td>
+                        <td>
+                            <span t-field="l.metier.qualification"/>
+                        </td>
+                        <td>
+                            <span t-field="l.apprenti.nv_scolaire.code"/>
+                        </td>
+                        <td>
+                           <span t-field="l.metier.level.code"/>
+                        </td>
+                        <td>
+                            <span t-field="l.entreprise.name"/>
+                        </td>
+                        <td>
+                            <span t-field="l.average"/>
+                        </td>
+                        <td>
+                            <span t-field="l.state"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div> 
+    </t>
+   </t>
+  </t>
+</template>
+</data>
+</openerp>

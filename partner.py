@@ -59,10 +59,10 @@ class res_partner(orm.Model):
             'resp_entreprise' : fields.char(u'بصفته: صاحب المقاولة'),     
             'nbr_mois' : fields.char(u'Nombre de mois accompli'),
             'montant_percu' : fields.char(u'Montant Percu'),
-            'patente' : fields.char(u'Patente'),
+            'patente' : fields.char(u'Taxe professionnelle'),
             'payment_mode' : fields.char(u'Mode de payement'),
             'employe_nbr' : fields.integer(u'عدد العاملين بها'),
-            'gender_' : fields.selection([('male',u'Masculin'),('female',u'Féminin')],u'Sexe'), 
+            'gender_' : fields.char(u'Sexe'), 
             'gender_ar' : fields.selection([('male',u'دكر'),('female',u'انتى')],u'الجنس'), 
             'groupe' : fields.many2one('sfp.groupe', u'Groupe'),
             'cfa' :fields.many2one('sfp.groupe', u'CFA'),
@@ -73,6 +73,7 @@ class res_partner(orm.Model):
             'contrat_ids_chef' :fields.one2many('sfp.contrat','chef', u'Contrat'),
 
             'vacataire_ok': fields.boolean('Vacataire'),
+            'is_mono': fields.boolean('Mono'),
             'is_tuteur': fields.boolean('Tuteur'),
             'customer': fields.boolean('Is a Customer', help="Check this box if this contact is a customer."),
             #tuteur
@@ -97,6 +98,16 @@ class res_partner(orm.Model):
          
             }
     
+    def onchange_field1(self, cr, uid, ids, gender_ar, gender_, context=None):
+        if gender_ar=='male':
+            v = {'gender_': 'Masculin'}
+            return {'value': v}
+        elif gender_ar=='female':
+            v = {'gender_': 'Féminin'}
+            return {'value': v}
+        return {}
+
+
     def onchange_grade(self,cr,uid,ids,grade,context={}):
         data={}
         if grade:

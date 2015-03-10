@@ -27,28 +27,21 @@ class sfp_contrat(orm.Model):
     
 
     _columns = {       
-        'condition1': fields.boolean(u'Etre âgé de 15 ans à 30 ans '),
-        'condition2': fields.boolean(u'Avoir le niveau de la 6ème année ou un certificat de l\'éducation ...'),
-        'condition3': fields.boolean(u'Avoir le certificat d\'alphabétisation ...  '),
+        'condition1': fields.boolean(u'Age: 15 à 30 ans ',required=True),
+        'condition2': fields.boolean(u'Attestation scolaire'),
+        'condition3': fields.boolean(u'Certificat d\'apprentissage'),
         'condition4': fields.boolean(u'3 copies d’acte de naissance '),
         'condition5': fields.boolean(u'4 photos '),
         'condition6': fields.boolean(u'Photocopie CIN d’apprenti ou son tuteur '),
         
-        'condition7': fields.boolean(u'Etre âgé de 20 ans au moins '),
-        'condition8': fields.boolean(u'Etre de bonne moralité '),
-        'condition9': fields.boolean(u'Déléguer un maître d’apprentissage '),
-        'condition10': fields.boolean(u'Avoir une patente '),
-        'condition11': fields.boolean(u'Disposant des équipements et du matériel nécessaires'),
-        'condition12': fields.boolean(u'Avoir un niveau d’activités suffisant ... '),
+        'condition7': fields.boolean(u' Agé : min 20 ans  '),
+        'condition10': fields.boolean(u'Taxe professionnelle (patente) '),
         'condition13': fields.boolean(u'2 photos '),
         'condition14': fields.boolean(u'Photocopie CIN '),
         'condition15': fields.boolean(u'Photocopie de  Carte professionnelle '),
         
-        'condition16': fields.boolean(u'Etre employé de l’entreprise '),
-        'condition17': fields.boolean(u'posséder les aptitudes et les qualifications...'),
-        'condition18': fields.boolean(u'justifier d’une expérience minimale  de 2 ans'),
-        'condition19': fields.boolean(u'avoir la capacité pédagogique de transmettre son expérience '),
-        'condition20': fields.boolean(u'avoir une bonne moralité '),
+
+        'condition20': fields.boolean(u'2 photos '),
         'condition21': fields.boolean(u'Photocopie CIN '),
         'condition22': fields.boolean(u'Photocopie de  Carte professionnelle '),
 

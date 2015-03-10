@@ -154,3 +154,22 @@ class ParticularReport_complement_certificate(osv.AbstractModel):
             cr, uid, ids, 'sifa.report_complement_contrat',
             docargs, context=context
         )
+        
+class ParticularReport_average(osv.AbstractModel):
+    _name = 'report.sifa.report_average'
+    def render_html(self, cr, uid, ids, data=None, context=None):
+        report_obj = self.pool['report']
+        report = report_obj._get_report_from_name(
+            cr, uid, 'sifa.report_average'
+        )
+        docargs = {
+            'doc_ids': ids,
+            'doc_model': report.model,
+            'docs': self.pool[report.model].browse(
+                cr, uid, ids, context=context
+            ),
+        }
+        return report_obj.render(
+            cr, uid, ids, 'sifa.report_average',
+            docargs, context=context
+        )

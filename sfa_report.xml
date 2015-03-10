@@ -64,7 +64,15 @@
             name="sifa.report_specialized_certificate" 
         /> 
         
-
+        
+      <report 
+            id="report_group_average"
+            string="Etat moyenne"
+            model="sfp.groupe" 
+            report_type="qweb-pdf"
+            file="sifa.report_average" 
+            name="sifa.report_average" 
+        />
         
     </data>
 </openerp>
