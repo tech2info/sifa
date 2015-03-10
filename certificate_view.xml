@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  sfp for Odoo
+  Copyright (C) 2015 (<http://www.odoo-services.esy.es/>).
+  Authors, Ait-Mlouk Addi  <aitmlouk@gmail.com>
+  Copyright (C) 2015 Ait-mlouk Addi <aitmlouk@gmail.com>
+-->
+<openerp>
+    <data>
+    
+    <!-- admin certificate -->
+    <!-- search -->
+    <record model="ir.ui.view" id="sfa_certificate_search">
+            <field name="name">admin.certificate.search</field>
+            <field name="model">admin.certificate</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Recherche des attestation">
+                    <field name="name"/>
+                    <field name="cin"/>
+                    <field name="date"/>
+                    <newline/>
+                    <group expand="0" string="Grouper par ...">
+                  		<filter string="Partner" icon="stock_person" domain="[]" context="{'group_by':'partner'}"/>
+                  		<filter string="Metier" icon="stock_person" domain="[]" context="{'group_by':'metier'}"/>         	
+                  	</group>
+                 </search>
+            </field>
+    </record>
+    
+    <!-- form -->
+        <record id="view_admin_certificate_form" model="ir.ui.view">
+            <field name="name">admin.certificate.form</field>
+            <field name="model">admin.certificate</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Lieu de naissance" version="7.0">
+                	   <header>
+							<button string="Imprimer" type="object"  name="action_print" icon="gtk-print" />
+						</header>
+                    <sheet>
+                      <group>
+		                	<group>
+				                 <field name="name" /> 
+				                 <field name="metier" />
+				                 <field name="birth_date"/>
+				                 <field name="date"/>
+				            </group>
+			                <group>
+			                	 <field name="partner" on_change="onchange_partner(partner)"/>
+			                	 <field name="cin"/>
+			                	 <field name="adresse"/>
+			                	 <field name="locale" />
+			                </group>
+		               </group>
+                    <newline/>
+                    <notebook colspan="4" > 
+	                	<page string="Description">
+	                		<field name="description" nolabel="1" />
+	                	</page>
+
+                		</notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_admin_certificate_tree" model="ir.ui.view">
+            <field name="name">admin.certificate.tree</field>
+            <field name="model">admin.certificate</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Province">
+                    <field name="name" />
+                    <field name="partner" />
+                    <field name="cin" />
+                    <field name="birth_date" />
+                    <field name="adresse" />
+                    <field name="metier" />
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_admin_certificate" model="ir.actions.act_window">
+            <field name="name">Attestation administrative  </field>
+            <field name="res_model">admin.certificate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+           
+    <!-- apprentis certificate -->
+        
+      <!-- search -->
+      <record model="ir.ui.view" id="sfa_apprenti_certif_search">
+            <field name="name">apprenti.certificate.search</field>
+            <field name="model">apprenti.certif</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Recherche des certificat d'apprentis">
+                    <field name="name"/>
+                    <field name="contract"/>
+                    <field name="date"/>
+                    <newline/>
+                    <group expand="0" string="Grouper par ...">
+                  		<filter string="Contrat" icon="stock_person" domain="[]" context="{'group_by':'contrat'}"/>
+                  		<filter string="Metier" icon="stock_person" domain="[]" context="{'group_by':'metier'}"/>
+                  	</group>
+                 </search>
+            </field>
+        </record>
+        <!-- form -->
+        <record id="view_apprenti_certif_form" model="ir.ui.view">
+            <field name="name">apprenti.certificate.form</field>
+            <field name="model">apprenti.certif</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="certificats d'apprentis" version="7.0">
+                     <header>
+							<button string="Imprimer" type="object"  name="action_print" icon="gtk-print" />
+				     </header>
+                    <sheet>
+                      <group>
+		                	<group>
+				                 <field name="name" />
+				                 <field name="full_name" />
+				                 <field name="metier" />
+				                 <field name="birth_day" />
+				                 <field name="date_end" />
+				                 <field name="cfa" />
+				            </group>
+			                <group>
+			                	 <field name="contract" on_change="onchange_contract(contract)"/>
+			                	 <field name="cin" />
+			                	 <field name="branche"/>
+			                	 <field name="birth_place" />
+			                	 <field name="adresse" />	
+			                	 <field name="date"/>	               	 
+			                </group>
+		               </group>
+                    <newline/>
+                    <notebook colspan="4" > 
+	                	<page string="Description">
+	                		<field name="description" nolabel="1" />
+	                	</page>
+
+                		</notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_apprenti_certif_tree" model="ir.ui.view">
+            <field name="name">apprenti.certificate.tree</field>
+            <field name="model">apprenti.certif</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Province">
+                    <field name="name" />
+                    <field name="full_name" />
+                    <field name="contract" />
+                    <field name="cin" />
+                    <field name="metier" />
+                    <field name="branche"/>
+                    <field name="cfa" />
+                    <field name="date_end" />
+                    <field name="date"/>
+                    <field name="adresse" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_apprenti_certif" model="ir.actions.act_window">
+            <field name="name">Certificat d'apprentissage   </field>
+            <field name="res_model">apprenti.certif</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        
+      <!-- spesialized apprentis certificate -->
+        
+      <!-- search -->
+      <record model="ir.ui.view" id="sfa_specialized_apprenti_certif_search">
+            <field name="name">specialized.apprenti.certif.search</field>
+            <field name="model">specialized.apprenti.certif</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Recherche des certificat d'apprentis">
+                    <field name="name"/>
+                    <field name="contract"/>
+                    <field name="date"/>
+                    <newline/>
+                    <group expand="0" string="Grouper par ...">
+                  		<filter string="Contrat" icon="stock_person" domain="[]" context="{'group_by':'contrat'}"/>
+                  		<filter string="Metier" icon="stock_person" domain="[]" context="{'group_by':'metier'}"/>
+                  	</group>
+                 </search>
+            </field>
+        </record>
+        
+        <!-- form -->
+        <record id="view_specialized_apprenti_certif_form" model="ir.ui.view">
+            <field name="name">specialized.apprenti.certif.form</field>
+            <field name="model">specialized.apprenti.certif</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="certificats d'apprentis" version="7.0">
+                        <header>
+							<button string="Imprimer" type="object"  name="action_print" icon="gtk-print" />
+						</header>
+                    <sheet>
+                      <group>
+		                	<group>
+				                 <field name="name" />
+				                 <field name="full_name" />
+				                 <field name="metier" />
+				                 <field name="birth_day" />
+				                 <field name="date_end" />
+				                 <field name="cfa" />
+				            </group>
+			                <group>
+			                	 <field name="contract" on_change="onchange_contract(contract)"/>
+			                	 <field name="cin" />
+			                	 <field name="branche"/>
+			                	 <field name="birth_place" />
+			                	 <field name="adresse" />	
+			                	 <field name="date"/>	               	 
+			                </group>
+		               </group>
+                    <newline/>
+                    <notebook colspan="4" > 
+	                	<page string="Description">
+	                		<field name="description" nolabel="1" />
+	                	</page>
+
+                		</notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_specialized_apprenti_certif_tree" model="ir.ui.view">
+            <field name="name">apprenti.certificate.tree</field>
+            <field name="model">specialized.apprenti.certif</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Province">
+                    <field name="name" />
+                    <field name="full_name" />
+                    <field name="contract" />
+                    <field name="cin" />  
+                    <field name="metier" />
+                    <field name="branche"/>
+                    <field name="cfa" />
+                    <field name="date_end" />
+                    <field name="date"/>
+                    <field name="adresse" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_specialized_apprenti_certif" model="ir.actions.act_window">
+            <field name="name"> Diplôme de spécialisation  </field>
+            <field name="res_model">specialized.apprenti.certif</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+    </data>
+</openerp>

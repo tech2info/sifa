@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_admin_certificate">
+<t t-call="report.html_container">
+    <t t-foreach="docs" t-as="o">
+        <t t-call="report.external_layout">
+            <div class="page">
+                <h2><center>شهــــادة اداريــة</center></h2>
+                <br/>
+                <br/>
+                <p class="text-right">بنــاء على القانون 12.00 والمخطط الاستعجالي الموقــع بتاريخ 14 يوليوز 2008</p>
+                <p class="text-right">يسلم للسيد ة <b><span t-field="o.partner.name_arabic"/></b>المزداد (ة)بتاريخ<b><span t-field="o.partner.birthdate_1"/></b>ب<b><span t-field="o.partner.lieu_birth_ar"/></b></p>
+                <p class="text-right">الحرفـــة<b><span t-field="o.metier.name_ar"/></b><b><span t-field="o.partner.cin"/></b>الحامل(ة) لبطاقة التعريف الوطنية رقم</p>
+                <p class="text-right">يمارس نشاط الصناعة التقليدية، صنف : الفني الإنتاجي ب<b><span t-field="o.locale"/></b></p>
+                
+            <br/>
+            <p class="text-right"> بالعنوان التالي<b><span t-field="o.partner.street_ar"/></b></p>
+            <p class="text-right"> سلمت له (ها) هذه الشهادة لأجل عملية التكوين بالتدرج المهني</p>
+            <p class="text-right"><center>حرر بمراكش في ......ء</center></p>
+            <br/>
+            <br/>      
+            <br/>   
+            <div >
+                 <center> <table class="table table-condensed">
+                         <tr class="border-white">
+                            <td class="text-right"><center><b><u>المديـرالجهوي للصناعة التقليدية</u></b></center></td>
+                            <td class="text-right"><center><b><u>رئيــــس الغرفــــــــة</u></b></center></td>
+                        </tr>
+                        <tr class="border-white">
+                            <td class="text-right"><center>..........................</center></td>
+                            <td class="text-right"><center>........................</center></td>
+                        </tr>
+                    </table></center>
+               </div>  
+            </div> 
+        </t>
+    </t>
+</t>
+</template>
+</data>
+</openerp>

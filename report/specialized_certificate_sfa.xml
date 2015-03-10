@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_specialized_certificate">
+<t t-call="report.html_container">
+    <t t-foreach="docs" t-as="o">
+        <t t-call="report.external_layout">
+            <div class="page">
+                <h2><center>دبلوم التخصص المهني</center></h2>
+                <br/>
+                <p class="text-right">شعبة<b><span t-field="o.branche"/></b></p>
+                <p class="text-right">تخصص<b><span t-field="o.metier"/></b></p>
+                <p class="text-right"> نمط التكوين : التدرج المهني</p>
+                <p class="text-right">بناء على المرسوم رقم 2.86.325 بتاريخ 08 جمادى الأولى 1407 (09 يناير 1987) يسن نظام عام لمؤسسات التكوين المهني حسب ما وقع تغييره وتتميمه.
+وبناء على قرار وزير الصناعة التقليدية رقم 2091.13 صادر في 25 من شعبان 1434 ( 04 يوليو 2013) بشان إحداث وتنظيم مراكز التأهيل المهني في فنون الصناعة التقليدية.
+وبناء على القانون رقم 00-12 بشأن إحداث وتنظيم التدرج المهني الصادر بشأنه الظهير الشريف رقم 1.00.206 بتاريخ 15 من صفر 1421( 19 ماي 2000)</p>
+
+                <p class="text-right">تشهد لجنة الامتحانات لمركز التأهيل المهني في فنون الصناعة التقليدية ب<b><span t-field="o.cfa"/></b></p>
+                <p class="text-right"><b><span t-field="o.contract.apprenti.name"/></b>أن السيدة (ة</p>
+                <p class="text-right">المزدادة (ة) ب<b><span t-field="o.birth_place"/></b>بتاريخ<b><span t-field="o.birth_day"/></b></p>
+                <p class="text-right">قد نجح (ت) في امتحانات نيل دبلوم مستوى التخصص المهني.</p>
+                <p class="text-right"><b><span t-field="o.date_end"/></b>فوج سنة</p>
+                <p class="text-right"><b><span t-field="o.contract.name"/></b>رقم التسجيل</p> 
+              <div >
+                 <center> <table class="table table-condensed">
+                         <tr class="border-white">
+                            <td class="text-right"><center><b><u>التوقيع</u></b></center></td>
+                            <td class="text-right"><center><b><u>التوقيع</u></b></center></td>
+                        </tr>
+                        <tr class="border-white">
+                            <td class="text-right"><center>...............</center></td>
+                            <td class="text-right"><center>...............</center></td>
+                        </tr>
+                    </table></center>
+               </div>  
+               <p class="text-right">تنبيه : لا تسلم من هذه الشهادة إلا نسخة واحدة ويمكن عند الحاجة  نسخها والمصادقة عليها من طرف السلطات الممختصة</p>
+            </div> 
+        </t>
+    </t>
+</t>
+</template>
+</data>
+</openerp>

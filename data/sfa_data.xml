@@ -748,7 +748,136 @@
 	            <field name="sect_id" ref="sfp_training_sector5"/>
 	    </record>
 	    
-
+	    <!-- le titre -->
+	    
+	    <record model="titre.titre" id="sfp_titre1">
+	            <field name="name">الاب</field>
+	            <field name="code">الاب</field>
+	            <field name="description"></field>
+	    </record>
+	    
+	     <record model="titre.titre" id="sfp_titre2">
+	            <field name="name">الام</field>
+	            <field name="code">الام</field>
+	            <field name="description"></field>
+	    </record>
+	    
+	    <record model="titre.titre" id="sfp_titre3">
+	            <field name="name">ولـــي الامـر</field>
+	            <field name="code">ولي الامر</field>
+	            <field name="description"></field>
+	    </record>
+	    
+	    
+	   <!-- company activities -->
+	    
+	     <record model="company.activities" id="company_activities">
+	            <field name="name">الطـــرز</field>
+	            <field name="name_ar">الطـــرز</field>
+	            <field name="code"></field>
+	    </record>
+	    
+	     <record model="company.activities" id="company_activities_1">
+	            <field name="name">الخيـاطة التقليدية</field>
+	            <field name="name_ar">الخيـاطة التقليدية</field>
+	            <field name="code"></field>
+	    </record>
+	    
+	     <record model="company.activities" id="company_activities_2">
+	            <field name="name">الخيــاطة العصرية</field>
+	            <field name="name_ar">الخيــاطة العصرية</field>
+	            <field name="code"></field>
+	    </record>
+	    
+	    <record model="company.activities" id="company_activities_3">
+	            <field name="name">النجارة العامة </field>
+	            <field name="name_ar">النجارة العامة</field>
+	            <field name="code"></field>
+	    </record>
+	    
+	    <record model="company.activities" id="company_activities_4">
+	            <field name="name">الصــــباغة</field>
+	            <field name="name_ar">الصــــباغة</field>
+	            <field name="code"></field>
+	    </record>
+	    
+	   <!-- school level -->
+	    
+	     <record model="school.level" id="school_level">
+	            <field name="name">1AEF</field>
+	            <field name="name_ar"></field>
+	            <field name="code">1AEF</field>
+	    </record>
+	    
+	    <record model="school.level" id="school_level_1">
+	            <field name="name">6AEF</field>
+	            <field name="name_ar"></field>
+	            <field name="code">6AEF</field>
+	    </record>
+	    
+	    <record model="school.level" id="school_level_2">
+	            <field name="name">Alph</field>
+	            <field name="name_ar"></field>
+	            <field name="code">Alph</field>
+	    </record>
+	    
+	    <record model="school.level" id="school_level_3">
+	            <field name="name">5AEF</field>
+	            <field name="name_ar"></field>
+	            <field name="code">5AEF</field>
+	    </record>
+	    
+	    <record model="school.level" id="school_level_4">
+	            <field name="name">9AEF</field>
+	            <field name="name_ar"></field>
+	            <field name="code">9AEF</field>
+	    </record>
+	    
+	    <record model="school.level" id="school_level_5">
+	            <field name="name">4AEF</field>
+	            <field name="name_ar"></field>
+	            <field name="code">4AEF</field>
+	    </record>
+	    
+	    <record model="school.level" id="school_level_6">
+	            <field name="name">7AEF</field>
+	            <field name="name_ar"></field>
+	            <field name="code">7AEF</field>
+	    </record>
+	    
+	    <!-- admission level -->
+	    
+	    <record model="admission.level" id="admission_level">
+	            <field name="name">Fin de la 6 eme AP</field>
+	            <field name="code">6AP</field>
+	            <field name="description">Fin de la 6eme AP</field>
+	    </record>
+	    
+	     <record model="admission.level" id="admission_level_1">
+	            <field name="name">Fin de la 3eme AC</field>
+	            <field name="code">3AC</field>
+	            <field name="description">Fin de la 3eme AC</field>
+	    </record>	
+	    
+	     <!-- admission level -->
+	    
+	    <record model="apprenti.situation" id="apprenti_situation">
+	            <field name="name">عاطل</field>
+	            <field name="name_ar">عاطل</field>
+	            <field name="description"></field>
+	    </record>
+	    
+	     <record model="apprenti.situation" id="apprenti_situation_1">
+	            <field name="name">متشرد</field>
+	            <field name="name_ar">متشرد</field>
+	            <field name="description"></field>
+	    </record>	
+	    
+	    <record model="apprenti.situation" id="apprenti_situation_2">
+	            <field name="name">Autre</field>
+	            <field name="name_ar">Autre</field>
+	            <field name="description"></field>
+	    </record>	     
 	    
 	</data>    
 </openerp>

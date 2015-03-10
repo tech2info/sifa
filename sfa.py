@@ -19,13 +19,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.      
 #                                                                               
 #################################################################################
-from openerp.osv import orm, fields
+from openerp.osv import orm, fields, osv
 from openerp import tools
 from openerp.tools.translate import _
 import time
+import openerp
 from datetime import date
 from datetime import datetime
-
 
 class sfp_contrat(orm.Model):
     _name = 'sfp.contrat'
@@ -37,43 +37,73 @@ class sfp_contrat(orm.Model):
             vals['name'] = self.pool.get('ir.sequence').get(cr, user, 'sfp.contrat')
         return super(sfp_contrat, self).create(cr, user, vals, context) 
     
-    def action_preinscription(self, cr, uid, ids, context=None):
-        return self.write(cr,uid,ids,{'state' : 'preinscription'})
     
-    def action_training(self, cr, uid, ids, context=None):
-        return self.write(cr,uid,ids,{'state' : 'en_formation'})
+    def _get_nbr_month(self, cr, uid, ids, name, arg, context={}):
+        data={}
+        for object_parent in self.browse(cr,uid,ids):
+            data[object_parent.id] = 0
+            if object_parent.date_abandon:
+                data[object_parent.id]=(datetime.strptime(object_parent.date_abandon,"%Y-%m-%d")-datetime.strptime(object_parent.date_start,"%Y-%m-%d")).days/30
+        return data
+    
+    def _get_age1(self, cr, uid, ids, name, arg, context={}):
+        data={}
+        for object_parent in self.browse(cr,uid,ids):
+            data[object_parent.id] = 0
+            if object_parent.apprenti and object_parent.groupe:
+                data[object_parent.id]=(datetime.strptime(object_parent.groupe.date_prevu,"%Y-%m-%d")-datetime.strptime(object_parent.apprenti.birthdate_1,"%Y-%m-%d")).days/356
+                print data,
+        return data
+    
+    def action_processing(self, cr, uid, ids, context=None):
+        return self.write(cr,uid,ids,{'state' : 'processing'})
+    
+    def action_reject(self, cr, uid, ids, context=None):
+        return self.write(cr,uid,ids,{'state' : 'reject'})
+    
+    def action_year1(self, cr, uid, ids, context=None):
+        return self.write(cr,uid,ids,{'state' : 'year1'})
+    
+    def action_year2(self, cr, uid, ids, context=None):
+        return self.write(cr,uid,ids,{'state' : 'year2'})
     
     def action_laureat(self, cr, uid, ids, context=None):
         return self.write(cr,uid,ids,{'state' : 'laureat'})
     
-    def action_cancel(self, cr, uid, ids, context=None):
-        return self.write(cr,uid,ids,{'state' : 'cancel'})
+    def action_abandoned(self, cr, uid, ids, context=None):
+        return self.write(cr,uid,ids,{'state' : 'abandon'})
     
+    def action_changed(self, cr, uid, ids, context=None):
+        return self.write(cr,uid,ids,{'state' : 'changed'})
   
+    
     _columns = {
         'name': fields.char(u'Numero', required=True),        
         'declaration': fields.boolean(u'Declaration'),
-        'parent_link': fields.char(u'Lien Parental'),
-        'date_start': fields.date(u'Date debut'),
-        'date_end': fields.date(u"Date fin"), 
+        'parent_link': fields.many2one('titre.titre',u'الصــــــفة'),
+        'date_start': fields.date(u'Date debut de formation'),
+        'age' : fields.function(_get_age1,type='integer',string=u'Age admission'),
+        'date_end': fields.date(u"Date fin de formation"), 
         'date_abandon': fields.date(u"Date abandon"), 
+        'nbr_function': fields.function(_get_nbr_month,type='integer',string=u'Nbr de mois a complis'),
+        'motif_abandan': fields.text(u'Motif d\'abandon'),
         'apprenti': fields.many2one('sfp.apprenti',u'Apprenti'),  
         'groupe': fields.many2one('sfp.groupe',u'Groupe'),
-        'metier': fields.many2one('sfp.metier',u'Metier'),
-        'duree': fields.integer(u'Durée de metier'),
+        'metier': fields.many2one('sfp.metier',u'الحـــرفة'),
+        'duree': fields.integer(u'Periode de contrat'),
         'responsable': fields.many2one('res.partner',u'Tuteur'),
         'user': fields.many2one('res.users',u'Utilisateur'),
         'entreprise': fields.many2one('res.partner',u'Entreprise', domain=[('is_company','=',True)]),
         'maitre': fields.many2one('res.partner',u'Maitre'),
+        'maitre_descri' : fields.selection([('m1',u'مؤطــــــــــــــر'),('m2',u'مســاعد'),('m3',u'صاحب مقاولة')],u'بصفــته',required=True),
         'chef': fields.many2one('res.partner',u'Chef d\'entreprise'),
         'allocation': fields.float(u'Allocation'),
-        'trial': fields.integer(u'période essai'),
-        'periode_contrat': fields.integer(u'Période Contrat'),
+        'trial': fields.integer(u'Période essai'),
         'periode_company': fields.integer(u'Période Entreprise'),
         'periode_cfa': fields.integer(u'Période CFA'),
         'periode_work': fields.integer(u'Période Travail'),
         'nbr_inscrit': fields.integer(u'عدد المتدرجين'),
-        'maitre_titre': fields.char(u'الصـــــفة'),
+        'maitre_titre': fields.many2one('titre.titre',u'الصـــــفة'),
         
         'cfa': fields.many2one('sfp.cfa',u'CFA'),
         'province': fields.many2one('sfp.province',u'Province',domain="[('cfa','=',cfa)]"),
@@ -82,25 +112,36 @@ class sfp_contrat(orm.Model):
         'nbr_visite' : fields.char(u'Nombre de visites'),
         'description': fields.text(u'Description'),
         'invoice_ids': fields.one2many('account.invoice','contrat_id',u'Les Factures'),
-        'state' : fields.selection([('preinscription',u'Préinscription'),('en_formation',u'En formation'),('loreat',u'Lauréat'),('cancel',u'Abandonné')],u'Etat',required=True),
+        #'state': fields.selection(AVAILABLE_PRIORITIES, 'Etat', select=True),
+        'state' : fields.selection([('processing',u'En Traitement'),('reject',u'Réfusé'),('year1',u'1ère Année'),('year2',u'2ème Année'),('laureat',u'Lauréat'),('abandon',u'Abandonnée'),('changed',u'Changé')],u'Etat',required=True),
    
     }
     
+    _sql_constraints = [
+        ('sfp_contrat_model_uniq', 'unique (name)', u'Le numero de contrat doit être unique'),
+    ]
+        
     _defaults = {  
-        'state': lambda *a: 'preinscription',
+        'state': lambda *a: 'processing',
         'user' : lambda x, y, z, c: z,
         'name': lambda self, cr, uid, context: '/',
         'date_start': lambda *a : time.strftime('%Y-%m-%d'),
         }
+        
     
     def onchange_metier(self,cr,uid,ids,metier,context={}):
         data={}
         if metier:
             object_metier=self.pool.get('sfp.metier').browse(cr,uid,metier)
+            object_app=self.browse(cr,uid,ids)
             if object_metier:
                 data['duree'] = object_metier.duree  or False
+                if object_metier.max_age >= object_app.age:
+                    data['condition1'] = True 
+                else :
+                    raise osv.except_osv(u'Attention', u'age de metier et superieur a l\'age de l\'apprenti')
         return {'value' : data }
-        
+     
     
 class sfp_tuteur(orm.Model):
     _name = 'sfp.tuteur'
@@ -168,6 +209,7 @@ class sfp_apprenti(orm.Model):
             if object_parent.birthdate_1:
                 data[object_parent.id]=(datetime.now()-datetime.strptime(object_parent.birthdate_1,"%Y-%m-%d")).days/356
         return data
+    
  
     _columns = {
             'name': fields.char(u'Nom', required=True, select=True),
@@ -177,12 +219,12 @@ class sfp_apprenti(orm.Model):
             'lieu_birth_ar' : fields.many2one('birth.place',u'مكـــان الازدياد'),
             'age' : fields.function(_get_age,type='integer',string=u'Age'),
             'cin' : fields.char(u'CIN',size=50),
-            'gender_' : fields.selection([('male',u'Masculin'),('female',u'Féminin')],u'Sexe'), 
-            'gender_ar' : fields.selection([('male',u'دكـــــــر'),('female',u'انــــــتى')],u'الجنــــــس'), 
+            'gender_' : fields.char(u'Sexe'), 
+            'gender_ar' : fields.selection([('male',u'دكـــــــر'),('female',u'انــــــثى')],u'الجنــــــس'), 
             'image': fields.binary(u"Image",help="This field holds the image used as avatar for this contact, limited to 1024x1024px"),   
             'street': fields.char(u'Adresse'),
-            'street_ar': fields.char(u'Adresse'),
-            'street2': fields.char(u'Adresse 2'),
+            'street_ar': fields.char(u'العـــنوان'),
+            'street2': fields.char(u'Adresse'),
             'zip': fields.char(u'Code Postal', size=24, change_default=True),
             'city': fields.char(u'Ville'),
             'city_ar': fields.char(u'المـــــدينة'),
@@ -192,24 +234,41 @@ class sfp_apprenti(orm.Model):
             'phone': fields.char(u'Tél 1'),
             'mobile': fields.char(u'Tél 2'),
             'website': fields.char(u'Site Web', help="Website of Partner or Company"),   
-            'nv_scolaire' : fields.many2one('school.level','Niveau Scolaire',size=50),
+            'nv_scolaire' : fields.many2one('school.level',u'المستوى الدراسي',size=50),
             'dure_formation' : fields.char(u'Dure de formation',size=50),
             'user': fields.many2one('res.users',u'Utilisateur'),
-            'profession_tuteur_ar' : fields.char(u'مهة الاب او ولي الامر ',size=50),
-            'situation_ar' : fields.char(u'الوضعية قبل الانخراط',size=50),
+            'profession_tuteur_ar' : fields.char(u'مهنة الاب او ولي الامر ',size=50),
+            'situation_ar' : fields.many2one('apprenti.situation',u'الوضعية قبل الانخراط',size=50),
             'contrat_ids': fields.one2many('sfp.contrat','apprenti',u'Les contrats'),
             'description': fields.text(u'Observation', translate=True),
             }
     
-    _defaults = {  
-        'country_id': 'Maroc',
+    def _get_photo(self, cr, uid, context=None):
+        photo_path = openerp.modules.get_module_resource('sifa','images','apprenti.png')
+        return open(photo_path, 'rb').read().encode('base64')
+    
+    _defaults = {
+        'image' : _get_photo,
         }
+        
+
+    
+    def onchange_field1(self, cr, uid, ids, gender_ar, gender_, context=None):
+        if gender_ar=='male':
+            v = {'gender_': 'Masculin'}
+            return {'value': v}
+        elif gender_ar=='female':
+            v = {'gender_': 'Féminin'}
+            return {'value': v}
+        return {}
+
 
 class school_level(orm.Model):
     _name = 'school.level'
     _columns = {
-        'name': fields.char(u'Nom', required=True),
+        'name': fields.char(u'Niveau', required=True),
         'name_ar': fields.char(u'الاســـــم', translate=True),
+        'code': fields.char(u'Code', translate=True),
         'description': fields.text(u'Description', translate=True),
    
     }
@@ -217,7 +276,7 @@ class school_level(orm.Model):
 class sfp_matier(orm.Model):
     _name = 'sfp.matier'
     _columns = {
-        'name': fields.char(u'Nom', required=True),
+        'name': fields.char(u'Matière', required=True),
         'code': fields.char(u'Code', translate=True),
         'description': fields.text(u'Description', translate=True),
         'vacataire': fields.many2one('res.partner',u'Vacataire', translate=True),
@@ -250,6 +309,7 @@ class sfp_training_sector(orm.Model):
     _name = 'sfp.sectortraining'
     _columns = {
         'name': fields.char(u'Nom', required=True),
+        'name_ar': fields.char(u'الاســــم'),
         'code': fields.char(u'Code', translate=True),
         'description': fields.text(u'Description', translate=True),
         'metier_ids': fields.one2many('sfp.metier','sect_id',u'Metiers'),
@@ -278,17 +338,23 @@ class birth_place(orm.Model):
 class sfp_metier(orm.Model):
     _name = 'sfp.metier'
     _columns = {
-        'name': fields.char(u'Nom', required=True),
-        'name_ar': fields.char(u'الاســــــم'),
+        'name': fields.char(u'Métier', required=True),
+        'name_ar': fields.char(u'الحـــرفة'),
+        'qualification': fields.char(u'Qualification'),
+        'qualification_ar': fields.char(u'تأهيل'),
         'code': fields.char(u'Code', translate=True),      
         'duree': fields.char(u'Durée',required=True),
-        'max_age': fields.float(u'Age maximum'),
-        'level': fields.many2one('sfp.level', u'Niveau'),
+        'max_age': fields.integer(u'Age maximum'),
+        'level': fields.many2one('sfp.level', u'Titre de Qualification'),
         'sector': fields.many2one('sfp.sector', u'Secteur'),
         'description': fields.text(u'Description'),
         'sect_id': fields.many2one('sfp.sectortraining', u'Secteur de formation'),
-        'admission_ids': fields.one2many('admission.level','admission_id', u'Niveau admission'),
+        'admission_id': fields.many2one('admission.level', u'Niveau admission'),
     }
+    
+    _defaults = {  
+        'max_age':'15 à 30 ans',
+        }
     
     def name_get(self, cr, uid, ids, context=None):
         res=[]
@@ -305,7 +371,7 @@ class sfp_metier(orm.Model):
 class admission_level(orm.Model):
     _name = 'admission.level'
     _columns = {
-        'name': fields.char(u'Nom', required=True),
+        'name': fields.char(u'Niveau', required=True),
         'code': fields.char(u'Code', translate=True),    
         'description': fields.text(u'Description', translate=True),  
         'admission_id': fields.many2one('sfp.metier', u'Admission'),   
@@ -315,6 +381,7 @@ class sfp_annexe(orm.Model):
     _name = 'sfp.annexe'
     _columns = {
         'name': fields.char(u'Nom', required=True),
+        'name_ar' : fields.char(u'الإسم '), 
         'code': fields.char(u'Code', translate=True),
         'description': fields.text(u'Description', translate=True),    
         'cfa': fields.many2one('sfp.cfa',u'CFA'),
@@ -325,6 +392,7 @@ class sfp_province(orm.Model):
     _name = 'sfp.province'
     _columns = {
         'name': fields.char(u'Nom', required=True),
+        'name_ar' : fields.char(u'الإسم '), 
         'code': fields.char(u'Code', translate=True),
         'description': fields.text(u'Description', translate=True),
         'cfa': fields.many2one('sfp.cfa',u'CFA'),
@@ -333,8 +401,10 @@ class sfp_province(orm.Model):
 class sfp_cfa(orm.Model):
     _name = 'sfp.cfa'
     _columns = {
-        'name': fields.char(u'Nom', required=True),        
+        'name': fields.char(u'Nom', required=True),    
+        'name_ar' : fields.char(u'الإسم '),    
         'code': fields.char(u'Code', translate=True),
+        'provinces': fields.char(u'Provinces', translate=True),
         'province_ids': fields.one2many('sfp.province','cfa',u'Provinces'),  
         'annexe_ids': fields.one2many('sfp.annexe','cfa',u'Annexes'), 
         'description': fields.text(u'Description', translate=True),
@@ -343,12 +413,41 @@ class sfp_cfa(orm.Model):
 
 class sfp_groupe(orm.Model):
     _name = 'sfp.groupe'
+    
+    def action_processing(self, cr, uid, ids, context=None):
+        return self.write(cr,uid,ids,{'state' : 'processing'})
+    
+    def action_year1(self, cr, uid, ids, context=None):
+        return self.write(cr,uid,ids,{'state' : 'year1'})
+    
+    def action_year2(self, cr, uid, ids, context=None):
+        return self.write(cr,uid,ids,{'state' : 'year2'})
+    
+    def action_done(self, cr, uid, ids, context=None):
+        return self.write(cr,uid,ids,{'state' : 'done'})
+    
+    
+    
     _columns = {
         'name': fields.char(u'Nom', required=True),        
         'code': fields.char(u'Code', translate=True),
         'date_start': fields.date(u'Date debut'),
+        'year': fields.char(u'Année'),
+        'date_prevu': fields.date(u'Date previsionnel'),
         'date_end': fields.date(u'Date fin'),  
         'contrat_ids': fields.one2many('sfp.contrat','groupe',u'Contrats'), 
         'description': fields.text(u'Description', translate=True),
+        'state' : fields.selection([('processing',u'En Preparation'),('year1',u'1ere Année'),('year2',u'2eme Année'),('done',u'Terminé')],u'Etat',required=True),
     }
     
+    _defaults = {  
+        'state': lambda *a: 'processing',
+        'date_start': lambda *a : time.strftime('%Y-%m-%d'),
+        }
+class apprenti_situation(orm.Model):
+    _name = 'apprenti.situation'
+    _columns = {
+        'name': fields.char(u'Situation', required=True),
+        'name_ar': fields.char(u'وضعية', translate=True),
+        'description': fields.text(u'Description', translate=True),
+    }

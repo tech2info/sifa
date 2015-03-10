@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+       <record id="sifa_view_contrat_form_inherit" model="ir.ui.view">
+	            <field name="name">sfp.contrat.form.inherit</field>
+	            <field name="model">sfp.contrat</field>
+	            <field name="type">form</field>
+	            <field name="inherit_id" ref="sifa.view_contrat_form" />
+	            <field name="arch" type="xml">
+	            	<page string="Description" position="after" >
+	            		<page string="Conditions d’inscription et piéces à fournir" attrs="{'invisible': [('state','in',('laureat','abandon','year1','year2','reject'))]}">
+		                	<group string="1- Conditions d’admission d’apprenti">
+		                	  <group>
+		                			<field name="condition1" />
+		                			<field name="condition2" />
+		                			<field name="condition3" />
+		                	  </group>
+		                	  <group>
+		                			<field name="condition4" />
+		                			<field name="condition5" />
+		                			<field name="condition6" />
+		                	  </group>
+		                	</group>
+		                	
+		                	<group string="2- Conditions d’admission de  chef d’entreprise d’accueil">
+		                	  <group>
+		                			<field name="condition7" />
+		                			<field name="condition8" />
+		                			<field name="condition9" />
+		                			<field name="condition13" />
+		                			<field name="condition15" />
+		                	  </group>
+		                	  <group>
+		                			<field name="condition10" />
+		                			<field name="condition11" />
+		                			<field name="condition12" />
+		                			<field name="condition14" />
+		                	  </group>
+		                	</group>
+		                	
+		                	<group string="3- Conditions d’admission du maîtres d’apprentissage ">
+		                	  <group>
+		                			<field name="condition16" />
+		                			<field name="condition17" />
+		                			<field name="condition18" />
+		                			<field name="condition22" />
+		                	  </group>
+		                	  <group>
+		                			<field name="condition19" />
+		                			<field name="condition20" />
+		                			<field name="condition21" />
+		                	  </group>
+		                	</group>
+
+	                	</page>
+	                </page>
+	           	</field>
+	  	</record>
+    	
+     
+    </data>
+</openerp>

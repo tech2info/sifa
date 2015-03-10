@@ -1,14 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <report
-    id="sfa_apprenti"
-    model="sfp.apprenti"
-    string="Apprenti"
-    report_type="qweb-pdf"
-    name="SFA.report_apprenti"
-    file="SFA.report_apprenti"
-    attachment_use="True"
-/>
+    <report 
+            id="report_declaration"
+            string="Declaration"
+            model="sfp.contrat" 
+            report_type="qweb-pdf"
+            file="sifa.report_declaration1" 
+            name="sifa.report_declaration1" 
+        />
+        
+      <report 
+            id="report_contrat"
+            string="Contrat"
+            model="sfp.contrat" 
+            report_type="qweb-pdf"
+            file="sifa.report_contrat1" 
+            name="sifa.report_contrat1" 
+        />
+        
+      <report 
+            id="report_complement_contrat"
+            string="Complement de contrat"
+            model="sfp.contrat" 
+            report_type="qweb-pdf"
+            file="sifa.report_contrat_complement" 
+            name="sifa.report_contrat_complement" 
+        />
+        
+      <report 
+            id="report_group_vacataire"
+            string="Vacataire"
+            model="sfp.groupe" 
+            report_type="qweb-pdf"
+            file="sifa.report_vacataire" 
+            name="sifa.report_vacataire" 
+        />
+        
+       <report 
+            id="report_admin_certif"
+            string="Certificat Administratif"
+            model="admin.certificate" 
+            report_type="qweb-pdf"
+            file="sifa.report_admin_certificate" 
+            name="sifa.report_admin_certificate" 
+        /> 
+        
+        <report 
+            id="report_apprenti_certif"
+            string="Certificat d'apprenti"
+            model="apprenti.certif" 
+            report_type="qweb-pdf"
+            file="sifa.report_apprenti_certificate" 
+            name="sifa.report_apprenti_certificate" 
+        /> 
+        
+        <report 
+            id="report_specialized_certif"
+            string="Certificat de spécialésation"
+            model="specialized.apprenti.certif" 
+            report_type="qweb-pdf"
+            file="sifa.report_specialized_certificate" 
+            name="sifa.report_specialized_certificate" 
+        /> 
+        
+
+        
     </data>
 </openerp>

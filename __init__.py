@@ -22,5 +22,8 @@
 import partner
 import sfa
 import invoice
+import certificate
+import attached_piece
+import wizard
 
 

@@ -20,16 +20,16 @@
 #
 ################################################################################
 {
-    "name": "SFA- Vertical for Odoo",
-    "version": "0.1",
+    "name": "SIFA- Vertical for Odoo",
+    "version": "1.0",
     "depends": ['base','account','account_voucher','contacts'],
-    "author": "Infoset R&D/Ait-Mlouk Addi",
+    "author": "Ait-Mlouk Addi/Infoset R&D",
     'website': 'http://www.infosit.ma/',
     'sequence':1,
     "category": "Specific Modules/SFA",
     'summary' : 'Contrats, Entreprises, Apprentis, vacataires',
     "description": """
-Système de formation par apprentissage est un système complet qui gère le processus de formation 
+Système informatique de formation par apprentissage est un système complet qui gère le processus de formation 
 par apprentissage d'un  ensembles de groupes des apprentis qui ont inscrit dans une  formation 
 aupres des centres cfa .il constituent de:
  - contart.
@@ -49,14 +49,21 @@ With this module you can following all contracts.
         'sfa_view.xml',
         'partner_view.xml',   
         'invoice_view.xml',
-        'sfa_menu.xml',
+        'certificate_view.xml',
+        'attached_piece.xml',
         'sfa_report.xml',
+        'report/report_declaration_sfa.xml',
+        'report/report_contrat_sfa.xml',
+        'report/report_groupe_vacataire.xml',
+        'report/admin_certificate_sfa.xml',
+        'report/apprenti_certificate_sfa.xml',
+        'report/specialized_certificate_sfa.xml',
+        'report/complement_report_contrat_sfa.xml',
         'views/report_apprenti.xml',
+        'wizard/groupe_view.xml',
+        'sfa_menu.xml',
         'data/sfa_data.xml',
         'data/sfa_sequence.xml',
-        #'views/report_sfa.xml',
-       
-        
         
     ],
     'demo': [

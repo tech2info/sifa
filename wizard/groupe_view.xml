@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="sfa_report_groupe_form" model="ir.ui.view">
+            <field name="name">sfp.certificate.groupe.certificate.form</field>
+            <field name="model">sfp.certificate.groupe</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Groupe" > 
+                    <group>
+                    <field name="state" />
+             		<field name="all_groups" on_change="onchange_all_groups(all_groups,state)" />
+             		
+             		</group>
+                    <separator string="Groupes" colspan="4" />
+                	<group colspan="4" col="4" string="" >
+                		<field name="groupe_ids" widget="many2many" nolabel="1" select="True" >
+                			 <tree>
+				                    <field name="name" />
+				                    <field name="code" />
+				                    <field name="date_start" />
+				                    <field name="date_end" />
+				                    <field name="contrat_ids" />
+				                    <field name="description" />
+                			</tree>
+                		</field>
+                	</group>
+                    <group col="2" colspan="2">
+                        <button icon='gtk-cancel' special="cancel" string="_Annuler" />
+                        <button name="action_print_certificate" string="_Imprimer" colspan="1" type="object" icon="gtk-go-forward" />
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_sfa_report_groupe" model="ir.actions.act_window">
+            <field name="name">Liste des apprentis</field>
+            <field name="res_model">sfp.certificate.groupe</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    
+    </data>
+</openerp>

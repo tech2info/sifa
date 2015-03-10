@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data noupdate="1">
-        <!-- Sequences for sfp -->
+        <!-- Sequences for contract -->
         <record id="seq_type_sfa_contrat" model="ir.sequence.type">
             <field name="name">SFA Contrat</field>
             <field name="code">sfp.contrat</field>
@@ -12,7 +12,42 @@
             <field name="prefix">C-</field>
             <field name="padding">5</field>
         </record>
-
+        
+        <!-- Sequences for admin certificate -->
+        <record id="seq_type_sfa_admin_certificate" model="ir.sequence.type">
+            <field name="name">Admin certificate</field>
+            <field name="code">admin.certificate</field>
+        </record>
+        <record id="seq_sfa_admin_certificate" model="ir.sequence">
+            <field name="name">Admin certificate</field>
+            <field name="code">admin.certificate</field>
+            <field name="prefix">CERTIF-</field>
+            <field name="padding">5</field>
+        </record>
+         
+        <!-- Sequences for apprenti certificate -->
+        <record id="seq_type_sfa_apprenti_certif" model="ir.sequence.type">
+            <field name="name">apprenti certificate</field>
+            <field name="code">apprenti.certif</field>
+        </record>
+        <record id="seq_sfa_apprenti_certif" model="ir.sequence">
+            <field name="name">apprenti certificate</field>
+            <field name="code">apprenti.certif</field>
+            <field name="prefix">CERTIF-</field>
+            <field name="padding">5</field>
+        </record>
+        
+        <!-- Sequences for specialized certificate -->
+        <record id="seq_type_sfa_specialized_certif" model="ir.sequence.type">
+            <field name="name">specialized certificate</field>
+            <field name="code">specialized.apprenti.certif</field>
+        </record>
+        <record id="seq_sfa_specialized_certif" model="ir.sequence">
+            <field name="name">specialized certificate</field>
+            <field name="code">specialized.apprenti.certif</field>
+            <field name="prefix">CERTIF-SP-</field>
+            <field name="padding">5</field>
+        </record>
 
     </data>
 </openerp>

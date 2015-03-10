@@ -34,6 +34,9 @@
                   		<filter string="Responsable" icon="terp-go-year" domain="[]" context="{'group_by':'responsable'}"/>
                   		<filter string="Date" icon="stock_person" domain="[]" context="{'group_by':'date_start'}"/>
                   		<filter string="CFA" icon="stock_person" domain="[]" context="{'group_by':'cfa'}"/>
+                  		<filter string="Groupe" icon="stock_person" domain="[]" context="{'group_by':'groupe'}"/>
+                  		<filter string="Chef d'entreprise" icon="stock_person" domain="[]" context="{'group_by':'chef'}"/>
+                  		<filter string="Maitre d'apprenti" icon="stock_person" domain="[]" context="{'group_by':'maitre'}"/>
                   	</group>
                  </search>
             </field>
@@ -47,22 +50,27 @@
             <field name="arch" type="xml">
                 <form string="Contrat" version="7.0">
                       <header>
-                		<button name="action_training" states="draft" string="Inscrire" type="object" icon="gtk-go-forward" />
-		                <button name="action_cancel" states="en_formation" string="Abandonné" type="object" icon="gtk-cancel" />
-		                <button name="action_laureat" states="en_formation" string="Lauréat" type="object" icon="gtk-go-forward" />
-		                <button name="action_preinscription" states="cancel" string="Remettre en brouillon" type="object" icon="terp-stock_effects-object-colorize" />
-                		<field name="state" widget="statusbar" clickable="True" statusbar_colors="{'cancel':'red'}"/>
+                	    <button name="action_reject" states="processing" string="Réfuser" type="object" icon="gtk-cancel" />
+                	    <button name="action_processing" states="reject" string="Remettre en traitement" type="object" icon="gtk-go-forward" />
+		                <button name="action_year2" states="year1" string="2ème Année" type="object" icon="gtk-apply" />
+		                <button name="action_year1" states="processing" string="1ère Année" type="object" icon="gtk-apply" />
+		                <button name="action_abandoned" states="year2,year1" string="Abandonné" type="object" icon="gtk-cancel" />
+		                <button name="action_laureat" states="year2,year1" string="Lauréat" type="object" icon="gtk-apply" />
+		                <button name="action_changed" states="year1,year2" string="Changé" type="object" icon="STOCK_REDO"/>
+                		<field name="state" widget="statusbar" clickable="True" statusbar_colors='{"reject":"red","processing":"blue"}'/>
                 	</header>
                     <sheet>
                       <group string="Identification">
 		                	<group >
 				                <field name="name" />
 				                <field name="groupe" />
+				                <field name="age" invisible="True"/>
 				            </group>
 				            
 			                <group>
 			                    <field name="apprenti" />
 			                    <field name="responsable" placeholder="Si mineur"/>
+			                    <field name="maitre_titre" placeholder="الصــــــــفة"/>
 			                </group>
 		               </group>
 		               
@@ -71,12 +79,13 @@
 		                	<group>
 		                	    <field name="entreprise" />
 		                	    <field name="chef" />
-		                	    <field name="maitre_titre" placeholder="الصــــــــفة"/>
+		                	    <field name="declaration" />
+			                    <field name="parent_link" attrs="{'invisible' : [('declaration','=',False)]}"/>
+		                	    
 				            </group>
 			                <group>
 			                    <field name="maitre" />
-			                    <field name="declaration" />
-			                    <field name="parent_link" attrs="{'invisible' : [('declaration','=',False)]}"/>
+			                    <field name="maitre_descri" />
 			                </group>
 		               </group>
 		               
@@ -92,7 +101,6 @@
 				            
 		                	<group>
 				                <field name="metier" on_change="onchange_metier(metier)"/>
-				                <field name="duree" />
 				                <field name="date_start" />
 				                <field name="date_end" />
 				                
@@ -102,21 +110,22 @@
 		               <newline/>
 		               <group>
 		                	<group>
-                                 <field name="periode_contrat" />
+                                 <field name="duree" />
                                  <field name="periode_cfa" />
                                  <field name="allocation" />
                                  <field name="nbr_inscrit" />
+                                 <field name="date_abandon" attrs="{'invisible': [('state','in',('laureat','changed','processing','year1','year2','reject'))]}"/>
 				            </group>
 				            
 				            <group>
                                  <field name="periode_company" />
                                  <field name="trial" />
                                  <field name="periode_work" />
-                                 <field name="date_abandon" attrs="{'invisible': [('state','in',('loreat','preinscription','en_formation'))]}"/>
+                                 <field name="nbr_function" attrs="{'invisible': [('state','in',('laureat','processing','changed','year1','year2','reject'))]}"/>
 				            </group>
 		               </group>
 		               
-		               <notebook>
+		              <notebook>
 		             <!--   <page string='Factures'>
 		               <field name='invoice_ids'>
 		                 <field name="name" />
@@ -124,6 +133,10 @@
 		                 <field name="apprenti" />
 		                </field>
 		               </page>-->
+		               <page string="Motifs Abandon" attrs="{'invisible': [('state','in',('laureat','processing','changed','year1','year2','reject'))]}">
+		                  <field name="motif_abandan" />
+		               </page>
+		               
 		               <page string="Description">
 		                  <field name="description" />
 		               </page>
@@ -151,11 +164,45 @@
         </record>
 
 
+	  <!-- kanban -->
+			
+	  <record model="ir.ui.view" id="sfp_kanban_view_contrat">
+            <field name="name">sfp.contrat.kanban</field>
+            <field name="model">sfp.contrat</field>
+            <field name="type">kanban</field>
+            <field name="arch" type="xml">
+                <kanban >
+                	<templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_vignette oe_semantic_html_override">
+                                <a type="open">
+                                    <t >
+                                        <img t-att-src='_s + "/sifa/static/src/img/contrat.png"' class="oe_kanban_image"/>
+                                    </t>
+                                  
+                                </a>
+                                <div class="oe_kanban_details">
+                                	<h4><a type="edit"><field name="name"/></a></h4>
+                                	<ul name="ul_detail">
+                                    	<li t-if="record.apprenti.raw_value">Apprenti :<field name="apprenti"/></li>
+                                    	<li t-if="record.metier.raw_value">Metier :<field name="metier"/></li> 
+                                    	<li t-if="record.entreprise.raw_value" >Entreprise: <field name="entreprise"/></li>
+                                    	<li t-if="record.date_start.raw_value">Date debut: <field name="date_start"/></li>
+                                    	<li t-if="record.date_end.raw_value">Date fin: <field name="date_end"/></li>
+                                	</ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+    </record>
+    
         <record id="action_view_contrat" model="ir.actions.act_window">
             <field name="name">Contrat </field>
             <field name="res_model">sfp.contrat</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,kanban</field>
         </record>
    
     <!-- Tuteurs-->     
@@ -377,15 +424,14 @@
 	                        <group >
 	                            <field name="name" /> 
 	                            <field name="cin" /> 
-	                            <field name="gender_ar" /> 
-	                            <field name="lieu_birth_ar" />
-	                            <field name="birthdate_1" />                                 	                                 
+	                            <field name="gender_ar" on_change="onchange_field1(gender_ar,gender_)"/> 
+	                            <field name="lieu_birth_ar" />                                   	                                 
 	                        </group>
 	                        <group>
 	                            <field name="name_arabic" />
-	                        	<field name="gender_" />
-	                        	<field name="lieu_birth" /> 
-	                        	<field name="age" /> 
+	                        	<field name="gender_" readonly="True"/>
+	                        	<field name="birthdate_1" /> 
+	                        	<field name="age" invisible="True"/> 
 	                        </group>
 	                  	</group>
 	                  	<newline/>
@@ -408,13 +454,14 @@
 			                            <field name="email" required="context.get('force_email', False)"/>     
 			                            <field name="country_id"/>
 			                             <field name="city_ar"/>
-			                            <field name="zip"/>
+			                             <field name="city"/>
+			                            
 			                        </group>
 									<group>
 										<field name="mobile"/>
 										<field name="street"/>
-										<field name="city"/>
 										<field name="street2"/>
+										<field name="zip"/>
 										
 									</group>
 								</group>
@@ -460,87 +507,39 @@
 	            </field>
 	    </record>
 	    
-	    <!-- tree -->
-		<record model="ir.ui.view" id="sfp_kanban_view_apprenti">
-			<field name="name">apprenti kanban</field>
-			<field name="model">sfp.apprenti</field>
-			<field name="arch" type="xml">
-				<kanban>
-					<field name="name"/>
-					<templates>
-						<t t-name="kanban-box">
-							<t t-set="color"
-								t-value="kanban_color(record.name.raw_value || record.name.raw_value)" />
-							<div
-								t-att-class="color + (record.name.raw_value == 1 ? ' oe_kanban_color_alert' : '')">
-								<div class="oe_kanban_box oe_kanban_color_border">
-									<div
-										class="oe_kanban_box_header oe_kanban_color_bgdark oe_kanban_color_border oe_kanban_draghandle">
-										<table class="oe_kanban_table">
-											<tr>
-												<td class="oe_kanban_title1" align="left" valign="middle"
-													style="padding-left:10px;">
-													<h4>
-														<a type="open">
-															<field name="name"/>
-														</a>
-													</h4>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<div
-										class="oe_kanban_box_content oe_kanban_color_bglight oe_kanban_box_show_onclick_trigger oe_kanban_color_border">
-										<table class="oe_kanban_table">
-											<tr width="300">
-												<td valign="top" width="64" align="left">
-													<a type="open">
-														<img heigh="80" width="80"
-															t-att-src="kanban_image('sfp.apprenti', 'image', record.id.value)"/>
-													</a>
-												</td>
-												<td valign="top" align="left" style="padding-left:10px;">
-													<table>
-														<tr>
-															<td>Name :</td>
-															<td style="padding-left:10px;">
-																<b>
-																	<field name="name"/>
-																</b>
-															</td>
-														</tr>
-														<tr>
-															<td>CIN: </td>
-															<td style="padding-left:10px;">
-																<b>
-																	<field name="cin"/>
-																</b>
-															</td>
-														</tr>
-														
-													</table>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<div
-										class="oe_kanban_buttons_set oe_kanban_color_border oe_kanban_color_bglight oe_kanban_box_show_onclick">
-										<div class="oe_kanban_left">
-											<a string="Edit" icon="gtk-edit" type="edit" />
-											<a string="Change Color" icon="color-picker" type="color"
-												name="color"/>
-										</div>
-										<br class="oe_kanban_clear"/>
-									</div>
-								</div>
-							</div>
-						</t>
-					</templates>
-				</kanban>
-			</field>
-		</record>
+	    <!-- kanban -->
+			
+	  <record model="ir.ui.view" id="sfp_kanban_view_apprenti">
+            <field name="name">sfp.apprenti.kanban</field>
+            <field name="model">sfp.apprenti</field>
+            <field name="type">kanban</field>
+            <field name="arch" type="xml">
+                <kanban >
+                	<templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_vignette oe_semantic_html_override">
+                                <a type="open">
+                                     <t >
+                                        <a type="edit"><img t-att-src="kanban_image('sfp.apprenti', 'image', record.id.value)" class="oe_kanban_image"/></a>
+                                    </t>
+                                  
+                                </a>
+                                <div class="oe_kanban_details">
+                                	<h4><a type="edit"><field name="name"/> <field name="name_arabic"/></a></h4>
+                                	<ul name="ul_detail">
+                                    	<li t-if="record.cin.raw_value" name="intern">CIN :<field name="cin"/></li>
+                                    	<li t-if="record.gender_.raw_value">Académique :<field name="gender_"/></li> 
+                                    	<li t-if="record.city_ar.raw_value" >Ville: <field name="city_ar"/></li>
+                                    	<li t-if="record.phone.raw_value">Tel: <field name="phone"/></li>
+                                	</ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+    </record>
 
-	   
 	    
 	    <record id="action_sfp_partner_appren" model="ir.actions.act_window">
 	            <field name="name">Apprenti</field>
@@ -584,6 +583,7 @@
                     <field name="name"/>
                     <field name="code"/>
                     <field name="date_start"/>
+                    <field name="date_prevu"/>
                  </search>
             </field>
         </record>
@@ -595,15 +595,23 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Groupe" version="7.0">
+                  <header>      	   
+		                <button name="action_year2" states="year1" string="En 2eme Année" type="object" icon="gtk-apply" />
+		                <button name="action_year1" states="processing" string="En 1ere Année" type="object" icon="gtk-apply" />   
+		                <button name="action_done" states="year2" string="Terminé" type="object" icon="gtk-apply" />   
+                		<field name="state" widget="statusbar" clickable="True" />
+                	</header>
                     <sheet>
                       <group>
 		                	<group>
 				                <field name="name" />
 				                <field name="date_start" />
+				                <field name="date_prevu" />
 				            </group>
 			                <group>
 			                	<field name="code" />
 			                	<field name="date_end" />
+			                	<field name="year" />
 			                </group>
 		               </group>
                     <newline/>
@@ -618,6 +626,7 @@
 		              	     <field name="responsable"/>
 		              	     <field name="date_start"/>
 		              	     <field name="date_end"/>
+		              	     <field name="state"/>
 		              	 </tree>
 		              	</field>
 		                </page>
@@ -641,6 +650,8 @@
                     <field name="code" />
                     <field name="date_start" />
                     <field name="date_end" />
+                    <field name="state" />
+                    <field name="contrat_ids" />
                     <field name="description" />
                 </tree>
             </field>
@@ -710,7 +721,7 @@
 
 
         <record id="action_view_matier" model="ir.actions.act_window">
-            <field name="name">Matier </field>
+            <field name="name">Matière </field>
             <field name="res_model">sfp.matier</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -855,6 +866,7 @@
                 <search string="Recherche les ecteurs">
                     <field name="name"/>
                     <field name="code"/>
+                    <field name="sector_id"/>
                  </search>
             </field>
         </record>
@@ -873,6 +885,7 @@
 				                <field name="sector_id" />
 				            </group>
 			                <group>
+			                    <field name="name_ar" />
 			                	<field name="code" />
 			                </group>
 		               </group>
@@ -884,7 +897,8 @@
                            <field name="code" />
                            <field name="duree" />
                            <field name="level" />
-                           <field name ="description"/>
+                           <field name="max_age" />
+                           <field name="description"/>
                         </tree>
 	                	</field>
 	                 </page>
@@ -905,6 +919,7 @@
             <field name="arch" type="xml">
                 <tree string="Secteur de formation">
                     <field name="name" />
+                    <field name="name_ar" />
                     <field name="code" />
                     <field name="description" />
                 </tree>
@@ -972,7 +987,7 @@
 
 
         <record id="action_view_level" model="ir.actions.act_window">
-            <field name="name">Niveau </field>
+            <field name="name">Diplome et certificat </field>
             <field name="res_model">sfp.level</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -991,23 +1006,21 @@
                       <group>
 		                	<group>
 				                <field name="name" />
+				                <field name="qualification" />
 				                <field name="duree" />
 				                <field name="sect_id" />
 				                <field name="max_age" />
 				            </group>
 			                <group>
 			                    <field name="name_ar" />
+			                    <field name="qualification_ar" />
 			                	<field name="code" />
 			                	<field name="level" />
+			                	<field name="admission_id" />
 			                </group>
 		               </group>
                     <newline/>
                     <notebook colspan="4" > 
-                    
-                        <page string="Niveau D'admission">
-	                		<field name="admission_ids" nolabel="1" />
-	                	</page>
-	                	
 	                	<page string="Description">
 	                		<field name="description" nolabel="1" />
 	                	</page>
@@ -1028,15 +1041,15 @@
                     <field name="code" />
                     <field name="duree" />
                     <field name="level" />
-                    <field name="sector" />
-                    <field name="description" />
+                    <field name="sect_id" />
+                    <field name="max_age" />
                 </tree>
             </field>
         </record>
 
 
         <record id="action_view_metier" model="ir.actions.act_window">
-            <field name="name">Metier </field>
+            <field name="name">Métier et qualification </field>
             <field name="res_model">sfp.metier</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -1068,6 +1081,7 @@
                       <group>
 		                	<group>
 				                <field name="name" />
+				              <!--   <field name="admission_id" />-->
 				            </group>
 			                <group>
 			                	<field name="code" />
@@ -1133,6 +1147,7 @@
 				            </group>
 			                <group>	
 			                	<field name="code" />
+			                	<field name="name_ar" />
 			                </group>
 		               </group>
                     <newline/>
@@ -1196,6 +1211,7 @@
 				            </group>
 			                <group>
 			                	<field name="code" />
+			                	<field name="name_ar" />
 			                </group>
 		               </group>
                     <newline/>
@@ -1258,9 +1274,11 @@
                       <group>
 		                	<group>
 				                <field name="name" /> 
+				                <field name="provinces" /> 
 				            </group>
 			                <group>
 			                	<field name="code" />
+			                	<field name="name_ar" />
 			                </group>
 		               </group>
                     <newline/>
@@ -1292,6 +1310,7 @@
                 <tree string="CFA">
                     <field name="name" />
                     <field name="code" />
+                    <field name="provinces" /> 
                     <field name="description" />
                 </tree>
             </field>
@@ -1317,9 +1336,10 @@
                       <group>
 		                	<group>
 				                <field name="name" />
+				                <field name="name_ar" />
 				            </group>
 			                <group>
-			                	<field name="name_ar" />
+			                	<field name="code" />
 			                </group>
 		               </group>
                     <newline/>
@@ -1340,6 +1360,7 @@
             <field name="arch" type="xml">
                 <tree string="Province">
                     <field name="name" />
+                    <field name="code" />
                     <field name="name_ar" />
                     <field name="description" />
                 </tree>
@@ -1399,6 +1420,56 @@
         <record id="action_view_birth_place" model="ir.actions.act_window">
             <field name="name">Lieu de naissance </field>
             <field name="res_model">birth.place</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+                
+       <!-- apprenti situation -->
+        
+        <record id="view_apprenti_situation_form" model="ir.ui.view">
+            <field name="name">apprenti.situation.form</field>
+            <field name="model">apprenti.situation</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Lieu de naissance" version="7.0">
+                    <sheet>
+                      <group>
+		                	<group>
+				                <field name="name" />
+				            </group>
+			                <group>
+			                	<field name="name_ar" />
+			                </group>
+		               </group>
+                    <newline/>
+                    <notebook colspan="4" > 
+	                	<page string="Description">
+	                		<field name="description" nolabel="1" />
+	                	</page>
+
+                		</notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_apprenti_situation_tree" model="ir.ui.view">
+            <field name="name">apprenti.situation.tree</field>
+            <field name="model">apprenti.situation</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Province">
+                    <field name="name" />
+                    <field name="name_ar" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_view_apprenti_situation" model="ir.actions.act_window">
+            <field name="name">الوضعية قبل الانخراط  </field>
+            <field name="res_model">apprenti.situation</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>

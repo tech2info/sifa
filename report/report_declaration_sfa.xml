@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_declaration1">
+<t t-call="report.html_container">
+    <t t-foreach="docs" t-as="o">
+        <t t-call="report.external_layout">
+            <div class="page" style="font-size:10px">
+                <center style="font-size:20px"> التصـــــــريــــــح</center>
+                <center style="font-size:20px">طبقا لمقتضيات القانون رقم12.00  بشان إحداث وتنظيم التدرج المهني</center>
+                <p class="text-right">أنـا الموقــــع أسفلـــــــــه</p>
+                <p class="text-right">صــاحب الـمقاولــــة ( أو من ينـــــوب عــنه</p>
+            
+            <div class="row">
+                <div>
+                    <table class="table table-condensed">
+                         <tr class="border-white">
+                            <td class="text-right">
+                                <b><span t-field="o.chef.lieu_birth_ar" /></b>
+                            </td>
+                            <td class="text-right">   
+                                <b><span t-field="o.chef.birthdate_1" t-field-options='{"format": "y/ M/ d"}'/></b>
+                            </td>
+                            <td class="text-right">تاريخ و مكان الازدياد</td>
+                            <td class="text-right">
+                                <b><span t-field="o.chef.name_arabic" /></b>
+                            </td>
+                            <td class="text-right">الاسم و النسب</td>
+                        </tr>
+                        
+                        <tr class="border-white">
+                            <td/><td/><td/>
+                            <td class="text-right">
+                                <b><span t-field="o.chef.cin" /></b>
+                            </td>
+                            <td class="text-right">رقم  بطاقة التعريف الوطنية</td>
+                        </tr>
+                        
+                        <tr class="border-white">
+                            <td/><td/><td/>
+                            <td class="text-right">
+                                <b><span t-field="o.entreprise.company_name_arabic" /></b>
+                            </td>
+                            <td class="text-right">اسم المقاولة</td>
+                        </tr>
+                        
+                        <tr class="border-white">
+                            <td/><td/><td/>
+                            <td class="text-right">
+                                <b><span t-field="o.entreprise.form.name" /></b>
+                            </td>
+                            <td class="text-right">النظام التجاري للمقاولة</td>
+                        </tr>
+                        
+                        <tr class="border-white">
+                            <td/><td/><td/>
+                            <td class="text-right">
+                                <b><span t-field="o.entreprise.activities.name_ar" /></b>
+                            </td>
+                            <td class="text-right">ميدان أوميادين عمله</td>
+                        </tr>
+                        
+                        <tr class="border-white">
+                            <td/><td/><td/>
+                            <td class="text-right">
+                                <b><span t-field="o.entreprise.employe_nbr" /></b>
+                            </td>
+                            <td class="text-right">عدد العاملين والمستخدمين به</td>
+                        </tr>
+                        
+                        <tr class="border-white">
+                            <td/><td/><td/>
+                            <td class="text-right">
+                                <b><span t-field="o.nbr_inscrit" /></b>
+                            </td>
+                            <td class="text-right">عدد المتدرجين المتواجدين بالمقاولة عند إمضاء العقد</td>
+                        </tr>
+                        
+                        <tr class="border-white">
+                            <td/><td/><td/>
+                            <td class="text-right">
+                               <b> <span t-field="o.entreprise.street_ar" /></b>
+                            </td>
+                            <td class="text-right">العنـــــوان</td>
+                        </tr>
+                        
+                        <tr class="border-white">
+                            <td/>
+                            <td class="text-right">
+                               <b><span t-field="o.entreprise.fax" /></b>
+                            </td>
+                            <td class="text-right">الفاكس</td>
+                            <td class="text-right">
+                               <b><span t-field="o.entreprise.phone" /></b>
+                            </td>
+                            <td class="text-right">الهاتف</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <p class="text-right">أشهــــد بأن المتــــــدرج</p>
+            <div class="row" style="font-size:10px">
+                <div >
+                    <table class="table table-condensed">
+                         <tr class="border-white">
+                            <td class="text-right">
+                                <b><span t-field="o.apprenti.lieu_birth_ar" /></b>
+                            </td>
+                            <td class="text-right">
+                                <b><span t-field="o.apprenti.birthdate_1" t-field-options='{"format": "y/ M/ d"}'/></b>
+                            </td>
+                            <td class="text-right">تاريخ و مكان الازدياد</td>
+                            <td class="text-right">
+                                <b><span t-field="o.apprenti.name_arabic" /></b>
+                            </td>
+                            <td class="text-right">الاسم و النسب</td>
+                        </tr>
+                        
+                        <tr class="border-white">
+                            <td/><td/><td/>
+                            <td class="text-right">
+                                <b><span t-field="o.apprenti.gender_ar" /></b>
+                            </td>
+                            <td class="text-right">الجنس</td>
+                        </tr>
+                        
+                        <tr class="border-white">
+                            <td/><td/><td/>
+                            <td class="text-right">
+                                <b><span t-field="o.apprenti.street" /></b>
+                            </td>
+                            <td class="text-right">عنوان محل السكنى</td>
+                        </tr>
+                        
+                        <tr class="border-white">
+                            <td/><td/><td/>
+                            <td class="text-right">
+                                <b><span t-field="o.apprenti.nv_scolaire.name_ar" /></b>
+                            </td>
+                            <td class="text-right">المستوى الدراسي</td>
+                        </tr>
+                        
+                        <tr class="border-white">
+                            <td/><td/><td/>
+                            <td class="text-right">
+                                <b><span t-field="o.apprenti.situation_ar.name" /></b>
+                            </td>
+                            <td class="text-right"> الوضعية قبل الانخراط في التدرج المهني</td>
+                        </tr>
+                        <tr class="border-white">
+                            <td/><td/><td/>
+                            <td class="text-right">
+                                <b><span t-field="o.apprenti.profession_tuteur_ar" /></b>
+                            </td>
+                            <td class="text-right">مهنة الأب أو ولي الأمر</td>
+                        </tr>
+                    </table>
+               </div>
+                <p class="text-right">فـــردا من عائلــتي بصفته<b><span t-field="o.parent_link"/></b></p>
+                <p class="text-right">ألتزم طيلة مدة تكوينه بالتدرج المهني في مقاولتي؛ بمايـلي-</p>
+                <p class="text-right">أن أمسك سجلا خاصا بالمتدرجين مطابقا للنموذج الذي حددته الإدارة-</p>
+                <p class="text-right">أن أسهر على تكوين المتدرج بطريقة منهجية وتدريجية  في الحرفة أو التأهيل الدين يتم تهييئه لهما-</p>
+                <p class="text-right">ان أزوده  مجانا بالأدوات ومواد العمل اللازمة لتدرجه داخل المقاولة-</p>
+                <p class="text-right">أن أمنحه  جميع التسهيلات التي تمكنه من متابعة تكوينه التكميلي العام والتكنولوجي المنظم بمركز التكوين التدرج  المهني ومن اجتياز اختبارات تقييم التدرج المهني-</p>
+                <p class="text-right">أن  أسمح بزيارات إلا ستطلاع و المراقبة لسير التدرج المهني-</p>
+            </div>
+            
+            <p/>
+            <div style="font-size:10px">
+                <p class="text-right"><center>حــــــرر ب.......................بتـــاريخ.......................ة </center></p>
+            </div>
+            <div style="font-size:10px">
+                <p class="text-right"><center>................... الامــــــــضاء </center></p>
+            </div>
+            
+                  <div style="font-size:10px">
+                     <p class="text-right"><center>.............أشر عليه من طرف مركز التكوين بالتدرج المهني <b><span t-field="o.cfa.name_ar"/></b></center></p>
+                     <p class="text-right"><center>.............الحــرفة أو التأهـيل موضوع التــــــــــدرج <b><span t-field="o.metier.qualification_ar"/></b></center></p>
+                     <p class="text-right"><center>.............المـــــــــــدة الإجمــــالية للتدرج المهني <b><span t-field="o.duree"/></b></center></p>
+                     <p class="text-right"><center>.............تاريـــخ بدايـــــــــة التدرج المهنــــــي </center></p>
+                     <p class="text-right"><center>...............إمضاء المسؤول عن مركــــز التكوين بالتدرج </center></p>
+                  </div>
+             </div>
+           
+        </t>
+    </t>
+</t>
+</template>
+</data>
+</openerp>
