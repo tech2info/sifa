@@ -9,7 +9,7 @@
 	            <field name="inherit_id" ref="sifa.view_contrat_form" />
 	            <field name="arch" type="xml">
 	            	<page string="Description" position="after" >
-	            		<page string="Conditions d’inscription et piéces à fournir" attrs="{'invisible': [('state','in',('laureat','abandon','year1','year2','reject'))]}">
+	            		<page string="Conditions d’inscription et pièces à fournir" attrs="{'invisible': [('state','in',('laureat','abandon','year1','year2','reject'))]}">
 		                	<group string="1- Conditions d’admission d’apprenti">
 		                	  <group>
 		                			<field name="condition1" />

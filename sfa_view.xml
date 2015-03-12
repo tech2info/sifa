@@ -97,7 +97,6 @@
 				                <field name="cfa" />
 				                <field name="annexe" />
 				                <field name="province" />
-				            <!--<field name="nbr_visite" />-->
 				            </group>
 				            
 		                	<group>
@@ -107,9 +106,9 @@
 				                
 				            </group> 
 		               </group>
-		               
+               
 		               <newline/>
-		               <group>
+		               <group string="Information d'apprenti et entreprise ">
 		                	<group>
                                  <field name="duree" />
                                  <field name="periode_cfa" />
@@ -128,6 +127,21 @@
 				            </group>
 		               </group>
 		               
+		              <newline/>
+		               <group string="Nombre de mois rialisés">
+		               		<group>
+				                <field name="period1" />
+				                <field name="period2" />
+				                <field name="total_period" />
+				            </group>
+				            
+		                	<group>
+				                <field name="period3" />
+				                <field name="period4" />
+				                
+				            </group> 
+		               </group>
+		               <newline/>
 		              <notebook>
 		             <!--   <page string='Factures'>
 		               <field name='invoice_ids'>
@@ -399,7 +413,7 @@
 	            <field name="arch" type="xml">
 	                <search string="Search Partner">
 	                   <group col='10' colspan='4'>
-	                        <field name="name" select="1" filter_domain="['|',('name','ilike',self),('first_name','ilike',self)]" />
+	                        <field name="name" select="1" filter_domain="['|',('name','ilike',self),('cin','ilike',self)]" />
 	                     	<field name="cin"/>
 	                   </group>
 	                   <newline />

@@ -42,7 +42,7 @@ class res_partner(orm.Model):
     _columns = {
             'name_arabic' : fields.char(u'الإسم '),
             'company_name_arabic' : fields.char(u'اسم المقاولة '),
-            'form' : fields.many2one('commerial.system',u'النضام التجاري  '),
+            'form' : fields.many2one('commerial.system',u'النظام التجاري  '),
             'lieu_birth_ar' : fields.many2one('birth.place',u'مكـــان الازدياد'),
             'birthdate_1': fields.date(u'Date de Naissance'),
             'lieu_birth' : fields.many2one('birth.place',u'Lieu de naissance'),
@@ -55,7 +55,7 @@ class res_partner(orm.Model):
             'province' :fields.many2one('sfp.province', u'Province d\'implantation'),
             'taxe_pro' : fields.char(u'Taxe professionnel'),
             'name_entreprise' : fields.char(u'اسم المقاولة'),
-            'activities' : fields.many2one('company.activities',u'ميدان أو ميادين عمله'),
+            'activities' : fields.many2one('company.activities',u'ميدان أو ميادين عملها'),
             'resp_entreprise' : fields.char(u'بصفته: صاحب المقاولة'),     
             'nbr_mois' : fields.char(u'Nombre de mois accompli'),
             'montant_percu' : fields.char(u'Montant Percu'),

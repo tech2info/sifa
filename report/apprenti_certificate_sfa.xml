@@ -17,7 +17,7 @@
 
                 <p class="text-right">تشهد لجنة الامتحانات لمركز التكوين المهني في حرف الصناعة التقليدية ب<span t-field="o.cfa"/></p>
                 <p class="text-right"><b><span t-field="o.contract.apprenti.name_arabic"/></b>أن السيدة (ة</p>
-                <p class="text-right">المزدادة (ة) ب<b><span t-field="o.birth_place" />بتاريخ</b><b><span t-field="o.birth_day" t-field-options='{"format": "y/ M/ d"}'/></b></p>
+                <p class="text-right">المزدادة (ة) ب<b><span t-field="o.birth_place" />بتاريخ</b><b><span t-field="o.contract.apprenti.birthdate_1" t-field-options='{"format": "d/ M/ y"}'/></b></p>
                 <p class="text-right">قد نجح (ت) في امتحانات نيل شهادة التدرج المهني.</p>
                 <p class="text-right"><b><span t-field="o.date_end"/></b>فوج سنة</p>
                 <p class="text-right"><b><span t-field="o.contract.name"/></b>رقم التسجيل</p> 

@@ -11,14 +11,7 @@
     	      <menuitem name="Attestation administrative" id="menu_certificat" parent="menu_sfa_certificate" sequence="1" action="action_view_admin_certificate"/>
     	      <menuitem name="Certificat d'apprentissage" id="menu_certif_pro" parent="menu_sfa_certificate" sequence="3" action="action_view_apprenti_certif"/>
     	      <menuitem name="Diplôme de spécialisation" id="menu_certif_special" parent="menu_sfa_certificate" sequence="4" action="action_view_specialized_apprenti_certif"/>   
-    	   	
-    	<menuitem id="menu_sfa_report_groupe" name="Reports" parent="menu_sfp_certificate" sequence="3"/>
-    	      <menuitem name="Groupe" id="menu_report_groupe1" parent="menu_sfa_report_groupe" action="action_sfa_report_groupe" sequence="1"/>    
-    	      
-    	      
-    	<menuitem id="menu_sfa_report_comptable" name="Editions Comptables" parent="menu_sfp_certificate" sequence="2"/>
-    	      <menuitem name="Groupe" id="menu_report_groupe1" parent="menu_sfa_report_groupe" action="action_sfa_report_groupe" sequence="1"/>    
-    	      
+    	   	    	      
     	<!-- menu apprentissage -->
     	<menuitem id="menu_fpa_apprentissage" name="Administration" parent="menu_sfp" sequence="1"/>
               <menuitem id="sfp_config_contrat" name="Contrat" parent="menu_fpa_apprentissage" action="action_view_contrat"/>

@@ -55,6 +55,8 @@ class sfp_contrat(orm.Model):
                 print data,
         return data
     
+
+    
     def action_processing(self, cr, uid, ids, context=None):
         return self.write(cr,uid,ids,{'state' : 'processing'})
     
@@ -78,10 +80,10 @@ class sfp_contrat(orm.Model):
   
     
     _columns = {
-        'name': fields.char(u'Numero', required=True),        
-        'declaration': fields.boolean(u'Declaration'),
+        'name': fields.char(u'Numéro', required=True),        
+        'declaration': fields.boolean(u'Déclaration'),
         'parent_link': fields.many2one('titre.titre',u'الصــــــفة'),
-        'date_start': fields.date(u'Date debut de formation'),
+        'date_start': fields.date(u'Date début de formation'),
         'age' : fields.function(_get_age1,type='integer',string=u'Age admission'),
         'date_end': fields.date(u"Date fin de formation"), 
         'date_abandon': fields.date(u"Date abandon"), 
@@ -94,12 +96,12 @@ class sfp_contrat(orm.Model):
         'responsable': fields.many2one('res.partner',u'Tuteur'),
         'user': fields.many2one('res.users',u'Utilisateur'),
         'entreprise': fields.many2one('res.partner',u'Entreprise', domain=[('is_company','=',True)]),
-        'maitre': fields.many2one('res.partner',u'Maitre'),
-        'maitre_descri' : fields.selection([('m1',u'مؤطــــــــــــــر'),('m2',u'مســاعد'),('m3',u'صاحب مقاولة')],u'بصفــته',required=True),
+        'maitre': fields.many2one('res.partner',u'Maître'),
+        'maitre_descri' : fields.selection([('m1',u'مؤطــــــــــــــر'),('m2',u'مســاعد'),('m3',u'صاحب مقاولة')],u'بصفــته'),
         'chef': fields.many2one('res.partner',u'Chef d\'entreprise'),
         'allocation': fields.float(u'Allocation'),
         'trial': fields.integer(u'Période essai'),
-        'periode_company': fields.integer(u'Période Entreprise'),
+        'periode_company': fields.integer(u'Période entreprise'),
         'periode_cfa': fields.integer(u'Période CQP'),
         'average': fields.float(u'Moyenne'),
         'periode_work': fields.integer(u'Période Travail'),
@@ -117,6 +119,13 @@ class sfp_contrat(orm.Model):
         'age': fields.integer(u'Age d\'apprenti'),
         'age_maitre': fields.integer(u'Age maitre'),
         #'state': fields.selection(AVAILABLE_PRIORITIES, 'Etat', select=True),
+        
+        'period1': fields.integer(u'Période 1'),
+        'period2': fields.integer(u'Période 2'),
+        'period3': fields.integer(u'Période 3'),
+        'period4': fields.integer(u'Période 4'),
+        'total_period': fields.integer(u'Total de mois réalisés'),
+        
         'state' : fields.selection([('processing',u'En Traitement'),('reject',u'Réfusé'),('year1',u'1ère Année'),('year2',u'2ème Année'),('laureat',u'Lauréat'),('abandon',u'Abandonnée'),('changed',u'Changé')],u'Etat',required=True),
    
     }
@@ -392,16 +401,29 @@ class birth_place(orm.Model):
         
     }
     
+    def name_get(self, cr, uid, ids, context=None):
+        res=[]
+        if context is None:
+            context = {}
+        if not len(ids):
+            return []
+        if context.get('show_ref'):
+            res = [(r['id'], r['ref']) for r in self.read(cr, uid, ids, ['ref'], context)]
+        else:
+            res = [(r['id'], u'%s' %(r['name_ar'] or '')) for r in self.read(cr, uid, ids, ['name_ar'], context)]
+        return res
+    
+    
 class sfp_metier(orm.Model):
     _name = 'sfp.metier'
     _columns = {
         'name': fields.char(u'Métier', required=True),
         'name_ar': fields.char(u'الحـــرفة'),
-        'qualification': fields.char(u'Qualification'),
-        'qualification_ar': fields.char(u'تأهيل'),
+        'qualification': fields.char(u'Métier et Qualification'),
+        'qualification_ar': fields.char(u'الحرفة و التأهيل'),
         'code': fields.char(u'Code', translate=True),      
-        'duree': fields.char(u'Durée',required=True),
-        'level': fields.many2one('sfp.level', u'Titre de Qualification'),
+        'duree': fields.char(u'Durée de formation',required=True),
+        'level': fields.many2one('sfp.level', u'Niveau de formation'),
         'sector': fields.many2one('sfp.sector', u'Secteur'),
         'description': fields.text(u'Description'),
         'sect_id': fields.many2one('sfp.sectortraining', u'Secteur de formation'),

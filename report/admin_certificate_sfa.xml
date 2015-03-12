@@ -10,7 +10,7 @@
                 <br/>
                 <br/>
                 <p class="text-right">بنــاء على القانون 12.00 والمخطط الاستعجالي الموقــع بتاريخ 14 يوليوز 2008</p>
-                <p class="text-right">يسلم للسيد ة <b><span t-field="o.partner.name_arabic"/></b>المزداد (ة)بتاريخ<b><span t-field="o.partner.birthdate_1"/></b>ب<b><span t-field="o.partner.lieu_birth_ar"/></b></p>
+                <p class="text-right">يسلم للسيد ة <b><span t-field="o.partner.name_arabic"/></b>المزداد (ة)بتاريخ<b><span t-field="o.partner.birthdate_1"/></b>ب<b><span t-field="o.partner.lieu_birth_ar.name_ar"/></b></p>
                 <p class="text-right">الحرفـــة<b><span t-field="o.metier.name_ar"/></b><b><span t-field="o.partner.cin"/></b>الحامل(ة) لبطاقة التعريف الوطنية رقم</p>
                 <p class="text-right">يمارس نشاط الصناعة التقليدية، صنف : الفني الإنتاجي ب<b><span t-field="o.locale"/></b></p>
                 

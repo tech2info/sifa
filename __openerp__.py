@@ -26,7 +26,7 @@
     "author": "Ait-Mlouk Addi/Infoset R&D",
     'website': 'http://www.infosit.ma/',
     'sequence':1,
-    "category": "Specific Modules/SFA",
+    "category": "Specific Modules/sifa",
     'summary' : 'Contrats, Entreprises, Apprentis, vacataires',
     "description": """
 Système informatique de formation par apprentissage est un système complet qui gère le processus de formation 
@@ -54,14 +54,12 @@ With this module you can following all contracts.
         'sfa_report.xml',
         'report/report_declaration_sfa.xml',
         'report/report_contrat_sfa.xml',
-        'report/report_groupe_vacataire.xml',
         'report/admin_certificate_sfa.xml',
         'report/apprenti_certificate_sfa.xml',
         'report/specialized_certificate_sfa.xml',
         'report/complement_report_contrat_sfa.xml',
         'report/report_groupe_average.xml',
         'views/report_apprenti.xml',
-        'wizard/groupe_view.xml',
         'sfa_menu.xml',
         'data/sfa_data.xml',
         'data/sfa_sequence.xml',

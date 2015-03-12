@@ -28,18 +28,9 @@
             name="sifa.report_contrat_complement" 
         />
         
-      <report 
-            id="report_group_vacataire"
-            string="Vacataire"
-            model="sfp.groupe" 
-            report_type="qweb-pdf"
-            file="sifa.report_vacataire" 
-            name="sifa.report_vacataire" 
-        />
-        
        <report 
             id="report_admin_certif"
-            string="Certificat Administratif"
+            string="Certificat Administrative"
             model="admin.certificate" 
             report_type="qweb-pdf"
             file="sifa.report_admin_certificate" 
@@ -48,7 +39,7 @@
         
         <report 
             id="report_apprenti_certif"
-            string="Certificat d'apprenti"
+            string="Certificat d'apprentissage"
             model="apprenti.certif" 
             report_type="qweb-pdf"
             file="sifa.report_apprenti_certificate" 
@@ -57,7 +48,7 @@
         
         <report 
             id="report_specialized_certif"
-            string="Certificat de spécialésation"
+            string="Diplôme de spécialisation"
             model="specialized.apprenti.certif" 
             report_type="qweb-pdf"
             file="sifa.report_specialized_certificate" 
