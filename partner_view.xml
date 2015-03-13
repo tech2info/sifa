@@ -29,8 +29,31 @@
                             on_change="onchange_address(use_parent_address, parent_id)"/>
                         <field name="category_id" widget="many2many_tags" placeholder="Tags..."/>
                     </div>
-                    <div class="oe_right oe_button_box" name="buttons"> 
-                    
+                     <div class="oe_right oe_button_box" name="buttons" > 
+                           <button name="return_action_to_open" attrs="{'invisible' : [('is_company','=',False)]}"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-book"
+                                context="{'xml_id':'action_view_contrat'}"
+                                help="show the contracts for this company">
+                                <field name="contrat_count" widget="statinfo" string="Contrats" />
+                            </button>
+                           <!--  <button name="return_action_to_open_vac" attrs="{'invisible' : [('vacataire_ok','=',False)]}"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-book"
+                                context="{'xml_id':'action_view_contrat_vac','vacataire_ok':False}"
+                                help="show the Intervention for this Equipement">
+                               <field name="contrat_count_vac" widget="statinfo" string="Contrats-vac" />
+                            </button>
+                             <button name="return_action_to_open_tut" attrs="{'invisible' : [('is_tuteur','=',False)]}"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-book"
+                                context="{'xml_id':'action_view_contrat_tut'}"
+                                help="show the Intervention for this Equipement">
+                               <field name="contrat_count_tut" widget="statinfo" string="Contrats-tut" />
+                            </button>-->
                     </div>
                     <group>
                     <newline/>
@@ -40,7 +63,7 @@
 	                        <group >
 	                            <field name="name_arabic" />  
 	                            <field name="gender_ar" on_change="onchange_field1(gender_ar,gender_)"/>
-	                            <field name="birthdate_1" />   
+	                            <field name="birthdate_1" on_change="onchange_birthdate(birthdate_1)"/>   
 	                            <field name="age" />           
 	                        </group>
 	                        <group>

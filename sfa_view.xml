@@ -31,6 +31,7 @@
                     <newline/>
                     <group expand="0" string="Grouper par ...">
                   		<filter string="De qui" icon="stock_person" domain="[]" context="{'group_by':'user'}"/>
+                  		<filter string="Entreprise" icon="stock_person" domain="[]" context="{'group_by':'entreprise'}"/>
                   		<filter string="Responsable" icon="terp-go-year" domain="[]" context="{'group_by':'responsable'}"/>
                   		<filter string="Date" icon="stock_person" domain="[]" context="{'group_by':'date_start'}"/>
                   		<filter string="CFA" icon="stock_person" domain="[]" context="{'group_by':'cfa'}"/>
@@ -69,7 +70,7 @@
 				            
 			                <group>
 			                    <field name="average" attrs="{'invisible': [('state','in',('abandon','changed','processing','year1','year2','reject'))]}"/>
-			                    <field name="apprenti" />
+			                    <field name="apprenti" on_change="onchange_apprenti(groupe,apprenti)"/>
 			                    <field name="responsable" placeholder="Si mineur" context="{'default_is_tuteur': 'is_tuteur'}"/>
 			                    <field name="maitre_titre" placeholder="الصــــــــفة"/>
 			                </group>
@@ -130,14 +131,14 @@
 		              <newline/>
 		               <group string="Nombre de mois rialisés">
 		               		<group>
-				                <field name="period1" />
-				                <field name="period2" />
+				                <field name="period1" on_change="onchange_period(period1,period2,period3,period4)"/>
+				                <field name="period2" on_change="onchange_period(period1,period2,period3,period4)"/>
 				                <field name="total_period" />
 				            </group>
 				            
 		                	<group>
-				                <field name="period3" />
-				                <field name="period4" />
+				                <field name="period3" on_change="onchange_period(period1,period2,period3,period4)"/>
+				                <field name="period4" on_change="onchange_period(period1,period2,period3,period4)"/>
 				                
 				            </group> 
 		               </group>
@@ -174,9 +175,10 @@
                     <field name="cfa" />
                     <field name="apprenti" />
                     <field name="entreprise" />
-                     <field name="metier" />
-                     <field name="state" />
-                     <field name="average" attrs="{'invisible': [('state','in',('abandon','changed','processing','year1','year2','reject'))]}"/>
+                    <field name="responsable" />
+                    <field name="metier" />
+                    <field name="vacataire" />
+                    <field name="state" />
                     
                 </tree>
             </field>
@@ -218,6 +220,22 @@
     </record>
     
         <record id="action_view_contrat" model="ir.actions.act_window">
+            <field name="name">Contrat </field>
+            <field name="res_model">sfp.contrat</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+        
+        <!-- vac -->
+        <record id="action_view_contrat_vac" model="ir.actions.act_window">
+            <field name="name">Contrat </field>
+            <field name="res_model">sfp.contrat</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+        
+        <!-- tut -->
+        <record id="action_view_contrat_tut" model="ir.actions.act_window">
             <field name="name">Contrat </field>
             <field name="res_model">sfp.contrat</field>
             <field name="view_type">form</field>
@@ -432,12 +450,23 @@
 	            <field name="arch" type="xml">
 	                <form string="Entreprise" version="7.0">
 	                <sheet>
+	                    <div>
 	                	<group>
 	                	    <group>
                 				<p align="left"><field name="image" widget="image" nolabel="1" width="130" /></p>
                 			</group>
                 		</group>
-                		
+                		</div>
+                		<div class="oe_right oe_button_box">
+                		    <button name="return_action_to_open"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-book"
+                                context="{'xml_id':'action_view_contrat'}"
+                                help="show the cotracts  for this apprentice">
+                               <field name="contrat_count" widget="statinfo" string="Contrats"/>
+                            </button>
+                        </div>
 	                	<newline/>
 	                    <group string="Identification ">
 	                        <group >
@@ -485,19 +514,6 @@
 									</group>
 								</group>
 	                        </page>
-	                  <page string="Les contrats">
-                        <field name="contrat_ids">
-                          <tree>
-		              	     <field name="name"/>
-		              	     <field name="entreprise"/>
-		              	     <field name="maitre"/>
-		              	     <field name="responsable"/>
-		              	     <field name="date_start"/>
-		              	     <field name="date_end"/>
-		              	     <field name="state"/>
-		              	   </tree>
-                          </field>
-	                    </page>
 	                    
 	                    <page string="Observation">
 	                      <field name="description"/>

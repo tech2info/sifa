@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm, fields
+from openerp.osv import orm, fields, osv
 from openerp.tools.translate import _
 import time
 from datetime import date
@@ -39,6 +39,72 @@ class res_partner(orm.Model):
         return data
     
     
+    def _count_all(self, cr, uid, ids, field_name, arg, context=None):
+        Logintervention = self.pool['sfp.contrat']
+        return {
+            entreprise: {
+                'contrat_count': Logintervention.search_count(cr, uid, [('entreprise', '=', entreprise)], context=context),        
+            }
+            for entreprise in ids
+        }
+            
+        
+    def return_action_to_open(self, cr, uid, ids, context=None):
+        """ This opens the xml view specified in xml_id for the current machine """
+        if context is None:
+            context = {}
+        if context.get('xml_id'):
+            res = self.pool.get('ir.actions.act_window').for_xml_id(cr, uid ,'sifa', context['xml_id'], context=context)
+            res['context'] = context
+            res['context'].update({'default_entreprise': ids[0]})
+            res['domain'] = [('entreprise','=', ids[0])]
+            return res
+        return False
+    
+    
+    def _count_vac(self, cr, uid, ids, field_name, arg, context=None):
+        Loginterventio = self.pool['sfp.contrat']
+        return {
+            vacataire: {
+                'contrat_count_vac': Loginterventio.search_count(cr, uid, [('vacataire', '=', vacataire)], context=context),        
+            }
+            for vacataire in ids
+        }
+        
+    def return_action_to_open_vac(self, cr, uid, ids, context=None):
+        """ This opens the xml view specified in xml_id for the current machine """
+        if context is None:
+            context = {}
+        if context.get('xml_id'):
+            res = self.pool.get('ir.actions.act_window').for_xml_id(cr, uid ,'sifa', context['xml_id'], context=context)
+            res['context'] = context
+            res['context'].update({'default_vacataire': ids[0]})
+            res['domain'] = [('vacataire','=', ids[0])]
+            return res
+        return False
+    
+    def _count_all_tut(self, cr, uid, ids, field_name, arg, context=None):
+        Logintervention = self.pool['sfp.contrat']
+        return {
+            responsable: {
+                'contrat_count_tut': Logintervention.search_count(cr, uid, [('responsable', '=', responsable)], context=context),        
+            }
+            for responsable in ids
+        }
+        
+    def return_action_to_open_tut(self, cr, uid, ids, context=None):
+        """ This opens the xml view specified in xml_id for the current machine """
+        if context is None:
+            context = {}
+        if context.get('xml_id'):
+            res = self.pool.get('ir.actions.act_window').for_xml_id(cr, uid ,'sifa', context['xml_id'], context=context)
+            res['context'] = context
+            res['context'].update({'default_responsable': ids[0]})
+            res['domain'] = [('responsable','=', ids[0])]
+            return res
+        return False
+    
+  
     _columns = {
             'name_arabic' : fields.char(u'الإسم '),
             'company_name_arabic' : fields.char(u'اسم المقاولة '),
@@ -46,7 +112,11 @@ class res_partner(orm.Model):
             'lieu_birth_ar' : fields.many2one('birth.place',u'مكـــان الازدياد'),
             'birthdate_1': fields.date(u'Date de Naissance'),
             'lieu_birth' : fields.many2one('birth.place',u'Lieu de naissance'),
-            'age' : fields.function(_get_age,type='integer',string=u'âge'),
+
+            'contrat_count': fields.function(_count_all, type='integer', string='Contrats-entre', multi=True),
+            'contrat_count_vac': fields.function(_count_vac, type='integer', string='Contrats-vac', multi=True),
+            'contrat_count_tut': fields.function(_count_all_tut, type='integer', string='Contrats-tut', multi=True),
+            'age' : fields.char(u'âge'),
             'cin' : fields.char(u'CIN',size=50),
             'street_ar' : fields.char(u'العــنوان'),
             'experience' :fields.many2one('sfp.metier', u'Metier'),
@@ -87,6 +157,7 @@ class res_partner(orm.Model):
             'masse_horaire' : fields.char(u'Masse horaire'),
             'grade': fields.many2one('sfp.grade',u'Grade'), 
             'matiere': fields.many2one('sfp.matier',u'Matières'), 
+            
 
 
             }
@@ -97,6 +168,20 @@ class res_partner(orm.Model):
          'supplier': True, 
          
             }
+    
+    def onchange_birthdate(self,cr,uid,ids,birthdate_1,context={}):
+        data={}  
+        if birthdate_1: 
+            if  birthdate_1 :
+                a =(datetime.now())
+                b = datetime.strptime(birthdate_1,"%Y-%m-%d")
+                c = (a - b).days/356
+                print c
+                data['age'] = str(c) 
+            else :
+                raise osv.except_osv(u'Attention', u'La date de naissance non spécifié')
+        return {'value' : data }
+    
     
     def onchange_field1(self, cr, uid, ids, gender_ar, gender_, context=None):
         if gender_ar=='male':

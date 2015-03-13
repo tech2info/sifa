@@ -141,6 +141,20 @@ class sfp_contrat(orm.Model):
         'date_start': lambda *a : time.strftime('%Y-%m-%d'),
         }
     
+    def onchange_period(self,cr,uid,ids,period1,period2,period3,period4,context={}):
+        data={}  
+        if period1: 
+            if  period1 :
+                a = period1
+                b = period2
+                c = period3
+                d = period4
+                c = a + b + c + d
+                data['total_period'] = c
+            else :
+                raise osv.except_osv(u'Attention', u'Période non valide')
+        return {'value' : data }
+    
   
     def onchange_apprenti(self,cr,uid,ids,groupe,apprenti,context={}):
         data={}
@@ -150,7 +164,7 @@ class sfp_contrat(orm.Model):
             if  object_apprenti.birthdate_1 and object_groupe.date_prevu:
                 data['age'] = (datetime.strptime(object_groupe.date_prevu,"%Y-%m-%d")- datetime.strptime(object_apprenti.birthdate_1,"%Y-%m-%d")).days/356
             else :
-                raise osv.except_osv(u'Attention', u'La date est non spécifier')
+                raise osv.except_osv(u'Attention', u'La date est non spécifié')
         return {'value' : data }
         
     
@@ -277,6 +291,29 @@ class sfp_apprenti(orm.Model):
                 data[object_parent.id]=(datetime.now()-datetime.strptime(object_parent.birthdate_1,"%Y-%m-%d")).days/356
         return data
     
+    def _count_all(self, cr, uid, ids, field_name, arg, context=None):
+        Logintervention = self.pool['sfp.contrat']
+        return {
+            apprenti: {
+                'contrat_count': Logintervention.search_count(cr, uid, [('apprenti', '=', apprenti)], context=context),        
+            }
+            for apprenti in ids
+        }
+        
+        
+    def return_action_to_open(self, cr, uid, ids, context=None):
+        """ This opens the xml view specified in xml_id for the current machine """
+        if context is None:
+            context = {}
+        if context.get('xml_id'):
+            res = self.pool.get('ir.actions.act_window').for_xml_id(cr, uid ,'sifa', context['xml_id'], context=context)
+            res['context'] = context
+            res['context'].update({'default_apprenti': ids[0]})
+            res['domain'] = [('apprenti','=', ids[0])]
+            return res
+        return False
+    
+    
  
     _columns = {
             'name': fields.char(u'Nom', required=True, select=True),
@@ -307,6 +344,7 @@ class sfp_apprenti(orm.Model):
             'situation_ar' : fields.many2one('apprenti.situation',u'الوضعية قبل الانخراط',size=50),
             'contrat_ids': fields.one2many('sfp.contrat','apprenti',u'Les contrats'),
             'description': fields.text(u'Observation', translate=True),
+            'contrat_count': fields.function(_count_all, type='integer', string='Contrats', multi=True),
             }
     
     def _get_photo(self, cr, uid, context=None):
