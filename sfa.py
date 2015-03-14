@@ -125,6 +125,7 @@ class sfp_contrat(orm.Model):
         'period3': fields.integer(u'Période 3'),
         'period4': fields.integer(u'Période 4'),
         'total_period': fields.integer(u'Total de mois réalisés'),
+        'amount': fields.float(u'Montant alloué'),
         
         'state' : fields.selection([('processing',u'En Traitement'),('reject',u'Réfusé'),('year1',u'1ère Année'),('year2',u'2ème Année'),('laureat',u'Lauréat'),('abandon',u'Abandonnée'),('changed',u'Changé')],u'Etat',required=True),
    
@@ -143,14 +144,15 @@ class sfp_contrat(orm.Model):
     
     def onchange_period(self,cr,uid,ids,period1,period2,period3,period4,context={}):
         data={}  
-        if period1: 
-            if  period1 :
+        if period1 or period2 or period3 or period4: 
+            if  period1 or period2 or period3 or period4:
                 a = period1
                 b = period2
                 c = period3
                 d = period4
                 c = a + b + c + d
                 data['total_period'] = c
+                data['amount'] = c*2500
             else :
                 raise osv.except_osv(u'Attention', u'Période non valide')
         return {'value' : data }

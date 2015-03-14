@@ -139,7 +139,7 @@
 		                	<group>
 				                <field name="period3" on_change="onchange_period(period1,period2,period3,period4)"/>
 				                <field name="period4" on_change="onchange_period(period1,period2,period3,period4)"/>
-				                
+				                <field name="amount" />
 				            </group> 
 		               </group>
 		               <newline/>
