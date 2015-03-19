@@ -111,15 +111,15 @@
 		               <newline/>
 		               <group string="Information d'apprenti et entreprise ">
 		                	<group>
-                                 <field name="duree" />
+                                 <field name="duree" invisible="True"/>
+                                 <field name="periode_company" />
                                  <field name="periode_cfa" />
                                  <field name="allocation" />
                                  <field name="nbr_inscrit" />
                                  <field name="date_abandon" attrs="{'invisible': [('state','in',('laureat','changed','processing','year1','year2','reject'))]}"/>
 				            </group>
 				            
-				            <group>
-                                 <field name="periode_company" />
+				            <group>                                
                                  <field name="trial" />
                                  <field name="periode_work" />
                                  <field name="age" />

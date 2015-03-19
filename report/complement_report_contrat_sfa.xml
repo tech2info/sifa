@@ -7,7 +7,7 @@
     <t t-foreach="docs" t-as="o">
         <t t-call="report.external_layout">
           <div class="page" style="font-size:10px">
-                <p class="text-right" style="font-size:20px"><center><span t-field="o.name"/>/<span t-field="o.groupe.name"/>عقد التكوين بالتدرج المهني رقم</center></p>
+                <p class="text-right" style="font-size:20px"><center><span t-field="o.name"/>/<span t-field="o.groupe.name"/>عقد التكوين بالتدرج المهني التكميلي رقم</center></p>
                 <center style="font-size:10px">طبقا لمقتضيات القانون رقم12.00  بشان إحداث وتنظيم التدرج المهني</center>
                 <p class="text-right" style="font-size:10px">نحــن الموقــــعين أسفلـــــــــه</p>
                 <p class="text-right" style="font-size:10px"> صــاحب الـمقاولــــة ( أو من ينـــــوب عــنه</p>

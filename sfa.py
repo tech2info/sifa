@@ -152,7 +152,7 @@ class sfp_contrat(orm.Model):
                 d = period4
                 c = a + b + c + d
                 data['total_period'] = c
-                data['amount'] = c*2500
+                data['amount'] = c*250
             else :
                 raise osv.except_osv(u'Attention', u'Période non valide')
         return {'value' : data }
@@ -163,10 +163,13 @@ class sfp_contrat(orm.Model):
         object_groupe=self.pool.get('sfp.groupe').browse(cr,uid,groupe)  
         object_apprenti=self.pool.get('sfp.apprenti').browse(cr,uid,apprenti) 
         if apprenti: 
-            if  object_apprenti.birthdate_1 and object_groupe.date_prevu:
-                data['age'] = (datetime.strptime(object_groupe.date_prevu,"%Y-%m-%d")- datetime.strptime(object_apprenti.birthdate_1,"%Y-%m-%d")).days/356
+            if  object_apprenti.birthdate_1:
+                if object_groupe.date_prevu:
+                    data['age'] = (datetime.strptime(object_groupe.date_prevu,"%Y-%m-%d")- datetime.strptime(object_apprenti.birthdate_1,"%Y-%m-%d")).days/356
+                else :
+                    raise osv.except_osv(u'Attention', u'La date de groupe est non spécifié')
             else :
-                raise osv.except_osv(u'Attention', u'La date est non spécifié')
+                raise osv.except_osv(u'Attention', u'La date de l\'apprenti est non spécifié')
         return {'value' : data }
         
     
@@ -180,15 +183,16 @@ class sfp_contrat(orm.Model):
             if object_metier.duree:
                 data['duree'] = object_metier.duree  or False 
                 if  object_apprenti.birthdate_1 and object_groupe.date_prevu:
-                    a=data['age'] = (datetime.strptime(object_groupe.date_prevu,"%Y-%m-%d")- datetime.strptime(object_apprenti.birthdate_1,"%Y-%m-%d")).days/356
+                    raise osv.except_osv(u'Attention', u'l\'Age de l\'apprenti doit etre superieur ou égale a 15 et inferieur ou égale a 30')
+                    """ a=data['age'] = (datetime.strptime(object_groupe.date_prevu,"%Y-%m-%d")- datetime.strptime(object_apprenti.birthdate_1,"%Y-%m-%d")).days/356
                     if a <= 30 and a >= 15:
                         data['condition1'] = True
                     else :
-                        raise osv.except_osv(u'Attention', u'Age de metier et superieur a l\'age de l\'apprenti')
+                        raise osv.except_osv(u'Attention', u'Age de metier et superieur a l\'age de l\'apprenti')"""
                 else :
                     raise osv.except_osv(u'Attention', u'Date de l\'apprenti ou date previsionnelle de groupe est non specifier')
             else :
-                raise osv.except_osv(u'Attention', u'La durée du metier non spécifier')
+                raise osv.except_osv(u'Attention', u'La durée du metier est non spécifié')
         return {'value' : data }
      
     def onchange_maitre(self,cr,uid,ids,maitre,context={}):

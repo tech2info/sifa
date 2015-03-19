@@ -8,7 +8,7 @@
 	            <field name="type">form</field>
 	            <field name="inherit_id" ref="sifa.view_contrat_form" />
 	            <field name="arch" type="xml">
-	            	<page string="Description" position="after" >
+	            	<page string="Description" position="before" >
 	            		<page string="Conditions d’inscription et pièces à fournir" attrs="{'invisible': [('state','in',('laureat','abandon','year1','year2','reject'))]}">
 		                	<group string="1- Conditions d’admission d’apprenti">
 		                	  <group>

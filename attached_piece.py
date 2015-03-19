@@ -27,7 +27,7 @@ class sfp_contrat(orm.Model):
     
 
     _columns = {       
-        'condition1': fields.boolean(u'Age: 15 à 30 ans ',required=True),
+        'condition1': fields.boolean(u'Age: 15 à 30 ans '),
         'condition2': fields.boolean(u'Attestation scolaire'),
         'condition3': fields.boolean(u'Certificat d\'apprentissage'),
         'condition4': fields.boolean(u'3 copies d’acte de naissance '),
