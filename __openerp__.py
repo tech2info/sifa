@@ -20,7 +20,7 @@
 #
 ################################################################################
 {
-    "name": "SIFA- Vertical for Odoo",
+    "name": "SIFA- Vertical for Odoo  ",
     "version": "1.0",
     "depends": ['base','account','account_voucher','contacts'],
     "author": "Ait-Mlouk Addi/Infoset R&D",

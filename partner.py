@@ -176,6 +176,8 @@ class res_partner(orm.Model):
                 a =(datetime.now())
                 b = datetime.strptime(birthdate_1,"%Y-%m-%d")
                 c = (a - b).days/356
+                if c<20:
+                    raise osv.except_osv(u'Attention', u'l\'age ne doit pas etre inférieure à 20')
                 print c
                 data['age'] = str(c) 
             else :
